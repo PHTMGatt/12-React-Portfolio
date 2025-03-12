@@ -1,0 +1,35 @@
+.about {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: white;
+    flex-wrap: wrap;
+}
+
+.about *> {
+flex: 1;
+}
+
+.about-content {
+    max-width: 45rem;
+    min-width: 15rem;
+}
+
+.image-section {
+    max-width: 45rem;
+    min-width: 15rem;
+}
+
+.img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.image-wrapper {
+    max-width: 35rem;
+    min-width: 10rem;
+}
+
+
