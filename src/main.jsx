@@ -3,12 +3,12 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
-import About from './About.jsx'
-import Resume from './Resume.jsx'
-import Work from './Work.jsx'
-import Contact from './Contact.jsx'
+import About from './components/About'
+import Resume from './components/Resume'
+import Work from './components/Work'
+import Contact from './components/Contact'
 
-createBrowserRouter(
+const router = createBrowserRouter(
   [
     {
       path : '/',

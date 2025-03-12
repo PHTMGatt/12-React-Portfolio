@@ -1,6 +1,6 @@
 import React from "react";
-import '../style.css';
-import { farcry } from '../../assets/images/farcry.jpg';
+import './style.css';
+import farcry from '../../assets/pix/bryguy.png';
 
 const About = () => {
     return (

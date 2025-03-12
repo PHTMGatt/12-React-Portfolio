@@ -5,6 +5,7 @@
     height: 100vh;
     background-color: white;
     flex-wrap: wrap;
+    background-image: url('../../assets/pix/farcry.jpg');
 }
 
 .about *> {
@@ -21,7 +22,7 @@ flex: 1;
     min-width: 15rem;
 }
 
-.img {
+img {
     width: 100%;
     border-radius: 10px;
 }
