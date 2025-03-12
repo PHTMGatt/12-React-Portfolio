@@ -1,0 +1,35 @@
+.work-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    padding: 1rem;
+  }
+  
+  .grid-item {
+    border: 1px solid #ccc;
+    padding: 1rem;
+    text-align: center;
+  }
+  
+  .screenshot {
+    width: 100%;
+    height: auto;
+    max-width: 150px;
+    margin-bottom: 1rem;
+  }
+  
+  h3 {
+    font-size: 1rem;
+    margin: 0.5rem 0;
+  }
+  
+  a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
