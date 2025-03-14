@@ -3,9 +3,11 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: white;
+    background-color: rgb(42, 42, 42);
     flex-wrap: wrap;
-    background-image: url('../../assets/pix/farcry.jpg');
+    background-image: url('../../assets/pix/carbon-fiber2.jpg');
+    background-repeat: ;
+    background-size: contain;
 }
 
 .about *> {

@@ -8,6 +8,8 @@ import Resume from './components/Resume'
 import Work from './components/Work'
 import Contact from './components/Contact'
 
+document.title = "Bryens Portfolio";
+
 const router = createBrowserRouter(
   [
     {

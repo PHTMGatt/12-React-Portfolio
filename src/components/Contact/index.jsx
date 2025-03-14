@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import './style.css' 
+
 const Contact = () => {
     const [formData, setFormData] = useState({
         name: '',

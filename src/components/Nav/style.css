@@ -4,22 +4,26 @@
     align-items: center;
     padding: 1rem 2rem;
     flex-wrap: wrap;
-    background-color: #220cc8;
-    color: white;
+    background-color: #1e00ff;
+    color: rgb(255, 255, 255);
     top: 0%;
+    margin: 0%;
 }
 
 .Nav-item {
     list-style: none;
     padding: 0.5rem 1rem;
     border-radius: 8px;
+    color: rgb(255, 255, 255);
 }
 
 .Nav-item:hover {
-    background-color: #03c0d1;
+    background-color: #1ec93a;
     cursor: pointer;
 }
 
-.Nav-item Link {
+.links{
+    color: white;
     text-decoration: none;
 }
+

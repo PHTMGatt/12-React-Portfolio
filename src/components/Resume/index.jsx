@@ -1,28 +1,12 @@
 import React from 'react'
 import jsPDF from 'jspdf'
+import './style.css'
 
 const Resume = () => {
 const handleDownloadPDF = () => {
   const doc = new jsPDF();
-  const resumeContent = `
-  Bryen Gatt
-  ------------------------
-Email: PHTMGatt@Gmail.com
-Github: https://github.com/PHTMGatt
-Discord: LordxIlluminati
-
-Summary:
-Highly motivated software engineer with a passion for game design and development
-
-Skills:
--Code?
--Cooking
--Skateboarding
--Fucking yo bitch 
-
-Experience:
-
-  `;
+  const resumeContent = ` `;
+  
   // Add content to the PDF
   doc.text(resumeContent, 10, 10);
 
@@ -31,7 +15,7 @@ Experience:
 };
 
 return (
-  <div>
+  <div className='text-content'>
     <h1>BryGuys Resume</h1>
     <p>Email: PHTMGatt@Gmail.com</p>
     <p>Discord: LordxIlluminati</p>
@@ -41,7 +25,7 @@ return (
     <p>Highly motivated software engineer with a passion for game design and development
 
       <h2>Skills</h2>
-      <p>fucking yo bitch ya bitch ass hitta</p>
+      <p>text here</p>
     </p>
     <button onClick={handleDownloadPDF}>Download Resume as PDF</button>
   </div>

@@ -8,16 +8,16 @@ const Nav = () => {
 
       <ul className='Nav'>
         <li className='Nav-item'>
-          <Link to="/">About</Link>
+          <Link className='links' to="/">About</Link>
         </li>
         <li className='Nav-item'>
-          <Link to="/Resume"> Resume </Link>
+          <Link className='links' to="/Resume"> Resume </Link>
         </li>
         <li className='Nav-item'>
-          <Link to="/Work"> Work </Link>
+          <Link className='links' to="/Work"> Portfolio </Link>
         </li>
         <li className='Nav-item'>
-          <Link to="/Contact"> Contact </Link>
+          <Link className='links' to="/Contact"> Contact </Link>
         </li>
       </ul>
     </>
