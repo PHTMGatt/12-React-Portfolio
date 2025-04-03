@@ -1,11 +1,15 @@
 import React from 'react'
+import './Header.css'
 
 const Hero = () => {
   return (
-    <div className='img'>
-
-    </div>
-
+    <section className="hero">
+      <div className="hero-content">
+        <h1>Bryen Gatt</h1>
+        <p>Full Stack Developer • Designer • Code Wizard 🧙‍♂️</p>
+        <a href="#work" className="hero-btn">Explore Projects</a>
+      </div>
+    </section>
   )
 }
 

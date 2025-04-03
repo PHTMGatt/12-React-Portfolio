@@ -1,0 +1,23 @@
+/* Optional custom overrides — only if you want */
+.site-footer {
+  background-color: var(--btn-bg);
+  color: var(--text-color);
+  text-align: center;
+  padding: 1.5rem 1rem;
+  font-size: 0.95rem;
+}
+
+.site-footer .social-icons {
+  margin: 1rem 0;
+}
+
+.site-footer .social-icons a {
+  margin: 0 0.75rem;
+  color: var(--accent-color);
+  font-size: 1.4rem;
+  transition: color 0.3s ease;
+}
+
+.site-footer .social-icons a:hover {
+  color: var(--hover-color);
+}

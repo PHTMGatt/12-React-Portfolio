@@ -1,16 +1,18 @@
-import React from 'react'
-import './style.css'
-
-const WorkItem = ({screenshot, description, link}) => {
+const ProjectCard = ({ description, repoLink, renderLink, screenshot }) => {
   return (
-    <div className="grid-item">
-    <img src={screenshot} alt={description} className="screenshot" />
-    <h3>{description}</h3>
-    <a href={link} target="_blank" rel="noopener noreferrer">
-      View Project
-    </a>
-  </div>
+    <div className="project-card">
+      <img src={screenshot} alt={description} />
+      <div className="project-description">{description}</div>
+      <div className="project-links">
+        <a href={renderLink} target="_blank" rel="noopener noreferrer">
+          Live Site
+        </a>
+        <a href={repoLink} target="_blank" rel="noopener noreferrer">
+          GitHub
+        </a>
+      </div>
+    </div>
   )
 }
 
-export default WorkItem
+export default ProjectCard
