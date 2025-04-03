@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 const ProjectCard = ({ description, repoLink, renderLink, screenshot }) => {
   return (
     <div className="project-card">
@@ -15,4 +17,11 @@ const ProjectCard = ({ description, repoLink, renderLink, screenshot }) => {
   )
 }
 
-export default ProjectCard
+ProjectCard.propTypes = {
+  description: PropTypes.string.isRequired,
+  repoLink: PropTypes.string.isRequired,
+  renderLink: PropTypes.string.isRequired,
+  screenshot: PropTypes.string.isRequired,
+};
+
+export default ProjectCard;

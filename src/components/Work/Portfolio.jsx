@@ -1,6 +1,5 @@
 import React from 'react'
-import ProjectCard from './WorkItem'; 
-
+import ProjectCard from './ProjectCard'
 import './Work.css'
 
 // 📸 Screenshot imports
