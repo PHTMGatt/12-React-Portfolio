@@ -9,7 +9,7 @@ This **React-based portfolio** showcases my web development projects and skills.
 
 **🔗 [View Live Portfolio](https://one2-react-portfolio.onrender.com)**
 
-![Portfolio Screenshot](./src/assets/pictures/render.png)
+![Portfolio Screenshot](./src/assets/Pictures/render.png)
 
 ---
 
