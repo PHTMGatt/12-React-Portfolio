@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react'
-import { Outlet } from 'react-router-dom'
-import Nav from './components/Nav/Nav'
-import Footer from './components/Footer/Footer'
+import React, { useState, useEffect } from 'react';
+import { Outlet } from 'react-router-dom';
+import Nav from './components/Nav/Nav';
+import Footer from './components/Footer/Footer';
 
 function App() {
-  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark')
+  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark');
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme)
-    localStorage.setItem('theme', theme)
-  }, [theme])
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
 
   const toggleTheme = () => {
-    setTheme(prev => (prev === 'dark' ? 'light' : 'dark'))
-  }
+    setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
+  };
 
   return (
     <>
@@ -23,7 +23,7 @@ function App() {
       </main>
       <Footer />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

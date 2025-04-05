@@ -1,10 +1,10 @@
-import React from 'react'
-import jsPDF from 'jspdf'
-import './Resume.css'
+import React from 'react';
+import jsPDF from 'jspdf';
+import './Resume.css';
 
 const Resume = () => {
   const handleDownloadPDF = () => {
-    const doc = new jsPDF()
+    const doc = new jsPDF();
     const content = `
 Bryen Gatt - Resume
 
@@ -20,13 +20,13 @@ Skills:
 - React / Node.js / Express
 - MongoDB / SQL / APIs
 - Git / GitHub / CLI
-`
-    doc.text(content, 10, 10)
-    doc.save('BryenGatt_Resume.pdf')
-  }
+`;
+    doc.text(content, 10, 10);
+    doc.save('BryenGatt_Resume.pdf');
+  };
 
   return (
-    <section className="resume">
+    <section className="resume fade-in">
       <h1>Resume</h1>
 
       <p><strong>Email:</strong> PHTMGatt@gmail.com</p>
@@ -44,8 +44,7 @@ Skills:
 
       <h2>Summary</h2>
       <p>
-        Highly motivated software engineer with a passion for game design and
-        development.
+        Highly motivated software engineer with a passion for game design and development.
       </p>
 
       <h2>Skills</h2>
@@ -60,6 +59,7 @@ Skills:
         href="/resume.pdf"
         download
         className="submit-btn"
+        onClick={handleDownloadPDF}
         style={{
           marginTop: '2rem',
           display: 'inline-block',
@@ -69,7 +69,7 @@ Skills:
         Download Resume as PDF
       </a>
     </section>
-  )
-}
+  );
+};
 
-export default Resume
+export default Resume;

@@ -1,6 +1,6 @@
-import React from 'react'
-import './About.css'
-import bryguy from '../../assets/pix/bryguy.png'
+import React from 'react';
+import './About.css';
+import bryguy from '../../assets/Pictures/bryguy.png'; // ✅ updated from /pix/
 
 const About = () => {
   return (
@@ -18,7 +18,7 @@ const About = () => {
         <img src={bryguy} alt="Bryen skating" />
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default About
+export default About;

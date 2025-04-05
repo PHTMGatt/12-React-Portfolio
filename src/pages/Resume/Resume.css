@@ -1,0 +1,58 @@
+.resume {
+  max-width: 800px;
+  margin: 2rem auto;
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  color: var(--text-color);
+}
+
+.resume h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.resume h2 {
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: var(--accent-color);
+}
+
+.resume p {
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
+
+.skills {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+}
+
+.skills li {
+  margin-bottom: 0.5rem;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .resume {
+    max-width: calc(100% - 2rem);
+    margin: 1rem auto;
+    padding: 1.5rem;
+  }
+
+  .resume h1 {
+    font-size: 2rem;
+  }
+
+  .resume h2 {
+    font-size: 1.25rem;
+  }
+
+  .resume p,
+  .skills li {
+    font-size: 0.95rem;
+  }
+}

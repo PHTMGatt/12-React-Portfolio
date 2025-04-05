@@ -1,5 +1,5 @@
-import React from 'react'
-import './Header.css'
+import React from 'react';
+import './Hero.css';
 
 const Hero = () => {
   return (
@@ -10,7 +10,7 @@ const Hero = () => {
         <a href="#work" className="hero-btn">Explore Projects</a>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Hero
+export default Hero;

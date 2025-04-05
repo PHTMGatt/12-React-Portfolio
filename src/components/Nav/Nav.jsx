@@ -1,41 +1,38 @@
-// Nav.jsx - Navigation with theme toggle and spicy style
-import React from 'react'
-import { Link, useLocation } from 'react-router-dom'
-import './Nav.css'
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import './Nav.css';
 
 const Nav = ({ theme, toggleTheme }) => {
-  const location = useLocation()
-
-  const navItems = [
-    { path: '/', name: 'About' },
-    { path: '/resume', name: 'Resume' },
-    { path: '/work', name: 'Portfolio' },
-    { path: '/contact', name: 'Contact' },
-  ]
+  const location = useLocation();
 
   return (
     <nav className="nav">
-      <ul className="nav-links">
-        {navItems.map(({ path, name }) => (
-          <li key={path}>
-            <Link
-              to={path}
-              className={location.pathname === path ? 'active' : ''}
-            >
-              {name}
-            </Link>
-          </li>
-        ))}
+      {/* Top Row */}
+      <ul className="nav-links top-row">
+        <li><Link to="/" className={location.pathname === '/' ? 'active' : ''}>About</Link></li>
+        <li><Link to="/resume" className={location.pathname === '/resume' ? 'active' : ''}>Resume</Link></li>
+        <li><Link to="/work" className={location.pathname === '/work' ? 'active' : ''}>Portfolio</Link></li>
       </ul>
-      <button
-        className={`theme-toggle ${theme}`}
-        onClick={toggleTheme}
-        aria-label="Toggle Theme"
-      >
-        {theme === 'dark' ? '🌞 Light Mode' : '🌙 Dark Mode'}
-      </button>
-    </nav>
-  )
-}
 
-export default Nav
+      {/* Bottom Row: Contact + Toggle */}
+      <div className="bottom-row">
+        <Link
+          to="/contact"
+          className={location.pathname === '/contact' ? 'active' : ''}
+        >
+          Contact
+        </Link>
+
+        <button
+          className={`theme-toggle ${theme}`}
+          onClick={toggleTheme}
+          aria-label="Toggle Theme"
+        >
+          {theme === 'dark' ? '🌞 Light Mode' : '🌙 Dark Mode'}
+        </button>
+      </div>
+    </nav>
+  );
+};
+
+export default Nav;

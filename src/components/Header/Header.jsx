@@ -1,7 +1,7 @@
-import React from 'react'
-import Nav from '../Nav/Nav'
-import Hero from './Hero'
-import './Header.css'
+import React from 'react';
+import Nav from '../Nav/Nav';
+import Hero from '../Hero/Hero';
+import './Header.css';
 
 const Header = () => {
   return (
@@ -9,7 +9,7 @@ const Header = () => {
       <Nav />
       <Hero />
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

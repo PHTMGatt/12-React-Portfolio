@@ -1,14 +1,14 @@
-import React from 'react'
-import ProjectCard from './ProjectCard'
-import './Work.css'
+import React from 'react';
+import ProjectCard from '../../components/ProjectCard/ProjectCard';
+import './Portfolio.css';
 
-// 📸 Screenshot imports
-import screenshot1 from '../../assets/pix/Screenshot1.png'
-import screenshot2 from '../../assets/pix/Screenshot2.png'
-import screenshot3 from '../../assets/pix/Screenshot3.png'
-import screenshot9 from '../../assets/pix/Screenshot9.png'
-import screenshot12 from '../../assets/pix/Screenshot12.png'
-import screenshot13 from '../../assets/pix/Screenshot13.png'
+// 📸 Screenshot imports (corrected path)
+import screenshot1 from '../../assets/Pictures/Screenshot1.png';
+import screenshot2 from '../../assets/Pictures/Screenshot2.png';
+import screenshot3 from '../../assets/Pictures/Screenshot3.png';
+import screenshot9 from '../../assets/Pictures/Screenshot9.png';
+import screenshot12 from '../../assets/Pictures/Screenshot12.png';
+import screenshot13 from '../../assets/Pictures/Screenshot13.png';
 
 // 💼 Project data
 const projects = [
@@ -54,7 +54,7 @@ const projects = [
     renderLink: 'https://one3-candidate-search-u82d.onrender.com',
     screenshot: screenshot13,
   },
-]
+];
 
 const Portfolio = () => {
   return (
@@ -72,7 +72,7 @@ const Portfolio = () => {
         ))}
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Portfolio
+export default Portfolio;

@@ -42,6 +42,10 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -51,6 +55,7 @@ body {
   transition: all 0.3s ease;
   background-attachment: fixed;
   background-size: cover;
+  background-repeat: no-repeat;
   overflow-x: hidden;
 }
 
@@ -63,9 +68,34 @@ a:hover {
   color: var(--link-hover);
 }
 
+a:focus,
+button:focus,
+input:focus,
+textarea:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
 /* =======================================
-   Content Section (For Main Pages)
-   Use .content-section for centered content.
+   Utility Animations
+========================================= */
+.fade-in {
+  animation: fadeIn 0.6s ease-in forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =======================================
+   Content Section
 ========================================= */
 .content-section {
   padding: 4rem 2rem;
@@ -76,26 +106,23 @@ a:hover {
 /* =======================================
    HEADER & NAVIGATION
 ========================================= */
-/* Full-width header (assumed to be outside .content-section) */
 header,
 .site-header {
   width: 100%;
   margin: 0;
 }
 
-/* Navigation */
 .nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
   background: rgba(15, 23, 42, 0.95);
   padding: 1rem 2rem;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   position: sticky;
   top: 0;
   z-index: 1000;
   width: 100%;
-  margin: 0;
 }
 
 .nav-links {
@@ -111,9 +138,10 @@ header,
   border-radius: 8px;
   transition: background 0.3s ease;
 }
+
 .nav-links .active {
   background: var(--accent-color);
-  color: black;
+  color: #000;
 }
 
 .theme-toggle {
@@ -133,7 +161,6 @@ header,
 
 /* =======================================
    HERO SECTION
-   (Assuming it's a full-width section outside .content-section)
 ========================================= */
 .hero {
   height: 100vh;
@@ -142,7 +169,6 @@ header,
   align-items: center;
   justify-content: center;
   text-align: center;
-  position: relative;
   background: transparent;
 }
 
@@ -176,7 +202,6 @@ header,
   transition: all 0.3s ease;
   font-weight: 600;
 }
-
 .hero-btn:hover {
   background-color: var(--accent-color);
   color: var(--btn-text-hover);
@@ -184,8 +209,7 @@ header,
 }
 
 /* =======================================
-   CONTACT SECTION & FORM
-   (Typically within .content-section)
+   CONTACT SECTION
 ========================================= */
 .contact-form {
   max-width: 600px;
@@ -193,7 +217,7 @@ header,
   background: var(--card-bg);
   padding: 2rem;
   border-radius: 1rem;
-  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
 .contact-form label {
@@ -211,12 +235,11 @@ header,
   border-radius: 8px;
   border: none;
   font-size: 1rem;
-  box-shadow: 0 0 5px rgba(0,0,0,0.15);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
 }
 
 /* =======================================
    RESUME SECTION
-   (Typically within .content-section)
 ========================================= */
 .resume {
   max-width: 800px;
@@ -224,7 +247,7 @@ header,
   background: var(--card-bg);
   padding: 2rem;
   border-radius: 1rem;
-  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
 .resume h1,
@@ -261,19 +284,18 @@ footer,
   font-size: 1.4rem;
   transition: color 0.3s ease;
 }
-
 .site-footer .social-icons a:hover {
   color: var(--link-hover);
 }
 
 /* =======================================
-   OTHER COMPONENTS (Cards, Buttons, Inputs)
+   BUTTONS, INPUTS, CARDS
 ========================================= */
 .card {
   background: var(--card-bg);
   padding: 2rem;
   border-radius: 1rem;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
 }
 
@@ -288,7 +310,6 @@ footer,
   box-shadow: 0 0 12px rgba(56, 189, 248, 0.5);
   transition: all 0.3s ease;
 }
-
 .submit-btn:hover,
 .contact-form button:hover {
   background-color: var(--btn-hover);
@@ -304,60 +325,65 @@ footer,
   .content-section {
     padding: 2rem 1rem;
   }
-  
-  /* Navigation Adjustments */
+
   .nav {
-    padding: 0.75rem 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
   }
+
   .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 1rem;
   }
+
   .nav-links a {
-    padding: 0.5rem 0.75rem;
     font-size: 0.9rem;
+    padding: 0.5rem 0.75rem;
   }
-  
-  /* Hero Adjustments */
+
+  .theme-toggle {
+    align-self: flex-end;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+  }
+
   .hero-content {
     padding: 1.5rem 2rem;
     max-width: calc(100% - 2rem);
   }
+
   .hero-content h1 {
-    font-size: 2.5rem;
+    font-size: 2.25rem;
   }
+
   .hero-content p {
     font-size: 1rem;
   }
+
   .hero-btn {
-    padding: 0.65rem 1.2rem;
-    font-size: 0.9rem;
-  }
-  
-  /* Contact Form Adjustments */
-  .contact-form {
-    width: calc(100% - 2rem);
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 1.5rem;
-  }
-  .contact-form input,
-  .contact-form textarea {
     font-size: 0.95rem;
+    padding: 0.65rem 1.2rem;
   }
-  
-  /* Resume Adjustments */
+
+  .contact-form {
+    padding: 1.5rem;
+    width: 100%;
+    margin: 0 auto;
+  }
+
   .resume {
+    padding: 1.5rem;
     max-width: calc(100% - 2rem);
     margin: 1rem auto;
-    padding: 1.5rem;
   }
-  
-  /* Footer Adjustments */
-  .site-footer,
-  footer {
-    padding: 1rem 0.5rem;
+
+  .site-footer {
+    padding: 1rem;
     font-size: 0.85rem;
   }
+
   .site-footer .social-icons a {
     font-size: 1.2rem;
     margin: 0 0.5rem;

@@ -1,5 +1,5 @@
-import React from 'react'
-import './Contact.css'
+import React from 'react';
+import './Contact.css';
 
 const Contact = () => {
   return (
@@ -18,7 +18,7 @@ const Contact = () => {
         <button type="submit" className="submit-btn">Send Message</button>
       </form>
     </section>
-  )
-}
+  );
+};
 
-export default Contact
+export default Contact;

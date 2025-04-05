@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import './ProjectCard.css';
 
 const ProjectCard = ({ description, repoLink, renderLink, screenshot }) => {
   return (
@@ -14,8 +15,8 @@ const ProjectCard = ({ description, repoLink, renderLink, screenshot }) => {
         </a>
       </div>
     </div>
-  )
-}
+  );
+};
 
 ProjectCard.propTypes = {
   description: PropTypes.string.isRequired,
