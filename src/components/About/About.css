@@ -40,3 +40,14 @@
   border-radius: 12px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
+
+/* Mobile Overrides: Stretch section full width */
+@media (max-width: 768px) {
+  .about-section {
+    width: 100%;
+    margin: 0;
+    max-width: 100%;
+    border-radius: 0;
+    padding: 2rem 1rem;
+  }
+}

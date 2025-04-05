@@ -5,6 +5,8 @@
   background: rgba(15, 23, 42, 0.95);
   padding: 1rem 2rem;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  width: 100%;
+  margin: 0;
 }
 
 .nav-links {
@@ -24,4 +26,20 @@
 .nav-links .active {
   background: var(--accent-color);
   color: #000;
+}
+
+/* Mobile Overrides */
+@media (max-width: 768px) {
+  .nav {
+    padding: 0.75rem 1rem;
+  }
+  
+  .nav-links {
+    gap: 1rem;
+  }
+  
+  .nav-links a {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+  }
 }

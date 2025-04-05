@@ -7,11 +7,21 @@
   box-shadow: 0 0 20px rgba(0,0,0,0.2);
 }
 
-.resume h1, .resume h2 {
+.resume h1,
+.resume h2 {
   margin-top: 0;
 }
 
 .skills {
   list-style-type: disc;
   padding-left: 1.5rem;
+}
+
+/* Mobile Overrides */
+@media (max-width: 768px) {
+  .resume {
+    max-width: calc(100% - 2rem); /* Leaves a 1rem gap on each side */
+    margin: 1rem auto;
+    padding: 1.5rem;
+  }
 }

@@ -28,3 +28,25 @@
   border: none;
   font-size: 1rem;
 }
+
+/* Mobile Overrides: Stretch section full width and adjust form spacing */
+@media (max-width: 768px) {
+  .contact-section {
+    width: 100%;
+    margin: 0;
+    max-width: 100%;
+    padding: 2rem 1rem;
+  }
+  
+  .contact-form {
+    width: calc(100% - 2rem); /* Leaves a 1rem gap on each side */
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 1.5rem;
+  }
+  
+  .contact-form input,
+  .contact-form textarea {
+    font-size: 0.95rem;
+  }
+}

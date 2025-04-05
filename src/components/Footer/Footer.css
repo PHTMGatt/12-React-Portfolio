@@ -21,3 +21,17 @@
 .site-footer .social-icons a:hover {
   color: var(--hover-color);
 }
+
+/* Media Query Overrides for full-width footer on mobile */
+@media (max-width: 768px) {
+  .site-footer {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 1rem 0.5rem;
+  }
+  .site-footer .social-icons a {
+    font-size: 1.2rem;
+    margin: 0 0.5rem;
+  }
+}
