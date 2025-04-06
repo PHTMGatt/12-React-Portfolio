@@ -6,52 +6,97 @@
   flex-wrap: wrap;
   gap: 2rem;
   padding: 4rem 2rem;
-  background-color: rgba(0, 0, 0, 0.6);
-  border-radius: 12px;
   margin: 2rem auto;
   max-width: 1200px;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow:
+    inset 0 0 6px rgba(0, 0, 0, 0.1),
+    0 0 18px rgba(56, 189, 248, 0.08);
+  transition: all 0.4s ease;
 }
 
+[data-theme='light'] .about-section {
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow:
+    inset 0 0 4px rgba(0, 0, 0, 0.05),
+    0 0 12px rgba(0, 0, 0, 0.03);
+}
+
+/* === Text === */
 .about-text {
   flex: 1;
   min-width: 280px;
   color: var(--text-color);
+  padding: 1rem;
 }
 
-.about-text h1 {
+.about-title {
   font-size: 2.5rem;
   margin-bottom: 1rem;
+  color: var(--accent-color);
+  text-shadow: 0 0 4px rgba(56, 189, 248, 0.25);
 }
 
 .about-text p {
   font-size: 1.1rem;
   line-height: 1.7;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.08);
 }
 
+/* === Image === */
 .about-image {
   flex: 1;
   min-width: 280px;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .about-image img {
   max-width: 100%;
-  border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  border-radius: 16px;
+  box-shadow:
+    0 6px 16px rgba(56, 189, 248, 0.2),
+    0 0 20px rgba(56, 189, 248, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.4s ease;
+  animation: aboutPulse 6s ease-in-out infinite;
 }
 
-/* Mobile Adjustments */
+.about-image img:hover {
+  transform: scale(1.025);
+  box-shadow:
+    0 10px 28px rgba(56, 189, 248, 0.25),
+    0 0 32px rgba(56, 189, 248, 0.15);
+}
+
+/* === Pulse Animation === */
+@keyframes aboutPulse {
+  0%, 100% {
+    box-shadow:
+      0 6px 16px rgba(56, 189, 248, 0.2),
+      0 0 20px rgba(56, 189, 248, 0.08);
+  }
+  50% {
+    box-shadow:
+      0 10px 24px rgba(56, 189, 248, 0.3),
+      0 0 28px rgba(56, 189, 248, 0.15);
+  }
+}
+
+/* === Mobile === */
 @media (max-width: 768px) {
   .about-section {
-    width: 100%;
+    flex-direction: column;
+    text-align: center;
+    padding: 2rem 1rem;
     margin: 0;
     max-width: 100%;
     border-radius: 0;
-    padding: 2rem 1rem;
   }
 
-  .about-text h1 {
+  .about-title {
     font-size: 2rem;
   }
 
@@ -60,7 +105,6 @@
   }
 
   .about-image img {
-    max-width: 100%;
     height: auto;
   }
 }

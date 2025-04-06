@@ -8,18 +8,28 @@
 
 .contact-title {
   text-align: center;
-  color: var(--text-color);
+  color: var(--accent-color);
   font-size: 2.5rem;
   margin-bottom: 2rem;
+  text-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
 }
 
 .contact-form {
-  background: var(--card-bg);
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   padding: 2rem;
-  border-radius: 1rem;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(56, 189, 248, 0.2), 0 0 50px rgba(56, 189, 248, 0.1);
   max-width: 600px;
   margin: 0 auto;
+  transition: all 0.4s ease;
+  animation: fadeIn 0.6s ease-out;
+}
+
+[data-theme='light'] .contact-form {
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1), 0 0 40px rgba(56, 189, 248, 0.1);
 }
 
 .contact-form label {
@@ -37,10 +47,71 @@
   border-radius: 8px;
   border: none;
   font-size: 1rem;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--text-color);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
+  transition: box-shadow 0.3s ease;
 }
 
-/* Responsive: Mobile */
+.contact-form input:focus,
+.contact-form textarea:focus {
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+  outline: none;
+}
+
+.submit-btn {
+  background: var(--btn-bg);
+  color: var(--accent-color);
+  border: 2px solid var(--accent-color);
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+  transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+  background: var(--btn-hover);
+  color: var(--btn-text-hover);
+  box-shadow: 0 0 24px rgba(56, 189, 248, 0.6);
+  transform: translateY(-2px);
+}
+
+.form-error {
+  color: #f87171;
+  background: rgba(255, 0, 0, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+  text-align: center;
+  font-weight: 600;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+}
+
+.form-success {
+  color: #4ade80;
+  background: rgba(34, 197, 94, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+  text-align: center;
+  font-weight: 600;
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.3);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (max-width: 768px) {
   .contact-section {
     padding: 2rem 1rem;
@@ -58,5 +129,10 @@
   .contact-form input,
   .contact-form textarea {
     font-size: 0.95rem;
+  }
+
+  .submit-btn {
+    width: 100%;
+    font-size: 1rem;
   }
 }

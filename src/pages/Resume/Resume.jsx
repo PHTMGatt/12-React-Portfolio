@@ -26,7 +26,7 @@ Skills:
   };
 
   return (
-    <section className="resume fade-in">
+    <section className="resume fade-in glass-card">
       <h1>Resume</h1>
 
       <p><strong>Email:</strong> PHTMGatt@gmail.com</p>
@@ -36,7 +36,7 @@ Skills:
         <a
           href="https://github.com/PHTMGatt"
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
         >
           github.com/PHTMGatt
         </a>
@@ -55,19 +55,13 @@ Skills:
         <li>Git / GitHub / CLI</li>
       </ul>
 
-      <a
-        href="/resume.pdf"
-        download
-        className="submit-btn"
+      <button
         onClick={handleDownloadPDF}
-        style={{
-          marginTop: '2rem',
-          display: 'inline-block',
-          textDecoration: 'none',
-        }}
+        className="submit-btn"
+        style={{ marginTop: '2rem' }}
       >
         Download Resume as PDF
-      </a>
+      </button>
     </section>
   );
 };

@@ -3,7 +3,7 @@ import './Hero.css';
 
 const Hero = () => {
   return (
-    <section className="hero">
+    <section className="hero glass-card">
       <div className="hero-content">
         <h1>Bryen Gatt</h1>
         <p>Full Stack Developer • Designer • Code Wizard 🧙‍♂️</p>

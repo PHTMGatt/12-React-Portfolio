@@ -1,37 +1,136 @@
 .site-footer {
   width: 100%;
-  background-color: var(--btn-bg);
-  color: var(--text-color);
-  text-align: center;
   padding: 2rem 1rem;
   font-size: 0.95rem;
+  color: var(--text-color);
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 -4px 20px rgba(56, 189, 248, 0.25),
+    0 0 30px rgba(56, 189, 248, 0.1),
+    0 0 50px rgba(56, 189, 248, 0.05);
+  animation: footerPulse 6s ease-in-out infinite;
+  transition: all 0.4s ease;
+}
+
+[data-theme='light'] .site-footer {
+  background: rgba(255, 255, 255, 0.85);
+  color: #1b1b1b;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow:
+    0 -4px 20px rgba(56, 189, 248, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    0 0 12px rgba(56, 189, 248, 0.05);
+  backdrop-filter: blur(12px);
+  animation: none;
 }
 
 .footer-inner {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem;
+  text-align: center;
 }
 
 .site-footer .social-icons {
-  margin: 1rem 0;
+  margin: 1.25rem 0;
 }
 
 .site-footer .social-icons a {
   margin: 0 0.75rem;
   color: var(--accent-color);
-  font-size: 1.4rem;
-  transition: color 0.3s ease;
+  font-size: 1.5rem;
+  transition: transform 0.3s ease, text-shadow 0.3s ease, color 0.3s ease;
 }
 
 .site-footer .social-icons a:hover {
   color: var(--link-hover);
+  transform: scale(1.15);
+  text-shadow: 0 0 12px var(--accent-color);
 }
 
-/* Mobile Adjustments */
+@keyframes footerPulse {
+  0%, 100% {
+    box-shadow:
+      0 -4px 20px rgba(56, 189, 248, 0.25),
+      0 0 30px rgba(56, 189, 248, 0.1),
+      0 0 50px rgba(56, 189, 248, 0.05);
+  }
+  50% {
+    box-shadow:
+      0 -6px 30px rgba(56, 189, 248, 0.35),
+      0 0 40px rgba(56, 189, 248, 0.2),
+      0 0 60px rgba(56, 189, 248, 0.1);
+  }
+}
+
+/* ✨ Hobbit Quote Generator Styles */
+.footer-quote {
+  margin: 1rem auto;
+  width: 75%;
+  max-width: 900px;
+}
+
+.quote-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: nowrap;
+  padding: 0.6rem 1.2rem;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow:
+    0 4px 15px rgba(56, 189, 248, 0.1),
+    0 0 20px rgba(56, 189, 248, 0.05);
+  color: var(--text-color);
+  transition: all 0.3s ease;
+  width: 85%;
+  max-width: 1100px;
+  margin-inline: auto;
+}
+
+[data-theme='light'] .quote-container {
+  background: rgba(255, 255, 255, 0.6);
+  color: #222;
+}
+
+.quote-text {
+  flex: 1;
+  font-size: 1rem;
+  font-style: italic;
+  margin: 0;
+  text-align: left;
+  word-break: break-word;
+  white-space: normal;
+  min-width: 0;
+}
+
+.quote-button {
+  font-size: 0.85rem;
+  padding: 0.35rem 0.85rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: linear-gradient(145deg, #6dc2ff, #3883e2);
+  color: white;
+  box-shadow: 0 0 8px rgba(109, 194, 255, 0.6);
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.quote-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 12px rgba(109, 194, 255, 0.8);
+}
+
+/* 📱 Mobile Adjustments */
 @media (max-width: 768px) {
   .site-footer {
-    padding: 1.5rem 0.5rem;
+    padding: 1.5rem 0.75rem;
   }
 
   .footer-inner {
@@ -39,7 +138,44 @@
   }
 
   .site-footer .social-icons a {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     margin: 0 0.5rem;
+  }
+
+  .quote-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1rem;
+    width: 90%;
+  }
+
+  .quote-text {
+    font-size: 0.95rem;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .quote-button {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.9rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .quote-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0.8rem 1rem;
+  }
+
+  .quote-text {
+    font-size: 0.9rem;
+  }
+
+  .quote-button {
+    font-size: 0.8rem;
+    padding: 0.35rem 0.75rem;
   }
 }

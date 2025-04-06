@@ -1,39 +1,143 @@
 .portfolio-section {
-    padding: 4rem 2rem;
-    max-width: 1400px;
-    margin: 0 auto;
-    text-align: center;
+  padding: 4rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  text-align: center;
+  animation: fadeIn 0.6s ease-out;
+}
+
+.portfolio-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--accent-color);
+  text-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+  margin-bottom: 0.5rem;
+}
+
+.portfolio-subtext {
+  font-size: 1.1rem;
+  color: var(--text-color);
+  margin-bottom: 2.5rem;
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+}
+
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  justify-items: center;
+}
+
+/* Fade-in effect */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  
-  .portfolio-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--text-color);
-    margin-bottom: 2.5rem;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
   .work-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    justify-items: center;
+    grid-template-columns: repeat(2, 1fr);
   }
-  
-  /* Responsive: Tablet */
-  @media (max-width: 1024px) {
-    .work-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .work-grid {
+    grid-template-columns: 1fr;
   }
-  
-  /* Responsive: Mobile */
-  @media (max-width: 640px) {
-    .work-grid {
-      grid-template-columns: 1fr;
-    }
-  
-    .portfolio-title {
-      font-size: 2rem;
-    }
+
+  .portfolio-title {
+    font-size: 2rem;
   }
-  
+
+  .portfolio-subtext {
+    font-size: 1rem;
+  }
+}
+
+/* Glassy Effect for Project Cards */
+.project-card {
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(6px);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.1), 0 0 40px rgba(56, 189, 248, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  padding: 1rem;
+  border-radius: 15px;
+}
+
+/* Outer card with subtle glass effect */
+.project-card-wrapper {
+  background: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(6px);
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(56, 189, 248, 0.15), 0 0 60px rgba(56, 189, 248, 0.05);
+  padding: 1.5rem;
+}
+
+/* Hover Effect for Project Card */
+.project-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 30px rgba(56, 189, 248, 0.25), 0 0 45px rgba(56, 189, 248, 0.2);
+}
+
+/* Image Styling */
+.project-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Description */
+.project-description {
+  padding: 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-color);
+  text-align: center;
+}
+
+/* Glassy Button Links */
+.project-links {
+  display: flex;
+  justify-content: space-around;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.project-links a {
+  flex: 1;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(6px);
+  color: var(--accent-color);
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  font-weight: 600;
+  text-align: center;
+  text-shadow: 0 0 6px rgba(56, 189, 248, 0.4);
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.25);
+  transition: all 0.3s ease;
+}
+
+.project-links a:hover {
+  background-color: var(--btn-hover);
+  color: var(--btn-text-hover);
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.6);
+  transform: scale(1.05);
+}

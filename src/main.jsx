@@ -23,6 +23,7 @@ const router = createBrowserRouter([
       { path: 'contact', element: <Contact /> },
     ],
   },
+  { path: '*', element: <div style={{ padding: '2rem', textAlign: 'center' }}>404 - Page Not Found</div> } // For other unknown routes
 ]);
 
 createRoot(document.getElementById('root')).render(

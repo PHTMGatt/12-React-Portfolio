@@ -1,17 +1,35 @@
 .resume {
   max-width: 800px;
   margin: 2rem auto;
-  background: var(--card-bg);
+  background: rgba(0, 0, 0, 0.3); /* Darker glassy effect with transparency */
+  backdrop-filter: blur(12px); /* Applying the glass effect */
+  border: 1px solid rgba(255, 255, 255, 0.15);
   padding: 2rem;
-  border-radius: 1rem;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
   color: var(--text-color);
+  box-shadow:
+    0 10px 30px rgba(56, 189, 248, 0.1),
+    0 0 50px rgba(56, 189, 248, 0.05);
+  transition: all 0.4s ease;
+  animation: fadeIn 0.5s ease-out;
 }
 
+/* 🌞 Light Theme Version */
+[data-theme='light'] .resume {
+  background: rgba(255, 255, 255, 0.3); /* Slightly lighter but subtle glassy background for light theme */
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.05),
+    0 0 40px rgba(56, 189, 248, 0.05);
+}
+
+/* Headings */
 .resume h1 {
   font-size: 2.5rem;
   margin-bottom: 1.5rem;
   text-align: center;
+  color: var(--accent-color);
+  text-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
 }
 
 .resume h2 {
@@ -19,11 +37,14 @@
   margin-top: 2rem;
   margin-bottom: 1rem;
   color: var(--accent-color);
+  text-shadow: 0 0 6px rgba(56, 189, 248, 0.2);
 }
 
+/* Text & Lists */
 .resume p {
   margin-bottom: 0.75rem;
   line-height: 1.6;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
 }
 
 .skills {
@@ -33,9 +54,54 @@
 
 .skills li {
   margin-bottom: 0.5rem;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
 }
 
-/* Mobile Responsive */
+/* ✨ Download Button */
+.submit-btn {
+  background: var(--btn-bg);
+  color: var(--accent-color);
+  border: 2px solid var(--accent-color);
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+  transition: all 0.3s ease;
+  animation: pulseGlow 3s infinite ease-in-out;
+}
+
+.submit-btn:hover {
+  background: var(--btn-hover);
+  color: var(--btn-text-hover);
+  box-shadow: 0 0 24px rgba(56, 189, 248, 0.6);
+  transform: translateY(-2px);
+}
+
+/* Pulse Effect */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.6);
+  }
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 📱 Responsive */
 @media (max-width: 768px) {
   .resume {
     max-width: calc(100% - 2rem);
@@ -54,5 +120,10 @@
   .resume p,
   .skills li {
     font-size: 0.95rem;
+  }
+
+  .submit-btn {
+    width: 100%;
+    font-size: 1rem;
   }
 }

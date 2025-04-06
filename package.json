@@ -9,9 +9,12 @@
     "start": "vite preview --host",
     "start:dev": "vite",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "npm i && npm run build && npm run start:dev"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
+    "axios": "^1.8.4",
     "jspdf": "^3.0.0",
     "lucide-react": "^0.487.0",
     "react": "^19.0.0",

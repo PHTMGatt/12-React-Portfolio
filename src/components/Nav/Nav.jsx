@@ -7,28 +7,22 @@ const Nav = ({ theme, toggleTheme }) => {
 
   return (
     <nav className="nav">
-      {/* Top Row */}
-      <ul className="nav-links top-row">
+      {/* Nav Links */}
+      <ul className="nav-links">
         <li><Link to="/" className={location.pathname === '/' ? 'active' : ''}>About</Link></li>
         <li><Link to="/resume" className={location.pathname === '/resume' ? 'active' : ''}>Resume</Link></li>
         <li><Link to="/work" className={location.pathname === '/work' ? 'active' : ''}>Portfolio</Link></li>
+        <li><Link to="/contact" className={location.pathname === '/contact' ? 'active' : ''}>Contact</Link></li>
       </ul>
 
-      {/* Bottom Row: Contact + Toggle */}
-      <div className="bottom-row">
-        <Link
-          to="/contact"
-          className={location.pathname === '/contact' ? 'active' : ''}
-        >
-          Contact
-        </Link>
-
+      {/* Legendary Theme Toggle */}
+      <div className="theme-toggle-container">
         <button
           className={`theme-toggle ${theme}`}
           onClick={toggleTheme}
           aria-label="Toggle Theme"
         >
-          {theme === 'dark' ? '🌞 Light Mode' : '🌙 Dark Mode'}
+          {theme === 'dark' ? '✨ Light of Eärendil' : '🔥 Shadow and Flame'}
         </button>
       </div>
     </nav>

@@ -2,7 +2,6 @@ import React from 'react';
 import ProjectCard from '../../components/ProjectCard/ProjectCard';
 import './Portfolio.css';
 
-// 📸 Screenshot imports (corrected path)
 import screenshot1 from '../../assets/Pictures/Screenshot1.png';
 import screenshot2 from '../../assets/Pictures/Screenshot2.png';
 import screenshot3 from '../../assets/Pictures/Screenshot3.png';
@@ -35,17 +34,17 @@ const projects = [
   },
   {
     id: 7,
-    description: 'React Portfolio Showcase (Project 7)',
+    description: 'React Portfolio Showcase (Project 12)',
     repoLink: 'https://github.com/PHTMGatt/07-React-Portfolio',
     renderLink: 'https://zero7-portfolio.onrender.com',
-    screenshot: screenshot9,
+    screenshot: screenshot12,
   },
   {
     id: 12,
-    description: 'Weather Dashboard - Server/API (Project 12)',
+    description: 'Weather Dashboard - Server/API (Project 19)',
     repoLink: 'https://github.com/PHTMGatt/12-Weather-API',
     renderLink: 'https://zero12-weather.onrender.com',
-    screenshot: screenshot12,
+    screenshot: screenshot9,
   },
   {
     id: 13,
@@ -59,7 +58,10 @@ const projects = [
 const Portfolio = () => {
   return (
     <section className="portfolio-section fade-in">
-      <h1 className="portfolio-title">My Projects</h1>
+      <div className="portfolio-header">
+        <h1 className="portfolio-title">My Projects</h1>
+        <p className="portfolio-subtext">Each built with intention, styled with care, and powered by code.</p>
+      </div>
       <div className="work-grid">
         {projects.map((project) => (
           <ProjectCard
