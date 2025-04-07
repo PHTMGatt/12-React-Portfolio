@@ -7,21 +7,26 @@ const Nav = ({ theme, toggleTheme }) => {
 
   return (
     <nav className="nav">
-      {/* Nav Links */}
-      <ul className="nav-links">
-        <li><Link to="/" className={location.pathname === '/' ? 'active' : ''}>About</Link></li>
-        <li><Link to="/resume" className={location.pathname === '/resume' ? 'active' : ''}>Resume</Link></li>
-        <li><Link to="/work" className={location.pathname === '/work' ? 'active' : ''}>Portfolio</Link></li>
-        <li><Link to="/contact" className={location.pathname === '/contact' ? 'active' : ''}>Contact</Link></li>
-      </ul>
+      <div className="nav-left">
+        <Link to="/" className={location.pathname === '/' ? 'active' : ''}>
+          About
+        </Link>
+        <Link to="/resume" className={location.pathname === '/resume' ? 'active' : ''}>
+          Resume
+        </Link>
+        <Link to="/work" className={location.pathname === '/work' ? 'active' : ''}>
+          Portfolio
+        </Link>
+      </div>
 
-      {/* Legendary Theme Toggle */}
-      <div className="theme-toggle-container">
-        <button
-          className={`theme-toggle ${theme}`}
-          onClick={toggleTheme}
-          aria-label="Toggle Theme"
+      <div className="nav-right">
+        <Link
+          to="/contact"
+          className={location.pathname === '/contact' ? 'active contact-link' : 'contact-link'}
         >
+          Contact
+        </Link>
+        <button className={`theme-toggle ${theme}`} onClick={toggleTheme} aria-label="Toggle Theme">
           {theme === 'dark' ? '✨ Light of Eärendil' : '🔥 Shadow and Flame'}
         </button>
       </div>
