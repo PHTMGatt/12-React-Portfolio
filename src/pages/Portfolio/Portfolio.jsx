@@ -41,9 +41,9 @@ const projects = [
   },
   {
     id: 12,
-    description: 'Weather Dashboard - Server/API (Project 19)',
+    description: 'Weather Dashboard - Server/API (Project 9)',
     repoLink: 'https://github.com/PHTMGatt/12-Weather-API',
-    renderLink: 'https://zero12-weather.onrender.com',
+    renderLink: 'https://zero2-weather.onrender.com',
     screenshot: screenshot9,
   },
   {
