@@ -2,8 +2,12 @@ import React, { useState } from 'react';
 import './Contact.css';
 import sendEmail from '../../utils/Email';
 
-const CONTACT_API_URL = 'https://api.zerobounce.net/v2/validate'; // ZeroBounce API endpoint
-const API_KEY = '672fa6a7670e47b6a8581bb635551d4d'; // Your ZeroBounce API key
+// ZeroBounce toggle — set to false to disable
+const useZeroBounce = false;
+
+// ZeroBounce API (currently toggled off)
+const CONTACT_API_URL = 'https://api.zerobounce.net/v2/validate';
+const API_KEY = '672fa6a7670e47b6a8581bb635551d4d';
 
 const Contact = () => {
   const [form, setForm] = useState({
@@ -15,11 +19,17 @@ const Contact = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
-  // Function to validate email with ZeroBounce API
+  // ZeroBounce validation (disabled by toggle)
   const validateEmailWithZeroBounce = async (email) => {
-    const response = await fetch(`${CONTACT_API_URL}?api_key=${API_KEY}&email=${email}`);
-    const data = await response.json();
-    return data.status === 'valid'; // ZeroBounce response indicating a valid email
+    if (!useZeroBounce) return true;
+    try {
+      const response = await fetch(`${CONTACT_API_URL}?api_key=${API_KEY}&email=${email}`);
+      const data = await response.json();
+      return data.status === 'valid';
+    } catch (err) {
+      console.error('ZeroBounce error:', err);
+      return false;
+    }
   };
 
   const handleChange = (e) => {
@@ -38,13 +48,13 @@ const Contact = () => {
       return setError("Don’t leave me in the dark, all fields must be filled!");
     }
 
-    // Validate email format
-    const isValidEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
-    if (!isValidEmail) {
+    // Strong email regex: accepts special characters, numbers, dashes, subdomains, long TLDs, etc.
+    const strongEmailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$/;
+    if (!strongEmailRegex.test(email)) {
       return setError("A wizard’s magic is strong, but your email isn’t valid. Try again!");
     }
 
-    // Validate email with ZeroBounce
+    // Optional ZeroBounce validation
     const isEmailValid = await validateEmailWithZeroBounce(email);
     if (!isEmailValid) {
       return setError("Your email is not valid or does not exist in the real world. Try again!");
