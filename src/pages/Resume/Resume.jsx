@@ -57,7 +57,7 @@ Skills:
 
       <button
         onClick={handleDownloadPDF}
-        className="submit-btn"
+        className="resume-submit-btn"
         style={{ marginTop: '2rem' }}
       >
         Download Resume as PDF

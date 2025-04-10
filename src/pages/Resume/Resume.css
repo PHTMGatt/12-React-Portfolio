@@ -58,7 +58,7 @@
 }
 
 /* ✨ Download Button */
-.submit-btn {
+.resume-submit-btn {
   background: var(--btn-bg);
   color: var(--accent-color);
   border: 2px solid var(--accent-color);
@@ -72,7 +72,7 @@
   animation: pulseGlow 3s infinite ease-in-out;
 }
 
-.submit-btn:hover {
+.resume-submit-btn:hover {
   background: var(--btn-hover);
   color: var(--btn-text-hover);
   box-shadow: 0 0 24px rgba(56, 189, 248, 0.6);
@@ -122,7 +122,7 @@
     font-size: 0.95rem;
   }
 
-  .submit-btn {
+  .resume-submit-btn {
     width: 100%;
     font-size: 1rem;
   }

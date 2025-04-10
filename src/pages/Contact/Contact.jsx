@@ -1,63 +1,129 @@
-import React, { useState } from 'react';
+// Contact.jsx
+import React, { useState, useEffect } from 'react';
 import './Contact.css';
 import sendEmail from '../../utils/Email';
+import contactThemes from './elvenScriptures';
+import { IoHome } from 'react-icons/io5';
+import {
+  GiHobbitDoor,
+  GiBattleAxe,
+  GiSwordsEmblem,
+  GiElfHelmet,
+  GiWizardStaff,
+  GiDevilMask,
+  GiPerspectiveDiceSixFacesRandom,
+} from 'react-icons/gi';
 
-// ZeroBounce toggle — set to false to disable
-const useZeroBounce = false;
+const scrollCategories = [
+  'Default',
+  'Hobbit',
+  'Dwarf',
+  'Man',
+  'Elf',
+  'Wizard',
+  'Villain',
+  'Random',
+];
 
-// ZeroBounce API (currently toggled off)
-const CONTACT_API_URL = 'https://api.zerobounce.net/v2/validate';
-const API_KEY = '672fa6a7670e47b6a8581bb635551d4d';
+const iconMap = {
+  Default: <IoHome size={24} />,
+  Hobbit: <GiHobbitDoor size={24} />,
+  Dwarf: <GiBattleAxe size={24} />,
+  Man: <GiSwordsEmblem size={24} />,
+  Elf: <GiElfHelmet size={24} />,
+  Wizard: <GiWizardStaff size={24} />,
+  Villain: <GiDevilMask size={24} />,
+  Random: <GiPerspectiveDiceSixFacesRandom size={24} />,
+};
 
 const Contact = () => {
-  const [form, setForm] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
-  });
+  const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [easterEggActive, setEasterEggActive] = useState(false);
 
-  // ZeroBounce validation (disabled by toggle)
-  const validateEmailWithZeroBounce = async (email) => {
-    if (!useZeroBounce) return true;
-    try {
-      const response = await fetch(`${CONTACT_API_URL}?api_key=${API_KEY}&email=${email}`);
-      const data = await response.json();
-      return data.status === 'valid';
-    } catch (err) {
-      console.error('ZeroBounce error:', err);
-      return false;
+  // Active category index from localStorage or default.
+  const [activeCategoryIndex, setActiveCategoryIndex] = useState(() => {
+    const stored = localStorage.getItem('activeCategoryIndex');
+    return stored ? Number(stored) : 0;
+  });
+  // Which item within that category
+  const [activeThemeIndex, setActiveThemeIndex] = useState(0);
+
+  const category = scrollCategories[activeCategoryIndex];
+  const itemsForDisplay =
+    category === 'Random'
+      ? contactThemes.filter((t) => t.category !== 'Default')
+      : contactThemes.filter((t) => t.category === category);
+
+  const activeTheme =
+    itemsForDisplay.length > 0
+      ? itemsForDisplay[activeThemeIndex % itemsForDisplay.length]
+      : contactThemes[0];
+
+  // On category change
+  useEffect(() => {
+    localStorage.setItem('activeCategoryIndex', activeCategoryIndex);
+
+    if (category === 'Random' && itemsForDisplay.length) {
+      setActiveThemeIndex(Math.floor(Math.random() * itemsForDisplay.length));
+    } else {
+      setActiveThemeIndex(0);
     }
+    setForm({ name: '', email: '', subject: '', message: '' });
+  }, [activeCategoryIndex]);
+
+  useEffect(() => {
+    // Only activate Easter Egg when the active theme is exactly 'Galadriel’s' scroll.
+    if (
+      activeTheme?.category === 'Elf' && 
+      activeTheme?.title?.toLowerCase() === 'glimmer of galadriel'
+    ) {
+      setEasterEggActive(true);
+    } else {
+      setEasterEggActive(false);
+    }
+  }, [activeTheme]);
+  
+
+  const cycleTheme = () => {
+    if (category === 'Random' && itemsForDisplay.length) {
+      setActiveThemeIndex(Math.floor(Math.random() * itemsForDisplay.length));
+    } else {
+      setActiveThemeIndex((prev) => (prev + 1) % itemsForDisplay.length);
+    }
+    setForm({ name: '', email: '', subject: '', message: '' });
+  };
+
+  const handleScrollClick = () => {
+    const nextIndex = (activeCategoryIndex + 1) % scrollCategories.length;
+    setActiveCategoryIndex(nextIndex);
+  };
+
+  // Manual Easter Egg toggle
+  const toggleEasterEgg = () => {
+    setEasterEggActive((prev) => !prev);
   };
 
   const handleChange = (e) => {
     const { id, value } = e.target;
-    setForm((prevForm) => ({ ...prevForm, [id]: value }));
+    setForm((prev) => ({ ...prev, [id]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setSuccess('');
-
     const { name, email, subject, message } = form;
 
     if (!name || !email || !subject || !message) {
-      return setError("Don’t leave me in the dark, all fields must be filled!");
+      return setError('Don’t leave me in the dark, all fields must be filled!');
     }
 
-    // Strong email regex: accepts special characters, numbers, dashes, subdomains, long TLDs, etc.
-    const strongEmailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$/;
+    const strongEmailRegex =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$/;
     if (!strongEmailRegex.test(email)) {
-      return setError("A wizard’s magic is strong, but your email isn’t valid. Try again!");
-    }
-
-    // Optional ZeroBounce validation
-    const isEmailValid = await validateEmailWithZeroBounce(email);
-    if (!isEmailValid) {
-      return setError("Your email is not valid or does not exist in the real world. Try again!");
+      return setError('A wizard’s magic is strong, but your email isn’t valid. Try again!');
     }
 
     try {
@@ -66,62 +132,87 @@ const Contact = () => {
         setSuccess("Message sent successfully! I’ll be in touch soon.");
         setForm({ name: '', email: '', subject: '', message: '' });
       } else {
-        setError("Something went wrong. The road isn’t always clear, try once more!");
+        setError('Something went wrong. The road isn’t always clear, try once more!');
       }
-    } catch (err) {
-      setError("Something went wrong with the email service. Try again, brave soul.");
+    } catch {
+      setError('Something went wrong with the email service. Try again, brave soul.');
     }
   };
 
   return (
-    <section className="contact-section fade-in">
-      <h1 className="contact-title">Contact Me</h1>
-      <form className="contact-form" onSubmit={handleSubmit} aria-label="Contact Form">
-        <label htmlFor="name">What name do you go by?</label>
+    <section className={`contact-section fade-in ${easterEggActive ? 'easter-egg' : ''}`}>
+      {easterEggActive && (
+        <div className="easter-egg-banner">
+          You have unlocked the secret of friendship: <strong>Mellon!</strong>
+        </div>
+      )}
+
+      <h1
+        className="contact-title"
+        data-tooltip={activeTheme?.hover || 'Scroll'}
+        onClick={cycleTheme}
+      >
+        {activeTheme?.icon} {activeTheme?.title || 'No title'}
+      </h1>
+
+      <form className="contact-form" onSubmit={handleSubmit}>
+        <label htmlFor="name">{activeTheme?.name || 'Your name'}</label>
         <input
-          type="text"
           id="name"
-          placeholder="Frodo Baggins"
+          type="text"
+          placeholder={activeTheme?.namePlaceholder || 'Enter your name'}
           value={form.name}
           onChange={handleChange}
-          aria-required="true"
         />
 
-        <label htmlFor="email">Send a raven... or, you know, an email</label>
+        <label htmlFor="email">{activeTheme?.email || 'Your email'}</label>
         <input
-          type="email"
           id="email"
-          placeholder="frodo@theone.com"
+          type="email"
+          placeholder={activeTheme?.emailPlaceholder || 'Enter your email'}
           value={form.email}
           onChange={handleChange}
-          aria-required="true"
         />
 
-        <label htmlFor="subject">What's the matter, dear traveler?</label>
+        <label htmlFor="subject">{activeTheme?.subject || 'Your subject'}</label>
         <input
-          type="text"
           id="subject"
-          placeholder="A Request from the Shire"
+          type="text"
+          placeholder={activeTheme?.subjectPlaceholder || 'Enter your subject'}
           value={form.subject}
           onChange={handleChange}
-          aria-required="true"
         />
 
-        <label htmlFor="message">Speak your mind, brave soul.</label>
+        <label htmlFor="message">{activeTheme?.message || 'Your message'}</label>
         <textarea
           id="message"
-          placeholder="May your path be clear, and the wind always at your back..."
+          placeholder={activeTheme?.messagePlaceholder || 'Enter your message'}
           value={form.message}
           onChange={handleChange}
-          aria-required="true"
         />
 
-        <button type="submit" className="submit-btn">
-          Begin Quest
-        </button>
+        <div className="button-row">
+          <button
+            type="submit"
+            className="magic-btn"
+            data-tooltip="Send your message into the ether..."
+          >
+            {activeTheme?.button || 'Send Message'}
+          </button>
 
-        {error && <p className="form-error" role="alert">{error}</p>}
-        {success && <p className="form-success" role="status">{success}</p>}
+          <button
+            type="button"
+            onClick={handleScrollClick}
+            className="magic-btn"
+            data-tooltip="Toggle Scroll Themes"
+          >
+            {iconMap[category]}
+            <span className="scroll-text">Scrolls</span>
+          </button>
+        </div>
+
+        {error && <p className="form-error">{error}</p>}
+        {success && <p className="form-success">{success}</p>}
       </form>
     </section>
   );
