@@ -3,7 +3,7 @@ import ProjectCard from '../../components/ProjectCard/ProjectCard';
 import './Portfolio.css';
 
 import screenshot1 from '../../assets/Pictures/Screenshot1.png';
-import screenshot2 from '../../assets/Pictures/Screenshot2.png';
+import screenshot2 from '../../assets/Pictures/Screenshot2New.jpg';
 import screenshot3 from '../../assets/Pictures/Screenshot3.png';
 import screenshot9 from '../../assets/Pictures/Screenshot9New.png';
 import screenshot12 from '../../assets/Pictures/Screenshot12.png';
