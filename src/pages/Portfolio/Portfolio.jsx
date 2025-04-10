@@ -5,7 +5,7 @@ import './Portfolio.css';
 import screenshot1 from '../../assets/Pictures/Screenshot1.png';
 import screenshot2 from '../../assets/Pictures/Screenshot2.png';
 import screenshot3 from '../../assets/Pictures/Screenshot3.png';
-import screenshot9 from '../../assets/Pictures/Screenshot9.png';
+import screenshot9 from '../../assets/Pictures/Screenshot9New.png';
 import screenshot12 from '../../assets/Pictures/Screenshot12.png';
 import screenshot13 from '../../assets/Pictures/Screenshot13.png';
 
@@ -40,7 +40,7 @@ const projects = [
     screenshot: screenshot12,
   },
   {
-    id: 12,
+    id: 9,
     description: 'Weather Dashboard - Server/API (Project 9)',
     repoLink: 'https://github.com/PHTMGatt/12-Weather-API',
     renderLink: 'https://zero9-servers-and-apis.onrender.com',
