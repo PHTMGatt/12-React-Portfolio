@@ -39,14 +39,10 @@ const Resume = () => {
 
     const addBullet = (text) => {
       const wrapped = doc.splitTextToSize(text, 612 - marginX * 2 - 16);
+      // bullet dot
       doc.circle(marginX + 3, y - 4, 1.5, 'F');
       wrapped.forEach((line, idx) => {
-        // draw bullet only once per item
-        if (idx === 0) {
-          doc.text(line, marginX + 12, y);
-        } else {
-          doc.text(line, marginX + 12, y);
-        }
+        doc.text(line, marginX + 12, y);
         y += lh;
       });
     };
@@ -60,29 +56,30 @@ const Resume = () => {
       marginX,
       y
     );
+
     y += lh + 6;
 
-    // OBJECTIVE (tailored for CDPR / systems & quests)
+    // OBJECTIVE
     addSubheader('Objective');
     addParagraph(
-      'Emerging game developer focused on systems and quest/Easter-egg design that rewards exploration and problem-solving. Draw on 10+ years of leadership in high-end kitchens—precision, reliability, and calm under pressure—and full-stack skills (React, Node, TypeScript) to prototype tools, streamline pipelines, and collaborate across disciplines. Motivated by CD Projekt Red’s worldbuilding and the challenge of tightly-designed secrets.'
+      'Full-stack developer with a passion for building clean, user-focused web apps and systems. Skilled in React, Node, and Python with hands-on CI/CD experience. Thrives in small teams where I can take clear goals, work independently, and deliver fast. Eager to contribute technical skills and creative problem-solving to help shape impactful products.'
     );
 
     // SKILLS
-    addSubheader('Skills');
-    addParagraph('Languages: JavaScript (ES6+), TypeScript, HTML5/CSS3, SQL, Python');
-    addParagraph('Frontend: React (hooks, state management), responsive UI');
+    addSubheader('Technical Skills');
+    addParagraph('Languages: JavaScript (ES6+), TypeScript, Python, SQL, HTML5/CSS3');
+    addParagraph('Frontend: React (hooks, state management), Responsive UI/UX');
     addParagraph('Backend: Node.js, Express.js, REST APIs');
     addParagraph('Databases: MongoDB/Atlas, PostgreSQL');
-    addParagraph('DevOps & Practices: Git/GitHub, GitHub Actions (CI/CD), ESLint, Prettier');
-    addParagraph('Game/World Tools: Blender, Unreal Engine (basics), Axiom (Minecraft world editing)');
-    addParagraph('Core Strengths: Team leadership, quality control, execution under pressure');
+    addParagraph('DevOps & Tools: Git/GitHub, CI/CD (GitHub Actions), ESLint, Prettier, Render');
+    addParagraph('Other: Unity (basics), Unreal Engine (basics), Blender');
+    addParagraph('Strengths: Rapid prototyping, clean & maintainable code, self-motivated and detail-oriented, clear communicator, 10+ years leadership experience');
 
     // PROJECTS
     addSubheader('Projects (select)');
-    addBullet('Zombies Hub — BO3 multi-map guide with mobile-first UI (React). https://zombies-hub.onrender.com');
-    addBullet('Daily Bytes — lightweight news feed (React). https://the-daily-bytes-o4jo.onrender.com');
-    addBullet('Fairway Finder — golf shot tracker & insights. https://fairway-finder.onrender.com');
+    addBullet('Zombies Hub — Multi-map Easter egg guide with mobile-first React UI and clean routing. https://zombies-hub.onrender.com');
+    addBullet('Fairway Finder — Golf shot tracking platform with database-driven stats and insights. https://fairway-finder.onrender.com');
+    addBullet('Daily Bytes — Dynamic news feed app with React and REST API integration. https://the-daily-bytes-o4jo.onrender.com');
 
     // EDUCATION
     addSubheader('Education');
@@ -103,15 +100,16 @@ const Resume = () => {
     doc.setTextColor(0, 0, 0);
     y += lh;
 
-    doc.text('High School Diploma', marginX, y);
-    y += lh;
-
     // EXPERIENCE
-    addSubheader('Experience');
-    addParagraph('Sous Chef / Kitchen Lead — 2013–2025');
-    addBullet('Directed nightly operations in high-end kitchens; upheld strict quality and consistency.');
-    addBullet('Mentored and trained teams; improved execution, communication, and problem-solving.');
-    addBullet('Advanced from dishwasher to sous chef through discipline and performance.');
+    addSubheader('Professional Experience');
+    doc.setFont('helvetica', 'bold');
+    doc.text('Sous Chef / Kitchen Lead — 2013–2025', marginX, y);
+    y += lh;
+    doc.setFont('helvetica', 'normal');
+    addBullet('Directed daily kitchen operations and led a team of cooks in high-pressure, fast-paced environments.');
+    addBullet('Trained and mentored new hires, fostering collaboration and efficiency.');
+    addBullet('Promoted multiple times for performance and reliability.');
+    addBullet('Developed strong problem-solving, time management, and attention to detail — directly transferable to software development work.');
 
     doc.save('BryenGatt_Resume.pdf');
   };
@@ -127,25 +125,25 @@ const Resume = () => {
 
       <h2>Objective</h2>
       <p>
-        Emerging game developer focused on systems and quest/Easter-egg design that rewards exploration and problem-solving. I bring 10+ years of leadership in high-end kitchens—precision, reliability, and calm under pressure—and full-stack skills (React, Node, TypeScript) to prototype tools, streamline pipelines, and collaborate across disciplines. Inspired by CD Projekt Red’s worldbuilding and the craft of tightly-designed secrets.
+        Full-stack developer with a passion for building clean, user-focused web apps and systems. Skilled in React, Node, and Python with hands-on CI/CD experience. Thrives in small teams where I can take clear goals, work independently, and deliver fast. Eager to contribute technical skills and creative problem-solving to help shape impactful products.
       </p>
 
-      <h2>Skills</h2>
+      <h2>Technical Skills</h2>
       <ul className="skills">
-        <li><strong>Languages:</strong> JavaScript (ES6+), TypeScript, HTML5/CSS3, SQL, Python</li>
-        <li><strong>Frontend:</strong> React (hooks, state), responsive UI</li>
+        <li><strong>Languages:</strong> JavaScript (ES6+), TypeScript, Python, SQL, HTML5/CSS3</li>
+        <li><strong>Frontend:</strong> React (hooks, state management), Responsive UI/UX</li>
         <li><strong>Backend:</strong> Node.js, Express.js, REST APIs</li>
         <li><strong>Databases:</strong> MongoDB/Atlas, PostgreSQL</li>
-        <li><strong>DevOps & Practices:</strong> Git/GitHub, GitHub Actions (CI/CD), ESLint, Prettier</li>
-        <li><strong>Game/World Tools:</strong> Blender, Unreal Engine (basics), Axiom (Minecraft world editing)</li>
-        <li><strong>Core Strengths:</strong> Team leadership, quality control, execution under pressure</li>
+        <li><strong>DevOps &amp; Tools:</strong> Git/GitHub, CI/CD (GitHub Actions), ESLint, Prettier, Render</li>
+        <li><strong>Other:</strong> Unity (basics), Unreal Engine (basics), Blender</li>
+        <li><strong>Strengths:</strong> Rapid prototyping · Clean, maintainable code · Self-motivated and detail-oriented · Clear communicator · 10+ years leadership experience</li>
       </ul>
 
       <h2>Projects (select)</h2>
       <ul>
-        <li><a href="https://zombies-hub.onrender.com" target="_blank" rel="noreferrer">Zombies Hub</a> — BO3 multi-map guide with mobile-first UI (React)</li>
-        <li><a href="https://the-daily-bytes-o4jo.onrender.com" target="_blank" rel="noreferrer">Daily Bytes</a> — lightweight news feed (React)</li>
-        <li><a href="https://fairway-finder.onrender.com" target="_blank" rel="noreferrer">Fairway Finder</a> — golf shot tracker & insights</li>
+        <li><a href="https://zombies-hub.onrender.com" target="_blank" rel="noreferrer">Zombies Hub</a> — Multi-map Easter egg guide with mobile-first React UI and clean routing</li>
+        <li><a href="https://fairway-finder.onrender.com" target="_blank" rel="noreferrer">Fairway Finder</a> — Golf shot tracking platform with database-driven stats and insights</li>
+        <li><a href="https://the-daily-bytes-o4jo.onrender.com" target="_blank" rel="noreferrer">Daily Bytes</a> — Dynamic news feed app with React and REST API integration</li>
       </ul>
 
       <h2>Education</h2>
@@ -159,14 +157,14 @@ const Resume = () => {
           View verified credential
         </a>
       </p>
-      <p>High School Diploma</p>
 
-      <h2>Experience</h2>
+      <h2>Professional Experience</h2>
       <p><strong>Sous Chef / Kitchen Lead</strong> — 2013–2025</p>
       <ul>
-        <li>Directed nightly operations in high-end kitchens; upheld strict quality and consistency.</li>
-        <li>Mentored and trained teams; improved execution, communication, and problem-solving.</li>
-        <li>Advanced from dishwasher to sous chef through discipline and performance.</li>
+        <li>Directed daily kitchen operations and led a team of cooks in high-pressure, fast-paced environments.</li>
+        <li>Trained and mentored new hires, fostering collaboration and efficiency.</li>
+        <li>Promoted multiple times for performance and reliability.</li>
+        <li>Developed strong problem-solving, time management, and attention to detail — directly transferable to software development work.</li>
       </ul>
 
       <button
