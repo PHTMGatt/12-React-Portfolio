@@ -31,7 +31,7 @@ const Resume = () => {
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(size);
       const wrapped = doc.splitTextToSize(text, 612 - marginX * 2);
-      wrapped.forEach(line => {
+      wrapped.forEach((line) => {
         doc.text(line, marginX, y);
         y += lh;
       });
@@ -41,7 +41,7 @@ const Resume = () => {
       const wrapped = doc.splitTextToSize(text, 612 - marginX * 2 - 16);
       // bullet dot
       doc.circle(marginX + 3, y - 4, 1.5, 'F');
-      wrapped.forEach((line, idx) => {
+      wrapped.forEach((line) => {
         doc.text(line, marginX + 12, y);
         y += lh;
       });
@@ -62,7 +62,7 @@ const Resume = () => {
     // OBJECTIVE
     addSubheader('Objective');
     addParagraph(
-      'Full-stack developer with a passion for building clean, user-focused web apps and systems. Skilled in React, Node, and Python with hands-on CI/CD experience. Thrives in small teams where I can take clear goals, work independently, and deliver fast. Eager to contribute technical skills and creative problem-solving to help shape impactful products.'
+      'Full-stack developer focused on building clean, fast, and user-focused web applications with React, Node, and modern JavaScript tools. Experienced with REST APIs, databases, and CI/CD pipelines. Comfortable taking clear goals, working independently, and shipping reliable features quickly to help teams deliver impactful products.'
     );
 
     // SKILLS
@@ -71,15 +71,23 @@ const Resume = () => {
     addParagraph('Frontend: React (hooks, state management), Responsive UI/UX');
     addParagraph('Backend: Node.js, Express.js, REST APIs');
     addParagraph('Databases: MongoDB/Atlas, PostgreSQL');
-    addParagraph('DevOps & Tools: Git/GitHub, CI/CD (GitHub Actions), ESLint, Prettier, Render');
-    addParagraph('Other: Unity (basics), Unreal Engine (basics), Blender');
-    addParagraph('Strengths: Rapid prototyping, clean & maintainable code, self-motivated and detail-oriented, clear communicator, 10+ years leadership experience');
+    addParagraph('DevOps & Tools: Git/GitHub, CI/CD (GitHub Actions), ESLint, Render');
+    addParagraph('Game & Design Tools: Unity (basics), Unreal Engine (basics), Blender');
+    addParagraph(
+      'Strengths: Rapid prototyping, clean & maintainable code, self-motivated and detail-oriented, clear communicator, 10+ years leadership experience in fast-paced environments'
+    );
 
     // PROJECTS
     addSubheader('Projects (select)');
-    addBullet('Zombies Hub — Multi-map Easter egg guide with mobile-first React UI and clean routing. https://zombies-hub.onrender.com');
-    addBullet('Fairway Finder — Golf shot tracking platform with database-driven stats and insights. https://fairway-finder.onrender.com');
-    addBullet('Daily Bytes — Dynamic news feed app with React and REST API integration. https://the-daily-bytes-o4jo.onrender.com');
+    addBullet(
+      'Zombies Hub — Multi-map Easter egg guide with mobile-first React UI and clean routing. https://zombies-hub.onrender.com'
+    );
+    addBullet(
+      'Fairway Finder — Golf shot tracking platform with database-driven stats and insights. https://fairway-finder.onrender.com'
+    );
+    addBullet(
+      'Daily Bytes — Dynamic news feed app with React and REST API integration. https://the-daily-bytes-o4jo.onrender.com'
+    );
 
     // EDUCATION
     addSubheader('Education');
@@ -95,7 +103,9 @@ const Resume = () => {
       'View verified credential',
       marginX,
       y,
-      { url: 'https://msu.credential.getsmarter.com/c01af6df-f030-4aa7-9cf0-de7bc925b148#acc.iYILFzgO' }
+      {
+        url: 'https://msu.credential.getsmarter.com/c01af6df-f030-4aa7-9cf0-de7bc925b148#acc.iYILFzgO',
+      }
     );
     doc.setTextColor(0, 0, 0);
     y += lh;
@@ -103,13 +113,21 @@ const Resume = () => {
     // EXPERIENCE
     addSubheader('Professional Experience');
     doc.setFont('helvetica', 'bold');
-    doc.text('Sous Chef / Kitchen Lead — 2013–2025', marginX, y);
+    doc.text('Kitchen Lead / Team Supervisor — 2013–2025', marginX, y);
     y += lh;
     doc.setFont('helvetica', 'normal');
-    addBullet('Directed daily kitchen operations and led a team of cooks in high-pressure, fast-paced environments.');
-    addBullet('Trained and mentored new hires, fostering collaboration and efficiency.');
-    addBullet('Promoted multiple times for performance and reliability.');
-    addBullet('Developed strong problem-solving, time management, and attention to detail — directly transferable to software development work.');
+    addBullet(
+      'Led daily operations and a small team in a fast-paced, high-pressure environment with strict deadlines.'
+    );
+    addBullet(
+      'Trained and mentored new team members, improving consistency, efficiency, and collaboration.'
+    );
+    addBullet(
+      'Promoted multiple times for reliability, ownership, and execution under pressure.'
+    );
+    addBullet(
+      'Built strong problem-solving, time management, and communication skills that carry directly into engineering work.'
+    );
 
     doc.save('BryenGatt_Resume.pdf');
   };
@@ -118,36 +136,107 @@ const Resume = () => {
     <section className="resume fade-in glass-card">
       <h1>Resume</h1>
 
-      <p><strong>Name:</strong> Bryen Gatt</p>
-      <p><strong>Email:</strong> <a href="mailto:PHTMGatt@gmail.com">PHTMGatt@gmail.com</a></p>
-      <p><strong>Discord:</strong> LordxIlluminati</p>
-      <p><strong>GitHub:</strong> <a href="https://github.com/PHTMGatt" target="_blank" rel="noreferrer">github.com/PHTMGatt</a></p>
+      <p>
+        <strong>Name:</strong> Bryen Gatt
+      </p>
+      <p>
+        <strong>Email:</strong>{' '}
+        <a href="mailto:PHTMGatt@gmail.com">PHTMGatt@gmail.com</a>
+      </p>
+      <p>
+        <strong>Discord:</strong> LordxIlluminati
+      </p>
+      <p>
+        <strong>GitHub:</strong>{' '}
+        <a
+          href="https://github.com/PHTMGatt"
+          target="_blank"
+          rel="noreferrer"
+        >
+          github.com/PHTMGatt
+        </a>
+      </p>
 
       <h2>Objective</h2>
       <p>
-        Full-stack developer with a passion for building clean, user-focused web apps and systems. Skilled in React, Node, and Python with hands-on CI/CD experience. Thrives in small teams where I can take clear goals, work independently, and deliver fast. Eager to contribute technical skills and creative problem-solving to help shape impactful products.
+        Full-stack developer focused on building clean, fast, and user-focused
+        web applications with React, Node, and modern JavaScript tools.
+        Experienced with REST APIs, databases, and CI/CD pipelines. Comfortable
+        taking clear goals, working independently, and shipping reliable
+        features quickly to help teams deliver impactful products.
       </p>
 
       <h2>Technical Skills</h2>
       <ul className="skills">
-        <li><strong>Languages:</strong> JavaScript (ES6+), TypeScript, Python, SQL, HTML5/CSS3</li>
-        <li><strong>Frontend:</strong> React (hooks, state management), Responsive UI/UX</li>
-        <li><strong>Backend:</strong> Node.js, Express.js, REST APIs</li>
-        <li><strong>Databases:</strong> MongoDB/Atlas, PostgreSQL</li>
-        <li><strong>DevOps &amp; Tools:</strong> Git/GitHub, CI/CD (GitHub Actions), ESLint, Prettier, Render</li>
-        <li><strong>Other:</strong> Unity (basics), Unreal Engine (basics), Blender</li>
-        <li><strong>Strengths:</strong> Rapid prototyping · Clean, maintainable code · Self-motivated and detail-oriented · Clear communicator · 10+ years leadership experience</li>
+        <li>
+          <strong>Languages:</strong> JavaScript (ES6+), TypeScript, Python,
+          SQL, HTML5/CSS3
+        </li>
+        <li>
+          <strong>Frontend:</strong> React (hooks, state management), Responsive
+          UI/UX
+        </li>
+        <li>
+          <strong>Backend:</strong> Node.js, Express.js, REST APIs
+        </li>
+        <li>
+          <strong>Databases:</strong> MongoDB/Atlas, PostgreSQL
+        </li>
+        <li>
+          <strong>DevOps &amp; Tools:</strong> Git/GitHub, CI/CD (GitHub
+          Actions), ESLint, Render
+        </li>
+        <li>
+          <strong>Game &amp; Design Tools:</strong> Unity (basics), Unreal
+          Engine (basics), Blender
+        </li>
+        <li>
+          <strong>Strengths:</strong> Rapid prototyping · Clean, maintainable
+          code · Self-motivated and detail-oriented · Clear communicator · 10+
+          years leadership experience in fast-paced environments
+        </li>
       </ul>
 
       <h2>Projects (select)</h2>
       <ul>
-        <li><a href="https://zombies-hub.onrender.com" target="_blank" rel="noreferrer">Zombies Hub</a> — Multi-map Easter egg guide with mobile-first React UI and clean routing</li>
-        <li><a href="https://fairway-finder.onrender.com" target="_blank" rel="noreferrer">Fairway Finder</a> — Golf shot tracking platform with database-driven stats and insights</li>
-        <li><a href="https://the-daily-bytes-o4jo.onrender.com" target="_blank" rel="noreferrer">Daily Bytes</a> — Dynamic news feed app with React and REST API integration</li>
+        <li>
+          <a
+            href="https://zombies-hub.onrender.com"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Zombies Hub
+          </a>{' '}
+          — Multi-map Easter egg guide with mobile-first React UI and clean
+          routing
+        </li>
+        <li>
+          <a
+            href="https://fairway-finder.onrender.com"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Fairway Finder
+          </a>{' '}
+          — Golf shot tracking platform with database-driven stats and insights
+        </li>
+        <li>
+          <a
+            href="https://the-daily-bytes-o4jo.onrender.com"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Daily Bytes
+          </a>{' '}
+          — Dynamic news feed app with React and REST API integration
+        </li>
       </ul>
 
       <h2>Education</h2>
-      <p><strong>Michigan State University</strong> — Full Stack Web Development Certificate (2025)</p>
+      <p>
+        <strong>Michigan State University</strong> — Full Stack Web Development
+        Certificate (2025)
+      </p>
       <p>
         <a
           href="https://msu.credential.getsmarter.com/c01af6df-f030-4aa7-9cf0-de7bc925b148#acc.iYILFzgO"
@@ -159,12 +248,26 @@ const Resume = () => {
       </p>
 
       <h2>Professional Experience</h2>
-      <p><strong>Sous Chef / Kitchen Lead</strong> — 2013–2025</p>
+      <p>
+        <strong>Kitchen Lead / Team Supervisor</strong> — 2013–2025
+      </p>
       <ul>
-        <li>Directed daily kitchen operations and led a team of cooks in high-pressure, fast-paced environments.</li>
-        <li>Trained and mentored new hires, fostering collaboration and efficiency.</li>
-        <li>Promoted multiple times for performance and reliability.</li>
-        <li>Developed strong problem-solving, time management, and attention to detail — directly transferable to software development work.</li>
+        <li>
+          Led daily operations and a small team in a fast-paced, high-pressure
+          environment with strict deadlines.
+        </li>
+        <li>
+          Trained and mentored new team members, improving consistency,
+          efficiency, and collaboration.
+        </li>
+        <li>
+          Promoted multiple times for reliability, ownership, and execution
+          under pressure.
+        </li>
+        <li>
+          Built strong problem-solving, time management, and communication
+          skills that carry directly into engineering work.
+        </li>
       </ul>
 
       <button

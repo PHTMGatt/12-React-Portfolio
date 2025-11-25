@@ -1,6 +1,6 @@
 import React from 'react';
 import './About.css';
-import bryguy from '../../assets/Pictures/bryguy.png'; // ✅ updated from /pix/
+import headshot from '../../assets/Pictures/bryen_headshot.jpg';
 
 const About = () => {
   return (
@@ -9,16 +9,23 @@ const About = () => {
         <h1 className="about-title">About Me</h1>
 
         <p>
-          I'm a full-stack developer and aspiring game designer who loves building projects that reward curiosity —
-          you might even find a few hidden Easter eggs or bits of lore tucked into my work. I focus on writing
-          clean, maintainable code while experimenting with tools like Unreal Engine to design and prototype
-          experiences that are both polished and fun to explore.
+          I’m a full-stack developer who builds clean, fast, and intuitive web experiences with React, Node,
+          and modern JavaScript tools. I focus on maintainable code, thoughtful UI design, and features that
+          feel smooth and purposeful. I bring a bit of my game-design mindset into everything I make—exploring
+          ideas, refining interactions, and adding subtle touches that make projects more engaging without
+          sacrificing clarity or usability.
         </p>
+
+
 
       </div>
 
       <div className="about-image">
-        <img src={bryguy} alt="Bryen skating at the skatepark" loading="lazy" />
+        <img
+          src={headshot}
+          alt="Bryen Headshot"
+          loading="lazy"
+        />
       </div>
     </section>
   );
