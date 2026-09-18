@@ -15,21 +15,22 @@ import WeatherApp from '../../assets/Pictures/Screenshot9New.png';
 import ZNS from '../../assets/Pictures/ZETZ.png';
 import MERNBook from '../../assets/Pictures/MERN_Book_Search.png';
 import ReactFolio from '../../assets/Pictures/ReactFolio.png';
-import WarOraclePro from '../../assets/Pictures/WarOraclePro.svg';
-import ClashCommanderPro from '../../assets/Pictures/ClashCommanderPro.svg';
-import RaspbiPilotPro from '../../assets/Pictures/RaspbiPilotPro.svg';
-import CaptainHookPro from '../../assets/Pictures/CaptainHookPro.svg';
-import ZHub2Pro from '../../assets/Pictures/ZHub2Pro.svg';
-import DailyBytesPro from '../../assets/Pictures/DailyBytesPro.svg';
-import FairwayFinderPro from '../../assets/Pictures/FairwayFinderPro.svg';
-import WeatherPro from '../../assets/Pictures/WeatherPro.svg';
-import BookPro from '../../assets/Pictures/BookPro.svg';
-import KanbanPro from '../../assets/Pictures/KanbanPro.svg';
-import PortfolioPro from '../../assets/Pictures/PortfolioPro.svg';
-import SocialPro from '../../assets/Pictures/SocialPro.svg';
-import TestingPro from '../../assets/Pictures/TestingPro.svg';
-import BankingPro from '../../assets/Pictures/BankingPro.svg';
-import CandidatePro from '../../assets/Pictures/CandidatePro.svg';
+import ZHub2Pro from '../../assets/thumbnails/zh2.png';
+import DailyBytesPro from '../../assets/thumbnails/db.png';
+import FairwayFinderPro from '../../assets/thumbnails/ff.png';
+import WeatherPro from '../../assets/thumbnails/wa.png';
+import BookPro from '../../assets/thumbnails/mern.png';
+import KanbanPro from '../../assets/thumbnails/kab.png';
+import PortfolioPro from '../../assets/thumbnails/port.png';
+import WarOraclePro from '../../assets/thumbnails/waro.png';
+import ClashCommanderPro from '../../assets/thumbnails/cc.png';
+import RaspbiPilotPro from '../../assets/thumbnails/raspi.png';
+import CaptainHookPro from '../../assets/thumbnails/ch.png';
+import SocialPro from '../../assets/thumbnails/snapi.png';
+import TestingPro from '../../assets/thumbnails/quiz.png';
+import BankingPro from '../../assets/thumbnails/pbs.png';
+import CandidatePro from '../../assets/thumbnails/cs.png';
+import DerEisendrachePro from '../../assets/thumbnails/de.png';
 
 const githubImage = (repo, path) =>
   `https://raw.githubusercontent.com/PHTMGatt/${repo}/main/${path}`;
@@ -50,7 +51,7 @@ const projects = [
   { id:'tech-quiz-tests', description:'Tech Quiz Automated Test Suite', repoLink:'https://github.com/PHTMGatt/19-Testing-Tech-Quiz-Test-Suite', screenshot:TestingPro, status:'Cypress • Component testing • End-to-end testing' },
   { id:'banking-system', description:'Python Banking System', repoLink:'https://github.com/PHTMGatt/22-Banking-System', screenshot:BankingPro, status:'Python • OOP • Validation • Account operations' },
   { id:'candidate-search', description:'Candidate Search', repoLink:'https://github.com/PHTMGatt/13-Candidate-Search', renderLink:'https://one3-candidate-search-u82d.onrender.com', screenshot:CandidatePro, status:'React • TypeScript • GitHub API' },
-  { id:'de', description:'Der Eisendrache Guide', repoLink:'https://github.com/PHTMGatt/Der-Eisendrache-Guide', renderLink:'https://der-eisendrache-guide.onrender.com', screenshot:DE },
+  { id:'de', description:'Der Eisendrache Guide', repoLink:'https://github.com/PHTMGatt/Der-Eisendrache-Guide', renderLink:'https://der-eisendrache-guide.onrender.com', screenshot:DerEisendrachePro },
   { id:'gk', description:'Gorod Krovi Guide', repoLink:'https://github.com/PHTMGatt/Gorod-Krovi-Guide', renderLink:'https://gorod-krovi-guide.onrender.com', screenshot:GK },
   { id:'motd', description:'Mob of the Dead Guide', repoLink:'https://github.com/PHTMGatt/MOTD-Guide', renderLink:'https://motd-guide.onrender.com', screenshot:MOTD },
   { id:'origins', description:'Origins Guide', repoLink:'https://github.com/PHTMGatt/Origins-Guide', renderLink:'https://origins-wtyd.onrender.com', screenshot:Origins },
