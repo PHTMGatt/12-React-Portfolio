@@ -15,6 +15,10 @@ import WeatherApp from '../../assets/Pictures/Screenshot9New.png';
 import ZNS from '../../assets/Pictures/ZETZ.png';
 import MERNBook from '../../assets/Pictures/MERN_Book_Search.png';
 import ReactFolio from '../../assets/Pictures/ReactFolio.png';
+import WarOraclePro from '../../assets/Pictures/WarOraclePro.svg';
+import ClashCommanderPro from '../../assets/Pictures/ClashCommanderPro.svg';
+import RaspbiPilotPro from '../../assets/Pictures/RaspbiPilotPro.svg';
+import CaptainHookPro from '../../assets/Pictures/CaptainHookPro.svg';
 
 const githubImage = (repo, path) =>
   `https://raw.githubusercontent.com/PHTMGatt/${repo}/main/${path}`;
@@ -27,10 +31,10 @@ const projects = [
   { id:'mern-book-search', description:'MERN Book Search Engine', repoLink:'https://github.com/PHTMGatt/18-MERN-Book-Search-Engine', renderLink:'https://one8-mern-book-search-engine.onrender.com', screenshot:MERNBook, status:'MERN • GraphQL • Authentication' },
   { id:'todo-board', description:'Kanban Board — JWT Authentication', repoLink:'https://github.com/PHTMGatt/14-Todo-Board', renderLink:'https://one4-todo-board.onrender.com', screenshot:githubImage('14-Todo-Board','client/src/assets/Screenshot%202025-03-31%20154359.png'), status:'React • Node.js • JWT • Full Stack' },
   { id:'portfolio', description:'React Developer Portfolio', repoLink:'https://github.com/PHTMGatt/12-React-Portfolio', screenshot:ReactFolio, status:'React • Responsive UI • Project showcase' },
-  { id:'war-oracle', description:'War Oracle — Clash of Clans War Bot', repoLink:'https://github.com/PHTMGatt/War-Oracle-Bot', screenshot:githubImage('War-Oracle-Bot','WarOracle.png'), status:'Discord.js • Clash of Clans API • Automated war intelligence' },
-  { id:'clash-commander', description:'Clash Commander — Discord Operations Bot', repoLink:'https://github.com/PHTMGatt/Clash-Commander-Bot', screenshot:githubImage('Clash-Commander-Bot','src/assets/clan-logo.png'), status:'Discord.js • Server operations • Safety tooling' },
-  { id:'raspbi-pilot', description:'raspbi-pilot — Multi-Bot Runtime', repoLink:'https://github.com/PHTMGatt/raspbi-pilot', screenshot:githubImage('raspbi-pilot','raspbi-pilot.png'), status:'Node.js • Multi-bot launcher • Render / Raspberry Pi' },
-  { id:'captain-hook', description:'Captain Hook — GitHub → Discord WebHook Bot', repoLink:'https://github.com/PHTMGatt/Discord-WebHook-Bot', renderLink:'https://discord-webhook-bot-1f23.onrender.com/register', screenshot:githubImage('Discord-WebHook-Bot','images/WebHookDCB.png'), status:'Webhooks • Discord • GitHub • GPT-assisted formatting' },
+  { id:'war-oracle', description:'War Oracle — Clash of Clans War Bot', repoLink:'https://github.com/PHTMGatt/War-Oracle-Bot', screenshot:WarOraclePro, status:'Discord.js • Clash of Clans API • Automated war intelligence' },
+  { id:'clash-commander', description:'Clash Commander — Discord Operations Bot', repoLink:'https://github.com/PHTMGatt/Clash-Commander-Bot', screenshot:ClashCommanderPro, status:'Discord.js • Server operations • Safety tooling' },
+  { id:'raspbi-pilot', description:'raspbi-pilot — Multi-Bot Runtime', repoLink:'https://github.com/PHTMGatt/raspbi-pilot', screenshot:RaspbiPilotPro, status:'Node.js • Multi-bot launcher • Render / Raspberry Pi' },
+  { id:'captain-hook', description:'Captain Hook — GitHub → Discord WebHook Bot', repoLink:'https://github.com/PHTMGatt/Discord-WebHook-Bot', renderLink:'https://discord-webhook-bot-1f23.onrender.com/register', screenshot:CaptainHookPro, status:'Webhooks • Discord • GitHub • GPT-assisted formatting' },
   { id:'social-network-api', description:'Social Network API', repoLink:'https://github.com/PHTMGatt/17-Social-Network-API', screenshot:githubImage('17-Social-Network-API','Assets/18-nosql-homework-demo-01.gif'), status:'Node.js • Express • MongoDB • Mongoose' },
   { id:'tech-quiz-tests', description:'Tech Quiz Automated Test Suite', repoLink:'https://github.com/PHTMGatt/19-Testing-Tech-Quiz-Test-Suite', screenshot:githubImage('19-Testing-Tech-Quiz-Test-Suite','Assets/19-testing-homework-demo.gif'), status:'Cypress • Component testing • End-to-end testing' },
   { id:'banking-system', description:'Python Banking System', repoLink:'https://github.com/PHTMGatt/22-Banking-System', screenshot:githubImage('22-Banking-System','Assets/python-terminal-options.png'), status:'Python • OOP • Validation • Account operations' },
