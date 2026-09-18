@@ -20,26 +20,21 @@ const githubImage = (repo, path) =>
   `https://raw.githubusercontent.com/PHTMGatt/${repo}/main/${path}`;
 
 const projects = [
-  // Featured work — the projects I want recruiters to see first.
   { id:'zombies-hub-2', description:'Zombies Hub 2.0', repoLink:'https://github.com/PHTMGatt/Zombies-Hub-2.0', renderLink:'https://zombies-hub-2-0.onrender.com/', screenshot:ZHub, status:'In Progress — unified Zombies experience in a single application' },
-  { id:'fairway-finder', description:'Fairway Finder', repoLink:'https://github.com/PHTMGatt/Fairway-Finder', renderLink:'https://fairway-finder.onrender.com', screenshot:FairwayFinder, status:'Full-stack golf course discovery application' },
   { id:'daily-bytes', description:'Daily Bytes', repoLink:'https://github.com/PHTMGatt/The-Daily-Bytes', renderLink:'https://the-daily-bytes-o4jo.onrender.com', screenshot:DailyBytes, status:'Full-stack news and content application' },
+  { id:'fairway-finder', description:'Fairway Finder', repoLink:'https://github.com/PHTMGatt/Fairway-Finder', renderLink:'https://fairway-finder.onrender.com', screenshot:FairwayFinder, status:'Full-stack golf course discovery application' },
+  { id:'weather-app', description:'Weather App', repoLink:'https://github.com/PHTMGatt/09-Weather-App', screenshot:WeatherApp, status:'API-focused weather dashboard • Search • Forecast data' },
   { id:'mern-book-search', description:'MERN Book Search Engine', repoLink:'https://github.com/PHTMGatt/18-MERN-Book-Search-Engine', renderLink:'https://one8-mern-book-search-engine.onrender.com', screenshot:MERNBook, status:'MERN • GraphQL • Authentication' },
   { id:'todo-board', description:'Kanban Board — JWT Authentication', repoLink:'https://github.com/PHTMGatt/14-Todo-Board', renderLink:'https://one4-todo-board.onrender.com', screenshot:githubImage('14-Todo-Board','client/src/assets/Screenshot%202025-03-31%20154359.png'), status:'React • Node.js • JWT • Full Stack' },
   { id:'portfolio', description:'React Developer Portfolio', repoLink:'https://github.com/PHTMGatt/12-React-Portfolio', screenshot:ReactFolio, status:'React • Responsive UI • Project showcase' },
-
-  // Automation, backend, and engineering projects.
   { id:'war-oracle', description:'War Oracle — Clash of Clans War Bot', repoLink:'https://github.com/PHTMGatt/War-Oracle-Bot', screenshot:githubImage('War-Oracle-Bot','WarOracle.png'), status:'Discord.js • Clash of Clans API • Automated war intelligence' },
-  { id:'clash-commander', description:'Clash Commander — Discord Operations Bot', repoLink:'https://github.com/PHTMGatt/Clash-Commander-Bot', screenshot:githubImage('Clash-Commander-Bot','src/assets/overcharge.png'), status:'Discord.js • Server operations • Safety tooling' },
+  { id:'clash-commander', description:'Clash Commander — Discord Operations Bot', repoLink:'https://github.com/PHTMGatt/Clash-Commander-Bot', screenshot:githubImage('Clash-Commander-Bot','src/assets/clan-logo.png'), status:'Discord.js • Server operations • Safety tooling' },
   { id:'raspbi-pilot', description:'raspbi-pilot — Multi-Bot Runtime', repoLink:'https://github.com/PHTMGatt/raspbi-pilot', screenshot:githubImage('raspbi-pilot','raspbi-pilot.png'), status:'Node.js • Multi-bot launcher • Render / Raspberry Pi' },
-  { id:'captain-hook', description:'Captain Hook — GitHub → Discord WebHook Bot', repoLink:'https://github.com/PHTMGatt/Discord-WebHook-Bot', renderLink:'https://discord-webhook-bot-1f23.onrender.com/register', screenshot:githubImage('Discord-WebHook-Bot','images/captain-hook-bot-banner.png'), status:'Webhooks • Discord • GitHub • GPT-assisted formatting' },
+  { id:'captain-hook', description:'Captain Hook — GitHub → Discord WebHook Bot', repoLink:'https://github.com/PHTMGatt/Discord-WebHook-Bot', renderLink:'https://discord-webhook-bot-1f23.onrender.com/register', screenshot:githubImage('Discord-WebHook-Bot','images/WebHookDCB.png'), status:'Webhooks • Discord • GitHub • GPT-assisted formatting' },
   { id:'social-network-api', description:'Social Network API', repoLink:'https://github.com/PHTMGatt/17-Social-Network-API', screenshot:githubImage('17-Social-Network-API','Assets/18-nosql-homework-demo-01.gif'), status:'Node.js • Express • MongoDB • Mongoose' },
   { id:'tech-quiz-tests', description:'Tech Quiz Automated Test Suite', repoLink:'https://github.com/PHTMGatt/19-Testing-Tech-Quiz-Test-Suite', screenshot:githubImage('19-Testing-Tech-Quiz-Test-Suite','Assets/19-testing-homework-demo.gif'), status:'Cypress • Component testing • End-to-end testing' },
   { id:'banking-system', description:'Python Banking System', repoLink:'https://github.com/PHTMGatt/22-Banking-System', screenshot:githubImage('22-Banking-System','Assets/python-terminal-options.png'), status:'Python • OOP • Validation • Account operations' },
   { id:'candidate-search', description:'Candidate Search', repoLink:'https://github.com/PHTMGatt/13-Candidate-Search', renderLink:'https://one3-candidate-search-u82d.onrender.com', screenshot:CandiSearch, status:'React • TypeScript • GitHub API' },
-  { id:'weather-app', description:'Weather App', repoLink:'https://github.com/PHTMGatt/09-Weather-App', screenshot:WeatherApp, status:'Weather API • Search • Forecast data' },
-
-  // Legacy Zombies map projects — preserved as part of the evolution into Zombies Hub 2.0.
   { id:'de', description:'Der Eisendrache Guide', repoLink:'https://github.com/PHTMGatt/Der-Eisendrache-Guide', renderLink:'https://der-eisendrache-guide.onrender.com', screenshot:DE },
   { id:'gk', description:'Gorod Krovi Guide', repoLink:'https://github.com/PHTMGatt/Gorod-Krovi-Guide', renderLink:'https://gorod-krovi-guide.onrender.com', screenshot:GK },
   { id:'motd', description:'Mob of the Dead Guide', repoLink:'https://github.com/PHTMGatt/MOTD-Guide', renderLink:'https://motd-guide.onrender.com', screenshot:MOTD },
