@@ -17,15 +17,24 @@ import ZNS from '../../assets/Pictures/ZETZ.png';
 import MERNBook from '../../assets/Pictures/MERN_Book_Search.png';
 import AdvancedCSSImg from '../../assets/Pictures/Challenge2New.jpg';
 
-// Final project list (top 3 pinned, rest alphabetical)
+// Final project list (top projects pinned, rest alphabetical)
 const projects = [
   // Pinned
   {
-    id: 'zombies-hub',
-    description: 'Zombies Hub',
-    repoLink: 'https://github.com/PHTMGatt/Zombies-Hub',
-    renderLink: 'https://zombies-hub.onrender.com',
+    id: 'zombies-hub-2',
+    description: 'Zombies Hub 2.0',
+    repoLink: 'https://github.com/PHTMGatt/Zombies-Hub-2.0',
+    renderLink: 'https://zombies-hub-2-0.onrender.com/',
     screenshot: ZHub,
+    status: 'In Progress',
+  },
+  {
+    id: 'zombies-hub-1',
+    description: 'Zombies Hub 1.0',
+    repoLink: 'https://github.com/PHTMGatt/Zombies-Hub',
+    screenshot: ZHub,
+    status: 'Inactive — Replaced by Zombies Hub 2.0',
+    inactive: true,
   },
   {
     id: 'daily-bytes',
@@ -130,6 +139,8 @@ const Portfolio = () => {
             repoLink={project.repoLink}
             renderLink={project.renderLink}
             screenshot={project.screenshot}
+            status={project.status}
+            inactive={project.inactive}
           />
         ))}
       </div>
