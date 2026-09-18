@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ProjectCard from '../../components/ProjectCard/ProjectCard';
 import './Portfolio.css';
 
@@ -44,19 +44,60 @@ const projects = [
   { id:'zombies-hub-1', description:'Zombies Hub 1.0', repoLink:'https://github.com/PHTMGatt/Zombies-Hub', screenshot:ZHub, status:'Inactive — Replaced by Zombies Hub 2.0', inactive:true },
 ];
 
-const Portfolio = () => (
-  <section className="portfolio-section fade-in">
-    <div className="portfolio-header">
-      <h1 className="portfolio-title">My Projects</h1>
-      <p className="portfolio-subtext">Full-stack apps, APIs, automation, Discord bots, testing, and the Zombies projects that grew with me.</p>
-      <div className="portfolio-notice" role="note">
-        <strong>Project availability:</strong> Some older projects depend on APIs, databases, or hosted services that have since changed, expired, or been taken offline, so live demos may not always function exactly as originally built. Several legacy Zombies map guides also used separate Render deployments and may no longer be available due to current hosting limits. Zombies Hub 2.0 replaces that approach by incorporating the maps into one unified application for a more seamless experience. The GitHub repositories remain available to review the source code and project history.
+const Portfolio = () => {
+  const [showInfo, setShowInfo] = useState(false);
+
+  return (
+    <section className="portfolio-section fade-in">
+      <div className="portfolio-header">
+        <h1 className="portfolio-title">My Projects</h1>
+        <p className="portfolio-subtext">Full-stack apps, APIs, automation, Discord bots, testing, and the Zombies projects that grew with me.</p>
+
+        <button
+          className="portfolio-info-button"
+          type="button"
+          aria-expanded={showInfo}
+          aria-controls="project-availability-info"
+          onClick={() => setShowInfo((open) => !open)}
+        >
+          <span className="portfolio-info-icon">i</span>
+          Project Info
+          <span className={`portfolio-info-chevron ${showInfo ? 'open' : ''}`}>⌄</span>
+        </button>
+
+        {showInfo && (
+          <div id="project-availability-info" className="portfolio-info-card" role="note">
+            <div className="portfolio-info-card-header">
+              <span className="portfolio-info-icon large">i</span>
+              <div>
+                <h2>Project Availability</h2>
+                <p>Why some older live demos may behave differently today.</p>
+              </div>
+            </div>
+            <div className="portfolio-info-grid">
+              <div>
+                <h3>Older Projects</h3>
+                <p>Some projects rely on APIs, databases, or hosted services that have changed, expired, or been taken offline. Their live demos may not function exactly as they did when originally built.</p>
+              </div>
+              <div>
+                <h3>Legacy Zombies Guides</h3>
+                <p>The original map guides used separate Render deployments. Some may no longer be available because of current hosting limits.</p>
+              </div>
+              <div>
+                <h3>Zombies Hub 2.0</h3>
+                <p>The new version replaces the separate-map deployment model by incorporating the maps into one unified application for a more seamless experience.</p>
+              </div>
+            </div>
+            <p className="portfolio-info-footer">Source code and project history remain available through each project's GitHub repository.</p>
+          </div>
+        )}
       </div>
-    </div>
-    <div className="work-grid">
-      {projects.map((project) => <ProjectCard key={project.id} {...project} />)}
-    </div>
-  </section>
-);
+
+      <div className="work-grid">
+        {projects.map((project) => <ProjectCard key={project.id} {...project} />)}
+      </div>
+    </section>
+  );
+};
 
 export default Portfolio;
