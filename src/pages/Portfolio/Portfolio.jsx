@@ -2,7 +2,6 @@ import React from 'react';
 import ProjectCard from '../../components/ProjectCard/ProjectCard';
 import './Portfolio.css';
 
-// Image imports
 import ZHub from '../../assets/Pictures/ZHub.png';
 import DailyBytes from '../../assets/Pictures/DailyBytes.png';
 import FairwayFinder from '../../assets/Pictures/FairwayFinder.png';
@@ -15,26 +14,77 @@ import REV from '../../assets/Pictures/REV.png';
 import WeatherApp from '../../assets/Pictures/Screenshot9New.png';
 import ZNS from '../../assets/Pictures/ZETZ.png';
 import MERNBook from '../../assets/Pictures/MERN_Book_Search.png';
-import AdvancedCSSImg from '../../assets/Pictures/Challenge2New.jpg';
+import ReactFolio from '../../assets/Pictures/ReactFolio.png';
 
-// Final project list (top projects pinned, rest alphabetical)
+const githubImage = (repo, path) =>
+  `https://raw.githubusercontent.com/PHTMGatt/${repo}/main/${path}`;
+
 const projects = [
-  // Pinned
   {
     id: 'zombies-hub-2',
     description: 'Zombies Hub 2.0',
     repoLink: 'https://github.com/PHTMGatt/Zombies-Hub-2.0',
     renderLink: 'https://zombies-hub-2-0.onrender.com/',
     screenshot: ZHub,
-    status: 'In Progress',
+    status: 'In Progress — next-generation Zombies companion app',
   },
   {
-    id: 'zombies-hub-1',
-    description: 'Zombies Hub 1.0',
-    repoLink: 'https://github.com/PHTMGatt/Zombies-Hub',
-    screenshot: ZHub,
-    status: 'Inactive — Replaced by Zombies Hub 2.0',
-    inactive: true,
+    id: 'war-oracle',
+    description: 'War Oracle — Clash of Clans War Bot',
+    repoLink: 'https://github.com/PHTMGatt/War-Oracle-Bot',
+    screenshot: githubImage('War-Oracle-Bot', 'WarOracle.png'),
+    status: 'Discord.js • Clash of Clans API • Automated war intelligence',
+  },
+  {
+    id: 'clash-commander',
+    description: 'Clash Commander — Discord Operations Bot',
+    repoLink: 'https://github.com/PHTMGatt/Clash-Commander-Bot',
+    screenshot: githubImage('Clash-Commander-Bot', 'src/assets/overcharge.png'),
+    status: 'Discord.js • Server operations • Safety tooling',
+  },
+  {
+    id: 'raspbi-pilot',
+    description: 'raspbi-pilot — Multi-Bot Runtime',
+    repoLink: 'https://github.com/PHTMGatt/raspbi-pilot',
+    screenshot: githubImage('raspbi-pilot', 'raspbi-pilot.png'),
+    status: 'Node.js • Multi-bot launcher • Render / Raspberry Pi',
+  },
+  {
+    id: 'captain-hook',
+    description: 'Captain Hook — GitHub → Discord WebHook Bot',
+    repoLink: 'https://github.com/PHTMGatt/Discord-WebHook-Bot',
+    renderLink: 'https://discord-webhook-bot-1f23.onrender.com/register',
+    screenshot: githubImage('Discord-WebHook-Bot', 'images/captain-hook-bot-banner.png'),
+    status: 'Webhooks • Discord • GitHub • GPT-assisted formatting',
+  },
+  {
+    id: 'todo-board',
+    description: 'Kanban Board — JWT Authentication',
+    repoLink: 'https://github.com/PHTMGatt/14-Todo-Board',
+    renderLink: 'https://one4-todo-board.onrender.com',
+    screenshot: githubImage('14-Todo-Board', 'client/src/assets/Screenshot%202025-03-31%20154359.png'),
+    status: 'React • Node.js • JWT • Full Stack',
+  },
+  {
+    id: 'social-network-api',
+    description: 'Social Network API',
+    repoLink: 'https://github.com/PHTMGatt/17-Social-Network-API',
+    screenshot: githubImage('17-Social-Network-API', 'Assets/18-nosql-homework-demo-01.gif'),
+    status: 'Node.js • Express • MongoDB • Mongoose',
+  },
+  {
+    id: 'tech-quiz-tests',
+    description: 'Tech Quiz Automated Test Suite',
+    repoLink: 'https://github.com/PHTMGatt/19-Testing-Tech-Quiz-Test-Suite',
+    screenshot: githubImage('19-Testing-Tech-Quiz-Test-Suite', 'Assets/19-testing-homework-demo.gif'),
+    status: 'Cypress • Component testing • End-to-end testing',
+  },
+  {
+    id: 'banking-system',
+    description: 'Python Banking System',
+    repoLink: 'https://github.com/PHTMGatt/22-Banking-System',
+    screenshot: githubImage('22-Banking-System', 'Assets/python-terminal-options.png'),
+    status: 'Python • OOP • Validation • Account operations',
   },
   {
     id: 'daily-bytes',
@@ -50,35 +100,12 @@ const projects = [
     renderLink: 'https://fairway-finder.onrender.com',
     screenshot: FairwayFinder,
   },
-
-  // Alphabetical
-  {
-    id: 'advanced-css',
-    description: 'Advanced CSS',
-    repoLink: 'https://github.com/PHTMGatt/02-Advanced-CSS',
-    renderLink: 'https://zero2-advanced-css.onrender.com',
-    screenshot: AdvancedCSSImg,
-  },
   {
     id: 'candidate-search',
     description: 'Candidate Search',
     repoLink: 'https://github.com/PHTMGatt/13-Candidate-Search',
     renderLink: 'https://one3-candidate-search-u82d.onrender.com',
     screenshot: CandiSearch,
-  },
-  {
-    id: 'de',
-    description: 'Der Eisendrache',
-    repoLink: 'https://github.com/PHTMGatt/Der-Eisendrache-Guide',
-    renderLink: 'https://der-eisendrache-guide.onrender.com',
-    screenshot: DE,
-  },
-  {
-    id: 'gk',
-    description: 'Gorod Krovi',
-    repoLink: 'https://github.com/PHTMGatt/Gorod-Krovi-Guide',
-    renderLink: 'https://gorod-krovi-guide.onrender.com',
-    screenshot: GK,
   },
   {
     id: 'mern-book-search',
@@ -88,8 +115,29 @@ const projects = [
     screenshot: MERNBook,
   },
   {
+    id: 'portfolio',
+    description: 'React Developer Portfolio',
+    repoLink: 'https://github.com/PHTMGatt/12-React-Portfolio',
+    screenshot: ReactFolio,
+    status: 'React • Responsive UI • Project showcase',
+  },
+  {
+    id: 'de',
+    description: 'Der Eisendrache Guide',
+    repoLink: 'https://github.com/PHTMGatt/Der-Eisendrache-Guide',
+    renderLink: 'https://der-eisendrache-guide.onrender.com',
+    screenshot: DE,
+  },
+  {
+    id: 'gk',
+    description: 'Gorod Krovi Guide',
+    repoLink: 'https://github.com/PHTMGatt/Gorod-Krovi-Guide',
+    renderLink: 'https://gorod-krovi-guide.onrender.com',
+    screenshot: GK,
+  },
+  {
     id: 'motd',
-    description: 'Mob of the Dead',
+    description: 'Mob of the Dead Guide',
     repoLink: 'https://github.com/PHTMGatt/MOTD-Guide',
     renderLink: 'https://motd-guide.onrender.com',
     screenshot: MOTD,
@@ -103,49 +151,48 @@ const projects = [
   },
   {
     id: 'rev',
-    description: 'Revelations',
+    description: 'Revelations Guide',
     repoLink: 'https://github.com/PHTMGatt/Revelations-Guide',
     renderLink: 'https://revelations-guide.onrender.com',
     screenshot: REV,
   },
   {
-    id: 'weather-app',
-    description: 'Weather App',
-    repoLink: 'https://github.com/PHTMGatt/12-Weather-API',
-    renderLink: 'https://zero9-servers-and-apis.onrender.com',
-    screenshot: WeatherApp,
-  },
-  {
     id: 'zns',
-    description: 'Zetsubou No Shima',
+    description: 'Zetsubou No Shima Guide',
     repoLink: 'https://github.com/PHTMGatt/Zetsubou-Guide',
     renderLink: 'https://zetsubou-guide.onrender.com',
     screenshot: ZNS,
   },
+  {
+    id: 'weather-app',
+    description: 'Weather App',
+    repoLink: 'https://github.com/PHTMGatt/09-Weather-App',
+    screenshot: WeatherApp,
+  },
+  {
+    id: 'zombies-hub-1',
+    description: 'Zombies Hub 1.0',
+    repoLink: 'https://github.com/PHTMGatt/Zombies-Hub',
+    screenshot: ZHub,
+    status: 'Inactive — Replaced by Zombies Hub 2.0',
+    inactive: true,
+  },
 ];
 
-const Portfolio = () => {
-  return (
-    <section className="portfolio-section fade-in">
-      <div className="portfolio-header">
-        <h1 className="portfolio-title">My Projects</h1>
-        <p className="portfolio-subtext">A collection of my work — clean, functional, and built with care.</p>
-      </div>
-      <div className="work-grid">
-        {projects.map((project) => (
-          <ProjectCard
-            key={project.id}
-            description={project.description}
-            repoLink={project.repoLink}
-            renderLink={project.renderLink}
-            screenshot={project.screenshot}
-            status={project.status}
-            inactive={project.inactive}
-          />
-        ))}
-      </div>
-    </section>
-  );
-};
+const Portfolio = () => (
+  <section className="portfolio-section fade-in">
+    <div className="portfolio-header">
+      <h1 className="portfolio-title">My Projects</h1>
+      <p className="portfolio-subtext">
+        Full-stack apps, APIs, automation, Discord bots, testing, and the Zombies projects that grew with me.
+      </p>
+    </div>
+    <div className="work-grid">
+      {projects.map((project) => (
+        <ProjectCard key={project.id} {...project} />
+      ))}
+    </div>
+  </section>
+);
 
 export default Portfolio;
