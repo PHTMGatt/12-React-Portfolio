@@ -3,18 +3,11 @@ import ProjectCard from '../../components/ProjectCard/ProjectCard';
 import './Portfolio.css';
 
 import ZHub from '../../assets/Pictures/ZHub.png';
-import DailyBytes from '../../assets/Pictures/DailyBytes.png';
-import FairwayFinder from '../../assets/Pictures/FairwayFinder.png';
-import CandiSearch from '../../assets/Pictures/CandiSearch.png';
-import DE from '../../assets/Pictures/DE.png';
 import GK from '../../assets/Pictures/GK.png';
 import MOTD from '../../assets/Pictures/MOTD.png';
 import Origins from '../../assets/Pictures/Origins.png';
 import REV from '../../assets/Pictures/REV.png';
-import WeatherApp from '../../assets/Pictures/Screenshot9New.png';
 import ZNS from '../../assets/Pictures/ZETZ.png';
-import MERNBook from '../../assets/Pictures/MERN_Book_Search.png';
-import ReactFolio from '../../assets/Pictures/ReactFolio.png';
 import ZHub2Pro from '../../assets/thumbnails/zombies-hub-2.png';
 import DailyBytesPro from '../../assets/thumbnails/daily-bytes.png';
 import FairwayFinderPro from '../../assets/thumbnails/fairway-finder.png';
@@ -31,9 +24,6 @@ import TestingPro from '../../assets/thumbnails/tech-quiz.png';
 import BankingPro from '../../assets/thumbnails/python-banking-system.png';
 import CandidatePro from '../../assets/thumbnails/candidate-search.png';
 import DerEisendrachePro from '../../assets/thumbnails/der-eisendrache-guide.png';
-
-const githubImage = (repo, path) =>
-  `https://raw.githubusercontent.com/PHTMGatt/${repo}/main/${path}`;
 
 const projects = [
   { id:'zombies-hub-2', description:'Zombies Hub 2.0', repoLink:'https://github.com/PHTMGatt/Zombies-Hub-2.0', renderLink:'https://zombies-hub-2-0.onrender.com/', screenshot:ZHub2Pro, status:'In Progress — unified Zombies experience in a single application' },
