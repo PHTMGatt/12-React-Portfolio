@@ -2,7 +2,7 @@ import { StrictMode, lazy } from 'react';
 import { createRoot } from 'react-dom/client';
 import './Global.css';
 import App from './App.jsx';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, createHashRouter, RouterProvider, Link } from 'react-router-dom';
 
 import About from './pages/About/About';
 const Resume = lazy(() => import('./pages/Resume/Resume'));
@@ -17,12 +17,13 @@ const notFound = (
       <p style={{ color: 'var(--accent-color)', fontWeight: 800, marginBottom: '.5rem' }}>404</p>
       <h1 style={{ margin: 0 }}>Page not found</h1>
       <p style={{ opacity: .72 }}>That route does not exist in this portfolio.</p>
-      <a href="/" style={{ fontWeight: 700 }}>Return home</a>
+      <Link to="/" style={{ fontWeight: 700 }}>Return home</Link>
     </div>
   </section>
 );
 
-const router = createBrowserRouter([
+const createRouter = import.meta.env.VITE_REVIEW_HASH_ROUTER === 'true' ? createHashRouter : createBrowserRouter;
+const router = createRouter([
   {
     path: '/',
     element: <App />,

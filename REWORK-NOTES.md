@@ -2,6 +2,8 @@
 
 This branch preserves the approved visual identity, themed contact interactions, project list and personal content. It is based on the repository's `sandbox` branch.
 
+For subfolder-hosted review previews only, build with `VITE_REVIEW_HASH_ROUTER=true npx vite build --base=./`. The normal build retains production history routing.
+
 ## Implemented
 - Route-level lazy loading; the PDF implementation is no longer in the homepage entry bundle.
 - WebP project images, with original files retained. Thumbnails shrink from 28,702,845 bytes to 1,280,248 bytes; additional project images shrink from 16,324,706 bytes to 811,564 bytes.
