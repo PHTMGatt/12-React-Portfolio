@@ -25,6 +25,8 @@ import BankingPro from '../../assets/thumbnails/python-banking-system.webp';
 import CandidatePro from '../../assets/thumbnails/candidate-search.webp';
 import DerEisendrachePro from '../../assets/thumbnails/der-eisendrache-guide.webp';
 
+// Enable only after both reference services and their actual URLs are verified.
+const legacyReferenceHostingReady = false;
 const projects = [
   { id:'zombies-hub-2', description:'Zombies Hub 2.0', repoLink:'https://github.com/PHTMGatt/Zombies-Hub-2.0', renderLink:'https://zombies-hub-2-0.onrender.com/', screenshot:ZHub2Pro, status:'In Progress — unified Zombies experience in a single application' },
   { id:'daily-bytes', description:'Daily Bytes', repoLink:'https://github.com/PHTMGatt/The-Daily-Bytes', renderLink:'https://the-daily-bytes-o4jo.onrender.com', screenshot:DailyBytesPro, status:'Full-stack news and content application' },
@@ -41,13 +43,13 @@ const projects = [
   { id:'tech-quiz-tests', description:'Tech Quiz Automated Test Suite', repoLink:'https://github.com/PHTMGatt/19-Testing-Tech-Quiz-Test-Suite', screenshot:TestingPro, status:'Cypress • Component testing • End-to-end testing' },
   { id:'banking-system', description:'Python Banking System', repoLink:'https://github.com/PHTMGatt/22-Banking-System', screenshot:BankingPro, status:'Python • OOP • Validation • Account operations' },
   { id:'candidate-search', description:'Candidate Search', repoLink:'https://github.com/PHTMGatt/13-Candidate-Search', renderLink:'https://one3-candidate-search-u82d.onrender.com', screenshot:CandidatePro, status:'React • TypeScript • GitHub API' },
-  { id:'de', description:'Der Eisendrache Guide', repoLink:'https://github.com/PHTMGatt/Der-Eisendrache-Guide', renderLink:'https://der-eisendrache-guide.onrender.com', screenshot:DerEisendrachePro },
-  { id:'gk', description:'Gorod Krovi Guide', repoLink:'https://github.com/PHTMGatt/Gorod-Krovi-Guide', renderLink:'https://gorod-krovi-guide.onrender.com', screenshot:GK },
-  { id:'motd', description:'Mob of the Dead Guide', repoLink:'https://github.com/PHTMGatt/MOTD-Guide', renderLink:'https://motd-guide.onrender.com', screenshot:MOTD },
-  { id:'origins', description:'Origins Guide', repoLink:'https://github.com/PHTMGatt/Origins-Guide', renderLink:'https://origins-wtyd.onrender.com', screenshot:Origins },
-  { id:'rev', description:'Revelations Guide', repoLink:'https://github.com/PHTMGatt/Revelations-Guide', renderLink:'https://revelations-guide.onrender.com', screenshot:REV },
-  { id:'zns', description:'Zetsubou No Shima Guide', repoLink:'https://github.com/PHTMGatt/Zetsubou-Guide', renderLink:'https://zetsubou-guide.onrender.com', screenshot:ZNS },
-  { id:'zombies-hub-1', description:'Zombies Hub 1.0', repoLink:'https://github.com/PHTMGatt/Zombies-Hub', screenshot:ZHub, status:'Inactive — Replaced by Zombies Hub 2.0', inactive:true },
+  { id:'de', description:'Der Eisendrache Guide', repoLink:'https://github.com/PHTMGatt/Der-Eisendrache-Guide', renderLink:'https://zombies-hub-2-0.onrender.com/maps/der-eisendrache', liveLabel:'Guide in 2.0', screenshot:DerEisendrachePro, status:'Original source preserved; current guide is integrated in 2.0.' },
+  { id:'gk', description:'Gorod Krovi Guide', repoLink:'https://github.com/PHTMGatt/Gorod-Krovi-Guide', renderLink:'https://zombies-hub-2-0.onrender.com/maps/gorod-krovi', liveLabel:'Guide in 2.0', screenshot:GK, status:'Original source preserved; current guide is integrated in 2.0.' },
+  { id:'motd', description:'Mob of the Dead Guide', repoLink:'https://github.com/PHTMGatt/MOTD-Guide', renderLink:'https://zombies-hub-2-0.onrender.com/maps/mob-of-the-dead', liveLabel:'Guide in 2.0', screenshot:MOTD, status:'Original source preserved; current guide is integrated in 2.0.' },
+  { id:'origins', description:'Origins Guide', repoLink:'https://github.com/PHTMGatt/Origins-Guide', renderLink:'https://zombies-hub.onrender.com/maps/origins', liveLabel:'Try Origins in 1.0', screenshot:Origins, status:'Selected as the only standalone map reference. Legacy hosting restoration is pending.', inactive:!legacyReferenceHostingReady, inactiveLabel:'Hosting pending' },
+  { id:'rev', description:'Revelations Guide', repoLink:'https://github.com/PHTMGatt/Revelations-Guide', renderLink:'https://zombies-hub-2-0.onrender.com/maps/revelations', liveLabel:'Guide in 2.0', screenshot:REV, status:'Original source preserved; current guide is integrated in 2.0.' },
+  { id:'zns', description:'Zetsubou No Shima Guide', repoLink:'https://github.com/PHTMGatt/Zetsubou-Guide', renderLink:'https://zombies-hub-2-0.onrender.com/maps/zetsubou-no-shima', liveLabel:'Guide in 2.0', screenshot:ZNS, status:'Original source preserved; current guide is integrated in 2.0.' },
+  { id:'zombies-hub-1', description:'Zombies Hub 1.0', repoLink:'https://github.com/PHTMGatt/Zombies-Hub', renderLink:'https://zombies-hub.onrender.com', liveLabel:'Legacy reference', screenshot:ZHub, status:'Historical hub selected for the Origins-only comparison. Legacy hosting restoration is pending.', inactive:!legacyReferenceHostingReady, inactiveLabel:'Hosting pending' },
 ];
 
 const Portfolio = () => {
@@ -87,7 +89,7 @@ const Portfolio = () => {
               </div>
               <div>
                 <h3>Legacy Zombies Guides</h3>
-                <p>The original map guides used separate Render deployments. Some may no longer be available because of current hosting limits.</p>
+                <p>Hub 1.0 and its standalone Origins guide are selected for a historical comparison, with hosting restoration pending. The other guide buttons open the integrated routes in 2.0, while their original repositories remain available.</p>
               </div>
               <div>
                 <h3>Zombies Hub 2.0</h3>
@@ -98,6 +100,29 @@ const Portfolio = () => {
           </div>
         )}
       </div>
+
+      <section className="zombies-comparison" aria-labelledby="zombies-evolution-title">
+        <div className="zombies-comparison__heading">
+          <span className="zombies-comparison__eyebrow">Project evolution</span>
+          <h2 id="zombies-evolution-title">Same map. A better-integrated app.</h2>
+          <p>Origins is the reference map for comparing the original separate-app approach with the integrated experience in 2.0.</p>
+        </div>
+        <div className="zombies-comparison__grid">
+          <article>
+            <h3>1.0: the retained reference</h3>
+            <p>The original hub loaded map guides from separate hosted apps. Origins is the one standalone example retained for this comparison.</p>
+            {legacyReferenceHostingReady
+              ? <a href="https://zombies-hub.onrender.com/maps/origins" target="_blank" rel="noopener noreferrer">Test Origins through Hub 1.0</a>
+              : <p className="zombies-comparison__pending">Legacy demo hosting is pending restoration. <a href="https://github.com/PHTMGatt/Zombies-Hub" target="_blank" rel="noopener noreferrer">View the original source</a></p>}
+          </article>
+          <article>
+            <h3>2.0: the current experience</h3>
+            <p>The guides share one application and deployment. Opening Origins stays within the hub rather than loading another Render project.</p>
+            <a href="https://zombies-hub-2-0.onrender.com/maps/origins" target="_blank" rel="noopener noreferrer">Try integrated Origins in 2.0</a>
+          </article>
+        </div>
+        <p className="zombies-comparison__note">Legacy demos are historical references, not the maintained product. Original source remains on GitHub without requiring every old guide to stay separately hosted.</p>
+      </section>
 
       <div className="work-grid">
         {projects.map((project) => <ProjectCard key={project.id} {...project} />)}

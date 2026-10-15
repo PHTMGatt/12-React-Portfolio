@@ -5,6 +5,7 @@ This branch preserves the approved visual identity, themed contact interactions,
 For subfolder-hosted review previews only, build with `VITE_REVIEW_HASH_ROUTER=true npx vite build --base=./`. The normal build retains production history routing.
 
 ## Implemented
+- Added a 1.0 versus 2.0 Origins comparison and routed five legacy guide buttons into 2.0. Hub 1.0 and standalone Origins are marked hosting-pending until both reference endpoints are restored and verified.
 - Route-level lazy loading; the PDF implementation is no longer in the homepage entry bundle.
 - WebP project images, with original files retained. Thumbnails shrink from 28,702,845 bytes to 1,280,248 bytes; additional project images shrink from 16,324,706 bytes to 811,564 bytes.
 - Browser-side quote API token removed; offline quote rotation replaces the third-party call.

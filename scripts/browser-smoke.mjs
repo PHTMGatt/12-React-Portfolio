@@ -19,6 +19,16 @@ try {
       assert.equal(await page.locator('main').count(), 1);
       assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), `overflow ${route}`);
       if (route === '/does-not-exist') assert.match(await page.title(), /Page not found/);
+      if (route === '/work') {
+        await page.getByRole('heading', { name: 'Same map. A better-integrated app.' }).waitFor();
+        assert.equal(await page.getByRole('link', { name: 'Guide in 2.0', exact: true }).count(), 5);
+        assert.equal(await page.getByRole('link', { name: 'Try Origins in 1.0', exact: true }).count(), 0, 'do not advertise an unverified legacy endpoint as live');
+        assert.equal(await page.getByRole('link', { name: 'Legacy reference', exact: true }).count(), 0);
+        assert.equal(await page.locator('.project-card__inactive').filter({ hasText: 'Hosting pending' }).count(), 2);
+        for (const host of ['der-eisendrache-guide', 'gorod-krovi-guide', 'motd-guide', 'revelations-guide', 'zetsubou-guide']) {
+          assert.equal(await page.locator(`a[href*="${host}.onrender.com"]`).count(), 0);
+        }
+      }
       await page.screenshot({ path: `artifacts/screenshots/${width}-${route.replace(/\W/g, '-') || 'home'}.png` });
       results.push({ width, route, passed: true });
     }
