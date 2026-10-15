@@ -36,7 +36,7 @@ const About = () => {
         <div className="home-copy">
           <div className="home-eyebrow">
             <span className="status-dot" aria-hidden="true" />
-            Full-stack developer • Michigan
+            Full-stack developer • Web • Automation
           </div>
 
           <h1 className="home-title">
