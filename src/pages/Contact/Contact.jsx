@@ -1,9 +1,8 @@
-// Contact.jsx
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Contact.css';
 import sendEmail from '../../utils/Email';
 import contactThemes from './elvenScriptures';
-import { IoHome } from 'react-icons/io5';
+import { IoHome, IoLogoGithub, IoMailOutline, IoSparklesOutline } from 'react-icons/io5';
 import {
   GiHobbitDoor,
   GiBattleAxe,
@@ -26,42 +25,42 @@ const scrollCategories = [
 ];
 
 const iconMap = {
-  Default: <IoHome size={24} />,
-  Hobbit: <GiHobbitDoor size={24} />,
-  Dwarf: <GiBattleAxe size={24} />,
-  Man: <GiSwordsEmblem size={24} />,
-  Elf: <GiElfHelmet size={24} />,
-  Wizard: <GiWizardStaff size={24} />,
-  Villain: <GiDevilMask size={24} />,
-  Random: <GiPerspectiveDiceSixFacesRandom size={24} />,
+  Default: <IoHome size={22} />,
+  Hobbit: <GiHobbitDoor size={22} />,
+  Dwarf: <GiBattleAxe size={22} />,
+  Man: <GiSwordsEmblem size={22} />,
+  Elf: <GiElfHelmet size={22} />,
+  Wizard: <GiWizardStaff size={22} />,
+  Villain: <GiDevilMask size={22} />,
+  Random: <GiPerspectiveDiceSixFacesRandom size={22} />,
 };
 
+const emptyForm = { name: '', email: '', subject: '', message: '' };
+
 const Contact = () => {
-  const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
+  const [form, setForm] = useState(emptyForm);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [easterEggActive, setEasterEggActive] = useState(false);
-
-  // Active category index from localStorage or default.
   const [activeCategoryIndex, setActiveCategoryIndex] = useState(() => {
     const stored = localStorage.getItem('activeCategoryIndex');
-    return stored ? Number(stored) : 0;
+    const parsed = stored ? Number(stored) : 0;
+    return Number.isInteger(parsed) && parsed >= 0 && parsed < scrollCategories.length ? parsed : 0;
   });
-  // Which item within that category
   const [activeThemeIndex, setActiveThemeIndex] = useState(0);
 
   const category = scrollCategories[activeCategoryIndex];
   const itemsForDisplay =
     category === 'Random'
-      ? contactThemes.filter((t) => t.category !== 'Default')
-      : contactThemes.filter((t) => t.category === category);
+      ? contactThemes.filter(theme => theme.category !== 'Default')
+      : contactThemes.filter(theme => theme.category === category);
 
   const activeTheme =
     itemsForDisplay.length > 0
       ? itemsForDisplay[activeThemeIndex % itemsForDisplay.length]
       : contactThemes[0];
 
-  // On category change
   useEffect(() => {
     localStorage.setItem('activeCategoryIndex', activeCategoryIndex);
 
@@ -70,72 +69,74 @@ const Contact = () => {
     } else {
       setActiveThemeIndex(0);
     }
-    setForm({ name: '', email: '', subject: '', message: '' });
+
+    setForm(emptyForm);
+    setError('');
+    setSuccess('');
   }, [activeCategoryIndex]);
 
   useEffect(() => {
-    // Only activate Easter Egg when the active theme is exactly 'Galadriel’s' scroll.
-    if (
-      activeTheme?.category === 'Elf' && 
+    setEasterEggActive(
+      activeTheme?.category === 'Elf' &&
       activeTheme?.title?.toLowerCase() === 'glimmer of galadriel'
-    ) {
-      setEasterEggActive(true);
-    } else {
-      setEasterEggActive(false);
-    }
+    );
   }, [activeTheme]);
-  
 
   const cycleTheme = () => {
-    if (category === 'Random' && itemsForDisplay.length) {
+    if (!itemsForDisplay.length) return;
+
+    if (category === 'Random') {
       setActiveThemeIndex(Math.floor(Math.random() * itemsForDisplay.length));
     } else {
-      setActiveThemeIndex((prev) => (prev + 1) % itemsForDisplay.length);
+      setActiveThemeIndex(prev => (prev + 1) % itemsForDisplay.length);
     }
-    setForm({ name: '', email: '', subject: '', message: '' });
+
+    setForm(emptyForm);
+    setError('');
+    setSuccess('');
   };
 
   const handleScrollClick = () => {
-    const nextIndex = (activeCategoryIndex + 1) % scrollCategories.length;
-    setActiveCategoryIndex(nextIndex);
+    setActiveCategoryIndex(prev => (prev + 1) % scrollCategories.length);
   };
 
-  // Manual Easter Egg toggle
-  const toggleEasterEgg = () => {
-    setEasterEggActive((prev) => !prev);
+  const handleChange = event => {
+    const { id, value } = event.target;
+    setForm(prev => ({ ...prev, [id]: value }));
   };
 
-  const handleChange = (e) => {
-    const { id, value } = e.target;
-    setForm((prev) => ({ ...prev, [id]: value }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async event => {
+    event.preventDefault();
     setError('');
     setSuccess('');
-    const { name, email, subject, message } = form;
 
-    if (!name || !email || !subject || !message) {
-      return setError('Don’t leave me in the dark, all fields must be filled!');
+    const { name, email, subject, message } = form;
+    if (!name.trim() || !email.trim() || !subject.trim() || !message.trim()) {
+      setError('Please complete every field before sending your message.');
+      return;
     }
 
     const strongEmailRegex =
       /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$/;
     if (!strongEmailRegex.test(email)) {
-      return setError('A wizard’s magic is strong, but your email isn’t valid. Try again!');
+      setError('Please enter a valid email address.');
+      return;
     }
+
+    setIsSubmitting(true);
 
     try {
       const result = await sendEmail({ name, email, subject, message });
       if (result.success) {
-        setSuccess("Message sent successfully! I’ll be in touch soon.");
-        setForm({ name: '', email: '', subject: '', message: '' });
+        setSuccess('Message sent successfully. I’ll be in touch soon.');
+        setForm(emptyForm);
       } else {
-        setError('Something went wrong. The road isn’t always clear, try once more!');
+        setError('The message could not be sent. Please try again in a moment.');
       }
     } catch {
-      setError('Something went wrong with the email service. Try again, brave soul.');
+      setError('The email service is temporarily unavailable. Please try again or email me directly.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -147,73 +148,109 @@ const Contact = () => {
         </div>
       )}
 
-      <h1
-        className="contact-title"
-        data-tooltip={activeTheme?.hover || 'Scroll'}
-        onClick={cycleTheme}
-      >
-        {activeTheme?.icon} {activeTheme?.title || 'No title'}
-      </h1>
+      <div className="contact-layout">
+        <div className="contact-intro">
+          <span className="contact-kicker">Contact</span>
+          <h1>Let’s build something useful.</h1>
+          <p>
+            Have a project, role, collaboration, or technical problem worth solving?
+            Send me a message and I’ll get back to you as soon as I can.
+          </p>
 
-      <form className="contact-form" onSubmit={handleSubmit}>
-        <label htmlFor="name">{activeTheme?.name || 'Your name'}</label>
-        <input
-          id="name"
-          type="text"
-          placeholder={activeTheme?.namePlaceholder || 'Enter your name'}
-          value={form.name}
-          onChange={handleChange}
-        />
+          <div className="contact-direct-links">
+            <a href="mailto:PHTMGatt@gmail.com">
+              <IoMailOutline aria-hidden="true" />
+              PHTMGatt@gmail.com
+            </a>
+            <a href="https://github.com/PHTMGatt" target="_blank" rel="noreferrer">
+              <IoLogoGithub aria-hidden="true" />
+              GitHub
+            </a>
+          </div>
 
-        <label htmlFor="email">{activeTheme?.email || 'Your email'}</label>
-        <input
-          id="email"
-          type="email"
-          placeholder={activeTheme?.emailPlaceholder || 'Enter your email'}
-          value={form.email}
-          onChange={handleChange}
-        />
-
-        <label htmlFor="subject">{activeTheme?.subject || 'Your subject'}</label>
-        <input
-          id="subject"
-          type="text"
-          placeholder={activeTheme?.subjectPlaceholder || 'Enter your subject'}
-          value={form.subject}
-          onChange={handleChange}
-        />
-
-        <label htmlFor="message">{activeTheme?.message || 'Your message'}</label>
-        <textarea
-          id="message"
-          placeholder={activeTheme?.messagePlaceholder || 'Enter your message'}
-          value={form.message}
-          onChange={handleChange}
-        />
-
-        <div className="button-row">
-          <button
-            type="submit"
-            className="magic-btn"
-            data-tooltip="Send your message into the ether..."
-          >
-            {activeTheme?.button || 'Send Message'}
-          </button>
-
-          <button
-            type="button"
-            onClick={handleScrollClick}
-            className="magic-btn"
-            data-tooltip="Toggle Scroll Themes"
-          >
-            {iconMap[category]}
-            <span className="scroll-text">Scrolls</span>
-          </button>
+          <div className="contact-easter-note">
+            <IoSparklesOutline aria-hidden="true" />
+            <span>The form still has some personality. Cycle the scroll themes if you want to find the hidden extras.</span>
+          </div>
         </div>
 
-        {error && <p className="form-error">{error}</p>}
-        {success && <p className="form-success">{success}</p>}
-      </form>
+        <div className="contact-form-shell">
+          <button
+            type="button"
+            className="contact-title"
+            data-tooltip={activeTheme?.hover || 'Scroll'}
+            onClick={cycleTheme}
+            aria-label="Cycle the current contact form scroll theme"
+          >
+            {activeTheme?.icon} {activeTheme?.title || 'Contact Me'}
+          </button>
+
+          <form className="contact-form" onSubmit={handleSubmit}>
+            <label htmlFor="name">{activeTheme?.name || 'Your name'}</label>
+            <input
+              id="name"
+              type="text"
+              autoComplete="name"
+              placeholder={activeTheme?.namePlaceholder || 'Enter your name'}
+              value={form.name}
+              onChange={handleChange}
+            />
+
+            <label htmlFor="email">{activeTheme?.email || 'Your email'}</label>
+            <input
+              id="email"
+              type="email"
+              autoComplete="email"
+              placeholder={activeTheme?.emailPlaceholder || 'Enter your email'}
+              value={form.email}
+              onChange={handleChange}
+            />
+
+            <label htmlFor="subject">{activeTheme?.subject || 'Subject'}</label>
+            <input
+              id="subject"
+              type="text"
+              placeholder={activeTheme?.subjectPlaceholder || 'What would you like to discuss?'}
+              value={form.subject}
+              onChange={handleChange}
+            />
+
+            <label htmlFor="message">{activeTheme?.message || 'Message'}</label>
+            <textarea
+              id="message"
+              rows="6"
+              placeholder={activeTheme?.messagePlaceholder || 'Enter your message'}
+              value={form.message}
+              onChange={handleChange}
+            />
+
+            <div className="button-row">
+              <button
+                type="submit"
+                className="magic-btn magic-btn-primary"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? 'Sending…' : activeTheme?.button || 'Send Message'}
+              </button>
+
+              <button
+                type="button"
+                onClick={handleScrollClick}
+                className="magic-btn"
+                data-tooltip="Cycle scroll theme categories"
+              >
+                {iconMap[category]}
+                <span className="scroll-text">{category === 'Default' ? 'Scrolls' : category}</span>
+              </button>
+            </div>
+
+            <div className="form-status" aria-live="polite">
+              {error && <p className="form-error">{error}</p>}
+              {success && <p className="form-success">{success}</p>}
+            </div>
+          </form>
+        </div>
+      </div>
     </section>
   );
 };
