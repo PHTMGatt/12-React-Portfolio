@@ -5,7 +5,7 @@ const ProjectCard = ({ description, repoLink, renderLink, screenshot, status, in
   return (
     <div className={`project-card${inactive ? ' project-card--inactive' : ''}`}>
       <div className="project-image-wrap">
-        <img src={screenshot} alt={description} />
+        <img src={screenshot} alt={description} loading="lazy" decoding="async" />
         {inactive && <span className="project-inactive-overlay">INACTIVE</span>}
       </div>
       <div className={`project-description${inactive ? ' project-description--inactive' : ''}`}>

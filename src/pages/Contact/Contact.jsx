@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './Contact.css';
 import sendEmail from '../../utils/Email';
+import { readPreference, writePreference } from '../../utils/storage';
+import { validateEmail } from '../../utils/validation';
 import contactThemes from './elvenScriptures';
 import { IoHome, IoLogoGithub, IoMailOutline, IoSparklesOutline } from 'react-icons/io5';
 import {
@@ -44,7 +46,7 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [easterEggActive, setEasterEggActive] = useState(false);
   const [activeCategoryIndex, setActiveCategoryIndex] = useState(() => {
-    const stored = localStorage.getItem('activeCategoryIndex');
+    const stored = readPreference('activeCategoryIndex');
     const parsed = stored ? Number(stored) : 0;
     return Number.isInteger(parsed) && parsed >= 0 && parsed < scrollCategories.length ? parsed : 0;
   });
@@ -62,7 +64,7 @@ const Contact = () => {
       : contactThemes[0];
 
   useEffect(() => {
-    localStorage.setItem('activeCategoryIndex', activeCategoryIndex);
+    writePreference('activeCategoryIndex', activeCategoryIndex);
 
     if (category === 'Random' && itemsForDisplay.length) {
       setActiveThemeIndex(Math.floor(Math.random() * itemsForDisplay.length));
@@ -70,10 +72,9 @@ const Contact = () => {
       setActiveThemeIndex(0);
     }
 
-    setForm(emptyForm);
     setError('');
     setSuccess('');
-  }, [activeCategoryIndex]);
+  }, [activeCategoryIndex, category, itemsForDisplay.length]);
 
   useEffect(() => {
     setEasterEggActive(
@@ -91,7 +92,6 @@ const Contact = () => {
       setActiveThemeIndex(prev => (prev + 1) % itemsForDisplay.length);
     }
 
-    setForm(emptyForm);
     setError('');
     setSuccess('');
   };
@@ -116,9 +116,7 @@ const Contact = () => {
       return;
     }
 
-    const strongEmailRegex =
-      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$/;
-    if (!strongEmailRegex.test(email)) {
+    if (!validateEmail(email)) {
       setError('Please enter a valid email address.');
       return;
     }
@@ -126,7 +124,7 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      const result = await sendEmail({ name, email, subject, message });
+      const result = await sendEmail({ name: name.trim(), email: email.trim(), subject: subject.trim(), message: message.trim() });
       if (result.success) {
         setSuccess('Message sent successfully. I’ll be in touch soon.');
         setForm(emptyForm);

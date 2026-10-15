@@ -166,7 +166,7 @@
 
 .portrait-glow {
   position: absolute;
-  inset: 8% -7% 12% 13%;
+  inset: 8% 0 12% 13%;
   border-radius: 36%;
   background: radial-gradient(circle, rgba(56, 189, 248, 0.27), rgba(56, 189, 248, 0.03) 62%, transparent 75%);
   filter: blur(25px);

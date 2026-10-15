@@ -1,4 +1,3 @@
-import React from 'react';
 import jsPDF from 'jspdf';
 import { Download, ExternalLink, Github, Mail } from 'lucide-react';
 import './Resume.css';

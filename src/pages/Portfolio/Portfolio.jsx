@@ -1,29 +1,29 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import ProjectCard from '../../components/ProjectCard/ProjectCard';
 import './Portfolio.css';
 
-import ZHub from '../../assets/Pictures/ZHub.png';
-import GK from '../../assets/Pictures/GK.png';
-import MOTD from '../../assets/Pictures/MOTD.png';
-import Origins from '../../assets/Pictures/Origins.png';
-import REV from '../../assets/Pictures/REV.png';
-import ZNS from '../../assets/Pictures/ZETZ.png';
-import ZHub2Pro from '../../assets/thumbnails/zombies-hub-2.png';
-import DailyBytesPro from '../../assets/thumbnails/daily-bytes.png';
-import FairwayFinderPro from '../../assets/thumbnails/fairway-finder.png';
-import WeatherPro from '../../assets/thumbnails/weather-app.png';
-import BookPro from '../../assets/thumbnails/mern-book-search.png';
-import KanbanPro from '../../assets/thumbnails/kanban-board.png';
-import PortfolioPro from '../../assets/thumbnails/react-portfolio.png';
-import WarOraclePro from '../../assets/thumbnails/war-oracle.png';
-import ClashCommanderPro from '../../assets/thumbnails/clash-commander.png';
-import RaspbiPilotPro from '../../assets/thumbnails/raspbi-pilot.png';
-import CaptainHookPro from '../../assets/thumbnails/captain-hook.png';
-import SocialPro from '../../assets/thumbnails/social-network-api.png';
-import TestingPro from '../../assets/thumbnails/tech-quiz.png';
-import BankingPro from '../../assets/thumbnails/python-banking-system.png';
-import CandidatePro from '../../assets/thumbnails/candidate-search.png';
-import DerEisendrachePro from '../../assets/thumbnails/der-eisendrache-guide.png';
+import ZHub from '../../assets/Pictures/ZHub.webp';
+import GK from '../../assets/Pictures/GK.webp';
+import MOTD from '../../assets/Pictures/MOTD.webp';
+import Origins from '../../assets/Pictures/Origins.webp';
+import REV from '../../assets/Pictures/REV.webp';
+import ZNS from '../../assets/Pictures/ZETZ.webp';
+import ZHub2Pro from '../../assets/thumbnails/zombies-hub-2.webp';
+import DailyBytesPro from '../../assets/thumbnails/daily-bytes.webp';
+import FairwayFinderPro from '../../assets/thumbnails/fairway-finder.webp';
+import WeatherPro from '../../assets/thumbnails/weather-app.webp';
+import BookPro from '../../assets/thumbnails/mern-book-search.webp';
+import KanbanPro from '../../assets/thumbnails/kanban-board.webp';
+import PortfolioPro from '../../assets/thumbnails/react-portfolio.webp';
+import WarOraclePro from '../../assets/thumbnails/war-oracle.webp';
+import ClashCommanderPro from '../../assets/thumbnails/clash-commander.webp';
+import RaspbiPilotPro from '../../assets/thumbnails/raspbi-pilot.webp';
+import CaptainHookPro from '../../assets/thumbnails/captain-hook.webp';
+import SocialPro from '../../assets/thumbnails/social-network-api.webp';
+import TestingPro from '../../assets/thumbnails/tech-quiz.webp';
+import BankingPro from '../../assets/thumbnails/python-banking-system.webp';
+import CandidatePro from '../../assets/thumbnails/candidate-search.webp';
+import DerEisendrachePro from '../../assets/thumbnails/der-eisendrache-guide.webp';
 
 const projects = [
   { id:'zombies-hub-2', description:'Zombies Hub 2.0', repoLink:'https://github.com/PHTMGatt/Zombies-Hub-2.0', renderLink:'https://zombies-hub-2-0.onrender.com/', screenshot:ZHub2Pro, status:'In Progress — unified Zombies experience in a single application' },
@@ -94,7 +94,7 @@ const Portfolio = () => {
                 <p>The new version replaces the separate-map deployment model by incorporating the maps into one unified application for a more seamless experience.</p>
               </div>
             </div>
-            <p className="portfolio-info-footer">Source code and project history remain available through each project's GitHub repository.</p>
+            <p className="portfolio-info-footer">Source code and project history remain available through each project’s GitHub repository.</p>
           </div>
         )}
       </div>
