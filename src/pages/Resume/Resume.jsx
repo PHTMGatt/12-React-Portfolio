@@ -1,282 +1,241 @@
 import React from 'react';
 import jsPDF from 'jspdf';
+import { Download, ExternalLink, Github, Mail } from 'lucide-react';
 import './Resume.css';
+
+const skillGroups = [
+  ['Languages', 'JavaScript (ES6+), TypeScript, Python, SQL, HTML5, CSS3'],
+  ['Frontend', 'React, responsive UI/UX, component architecture, accessibility'],
+  ['Backend', 'Node.js, Express.js, REST APIs, authentication'],
+  ['Data', 'MongoDB / Atlas, PostgreSQL'],
+  ['Tooling', 'Git, GitHub, GitHub Actions, ESLint, Vite, Render'],
+  ['Additional', 'Discord.js, API integrations, automation, rapid prototyping'],
+];
+
+const selectedProjects = [
+  {
+    name: 'Zombies Hub 2.0',
+    href: 'https://zombies-hub-2-0.onrender.com',
+    description: 'Unified React companion app combining Zombies map guides, Easter eggs, side quests, and legacy guide content in one routed experience.',
+  },
+  {
+    name: 'War Oracle',
+    href: 'https://github.com/PHTMGatt/War-Oracle-Bot',
+    description: 'Discord.js automation project using Clash of Clans data to surface practical war intelligence and clan operations tooling.',
+  },
+  {
+    name: 'raspbi-pilot',
+    href: 'https://github.com/PHTMGatt/raspbi-pilot',
+    description: 'Multi-bot Node.js runtime designed to coordinate and launch automation services across hosted and Raspberry Pi environments.',
+  },
+];
 
 const Resume = () => {
   const handleDownloadPDF = () => {
     const doc = new jsPDF({ unit: 'pt', format: 'letter' });
-
     const marginX = 48;
-    let y = 56;
-    const lh = 18; // line height
+    let y = 54;
+    const lineHeight = 17;
 
-    const addHeader = (text) => {
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(22);
-      doc.text(text, marginX, y);
-      y += 10;
-      doc.setLineWidth(0.8);
-      doc.line(marginX, y, 612 - marginX, y);
-      y += 18;
-    };
-
-    const addSubheader = (text) => {
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(13);
-      doc.text(text, marginX, y);
-      y += lh;
-    };
-
-    const addParagraph = (text, size = 11) => {
-      doc.setFont('helvetica', 'normal');
-      doc.setFontSize(size);
-      const wrapped = doc.splitTextToSize(text, 612 - marginX * 2);
-      wrapped.forEach((line) => {
-        doc.text(line, marginX, y);
-        y += lh;
-      });
-    };
-
-    const addBullet = (text) => {
-      const wrapped = doc.splitTextToSize(text, 612 - marginX * 2 - 16);
-      // bullet dot
-      doc.circle(marginX + 3, y - 4, 1.5, 'F');
-      wrapped.forEach((line) => {
-        doc.text(line, marginX + 12, y);
-        y += lh;
-      });
-    };
-
-    // HEADER
-    addHeader('Bryen Gatt');
-    doc.setFontSize(11);
-    doc.setFont('helvetica', 'normal');
-    doc.text(
-      'Email: PHTMGatt@gmail.com   ·   Discord: LordxIlluminati   ·   GitHub: github.com/PHTMGatt',
-      marginX,
-      y
-    );
-
-    y += lh + 6;
-
-    // OBJECTIVE
-    addSubheader('Objective');
-    addParagraph(
-      'Full-stack developer focused on building clean, fast, and user-focused web applications with React, Node, and modern JavaScript tools. Experienced with REST APIs, databases, and CI/CD pipelines. Comfortable taking clear goals, working independently, and shipping reliable features quickly to help teams deliver impactful products.'
-    );
-
-    // SKILLS
-    addSubheader('Technical Skills');
-    addParagraph('Languages: JavaScript (ES6+), TypeScript, Python, SQL, HTML5/CSS3');
-    addParagraph('Frontend: React (hooks, state management), Responsive UI/UX');
-    addParagraph('Backend: Node.js, Express.js, REST APIs');
-    addParagraph('Databases: MongoDB/Atlas, PostgreSQL');
-    addParagraph('DevOps & Tools: Git/GitHub, CI/CD (GitHub Actions), ESLint, Render');
-    addParagraph('Game & Design Tools: Unity (basics), Unreal Engine (basics), Blender');
-    addParagraph(
-      'Strengths: Rapid prototyping, clean & maintainable code, self-motivated and detail-oriented, clear communicator, 10+ years leadership experience in fast-paced environments'
-    );
-
-    // PROJECTS
-    addSubheader('Projects (select)');
-    addBullet(
-      'Zombies Hub — Multi-map Easter egg guide with mobile-first React UI and clean routing. https://zombies-hub.onrender.com'
-    );
-    addBullet(
-      'Fairway Finder — Golf shot tracking platform with database-driven stats and insights. https://fairway-finder.onrender.com'
-    );
-    addBullet(
-      'Daily Bytes — Dynamic news feed app with React and REST API integration. https://the-daily-bytes-o4jo.onrender.com'
-    );
-
-    // EDUCATION
-    addSubheader('Education');
-    doc.setFont('helvetica', 'bold');
-    doc.text('Michigan State University', marginX, y);
-    y += lh;
-    doc.setFont('helvetica', 'normal');
-    doc.text('Full Stack Web Development Certificate · 2025', marginX, y);
-    y += lh;
-
-    doc.setTextColor(0, 0, 255);
-    doc.textWithLink(
-      'View verified credential',
-      marginX,
-      y,
-      {
-        url: 'https://msu.credential.getsmarter.com/c01af6df-f030-4aa7-9cf0-de7bc925b148#acc.iYILFzgO',
+    const ensureSpace = (needed = 72) => {
+      if (y + needed > 744) {
+        doc.addPage();
+        y = 52;
       }
-    );
-    doc.setTextColor(0, 0, 0);
-    y += lh;
+    };
 
-    // EXPERIENCE
-    addSubheader('Professional Experience');
+    const addSection = text => {
+      ensureSpace(56);
+      y += 8;
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(12);
+      doc.setTextColor(22, 107, 151);
+      doc.text(text.toUpperCase(), marginX, y);
+      y += 9;
+      doc.setDrawColor(205, 218, 228);
+      doc.setLineWidth(0.6);
+      doc.line(marginX, y, 612 - marginX, y);
+      doc.setTextColor(28, 35, 43);
+      y += 17;
+    };
+
+    const addParagraph = (text, options = {}) => {
+      const { bold = false, size = 10.5, indent = 0 } = options;
+      doc.setFont('helvetica', bold ? 'bold' : 'normal');
+      doc.setFontSize(size);
+      const width = 612 - marginX * 2 - indent;
+      const lines = doc.splitTextToSize(text, width);
+      ensureSpace(lines.length * lineHeight + 12);
+      lines.forEach(line => {
+        doc.text(line, marginX + indent, y);
+        y += lineHeight;
+      });
+    };
+
+    const addBullet = text => {
+      const lines = doc.splitTextToSize(text, 612 - marginX * 2 - 18);
+      ensureSpace(lines.length * lineHeight + 8);
+      doc.circle(marginX + 3, y - 3, 1.4, 'F');
+      lines.forEach(line => {
+        doc.text(line, marginX + 13, y);
+        y += lineHeight;
+      });
+    };
+
+    doc.setTextColor(20, 28, 36);
     doc.setFont('helvetica', 'bold');
-    doc.text('Kitchen Lead / Team Supervisor — 2013–2025', marginX, y);
-    y += lh;
+    doc.setFontSize(23);
+    doc.text('Bryen Gatt', marginX, y);
+    y += 20;
+    doc.setFontSize(11);
+    doc.setTextColor(22, 107, 151);
+    doc.text('Full-Stack Developer', marginX, y);
+    y += 18;
     doc.setFont('helvetica', 'normal');
-    addBullet(
-      'Led daily operations and a small team in a fast-paced, high-pressure environment with strict deadlines.'
-    );
-    addBullet(
-      'Trained and mentored new team members, improving consistency, efficiency, and collaboration.'
-    );
-    addBullet(
-      'Promoted multiple times for reliability, ownership, and execution under pressure.'
-    );
-    addBullet(
-      'Built strong problem-solving, time management, and communication skills that carry directly into engineering work.'
-    );
+    doc.setFontSize(9.5);
+    doc.setTextColor(70, 80, 90);
+    doc.text('PHTMGatt@gmail.com  •  github.com/PHTMGatt', marginX, y);
+    y += 10;
+    doc.setDrawColor(198, 211, 221);
+    doc.line(marginX, y, 612 - marginX, y);
+    y += 18;
+
+    addSection('Profile');
+    addParagraph('Full-stack developer focused on building clean, fast, and intuitive web applications with React, Node.js, and modern JavaScript. I enjoy projects that combine thoughtful UI, APIs, automation, deployment, and practical product decisions.');
+
+    addSection('Technical Skills');
+    skillGroups.forEach(([label, value]) => addParagraph(`${label}: ${value}`));
+
+    addSection('Selected Projects');
+    selectedProjects.forEach(project => {
+      addParagraph(project.name, { bold: true, size: 10.7 });
+      addParagraph(project.description, { indent: 8 });
+      doc.setTextColor(22, 107, 151);
+      addParagraph(project.href, { size: 9, indent: 8 });
+      doc.setTextColor(28, 35, 43);
+      y += 3;
+    });
+
+    addSection('Education');
+    addParagraph('Michigan State University — Full Stack Web Development Certificate (2025)', { bold: true });
+    doc.setTextColor(22, 107, 151);
+    addParagraph('Verified credential: msu.credential.getsmarter.com/c01af6df-f030-4aa7-9cf0-de7bc925b148', { size: 9 });
+    doc.setTextColor(28, 35, 43);
+
+    addSection('Professional Experience');
+    addParagraph('Kitchen Lead / Team Supervisor — 2013–2025', { bold: true });
+    addBullet('Led daily operations and teams in a fast-paced environment with strict deadlines and shifting priorities.');
+    addBullet('Trained and mentored team members, improving consistency, communication, and execution.');
+    addBullet('Promoted multiple times for reliability, ownership, and performance under pressure.');
+    addBullet('Built leadership, problem-solving, time-management, and communication skills that transfer directly into engineering work.');
 
     doc.save('BryenGatt_Resume.pdf');
   };
 
   return (
-    <section className="resume fade-in glass-card">
-      <h1>Resume</h1>
+    <section className="resume-page fade-in">
+      <header className="resume-hero">
+        <div>
+          <span className="resume-kicker">Resume</span>
+          <h1>Bryen Gatt</h1>
+          <p>
+            Full-stack developer building polished web applications, automation,
+            APIs, and product experiences with modern JavaScript tooling.
+          </p>
+        </div>
+        <button type="button" onClick={handleDownloadPDF} className="resume-download">
+          <Download size={18} aria-hidden="true" />
+          Download PDF
+        </button>
+      </header>
 
-      <p>
-        <strong>Name:</strong> Bryen Gatt
-      </p>
-      <p>
-        <strong>Email:</strong>{' '}
-        <a href="mailto:PHTMGatt@gmail.com">PHTMGatt@gmail.com</a>
-      </p>
-      <p>
-        <strong>Discord:</strong> LordxIlluminati
-      </p>
-      <p>
-        <strong>GitHub:</strong>{' '}
-        <a
-          href="https://github.com/PHTMGatt"
-          target="_blank"
-          rel="noreferrer"
-        >
-          github.com/PHTMGatt
-        </a>
-      </p>
+      <div className="resume-layout">
+        <aside className="resume-sidebar">
+          <section className="resume-panel">
+            <span className="resume-section-label">Contact</span>
+            <a href="mailto:PHTMGatt@gmail.com" className="resume-contact-link">
+              <Mail size={16} aria-hidden="true" />
+              PHTMGatt@gmail.com
+            </a>
+            <a
+              href="https://github.com/PHTMGatt"
+              target="_blank"
+              rel="noreferrer"
+              className="resume-contact-link"
+            >
+              <Github size={16} aria-hidden="true" />
+              github.com/PHTMGatt
+            </a>
+          </section>
 
-      <h2>Objective</h2>
-      <p>
-        Full-stack developer focused on building clean, fast, and user-focused
-        web applications with React, Node, and modern JavaScript tools.
-        Experienced with REST APIs, databases, and CI/CD pipelines. Comfortable
-        taking clear goals, working independently, and shipping reliable
-        features quickly to help teams deliver impactful products.
-      </p>
+          <section className="resume-panel">
+            <span className="resume-section-label">Technical stack</span>
+            <div className="resume-skill-list">
+              {skillGroups.map(([label, value]) => (
+                <div key={label}>
+                  <strong>{label}</strong>
+                  <span>{value}</span>
+                </div>
+              ))}
+            </div>
+          </section>
 
-      <h2>Technical Skills</h2>
-      <ul className="skills">
-        <li>
-          <strong>Languages:</strong> JavaScript (ES6+), TypeScript, Python,
-          SQL, HTML5/CSS3
-        </li>
-        <li>
-          <strong>Frontend:</strong> React (hooks, state management), Responsive
-          UI/UX
-        </li>
-        <li>
-          <strong>Backend:</strong> Node.js, Express.js, REST APIs
-        </li>
-        <li>
-          <strong>Databases:</strong> MongoDB/Atlas, PostgreSQL
-        </li>
-        <li>
-          <strong>DevOps &amp; Tools:</strong> Git/GitHub, CI/CD (GitHub
-          Actions), ESLint, Render
-        </li>
-        <li>
-          <strong>Game &amp; Design Tools:</strong> Unity (basics), Unreal
-          Engine (basics), Blender
-        </li>
-        <li>
-          <strong>Strengths:</strong> Rapid prototyping · Clean, maintainable
-          code · Self-motivated and detail-oriented · Clear communicator · 10+
-          years leadership experience in fast-paced environments
-        </li>
-      </ul>
+          <section className="resume-panel">
+            <span className="resume-section-label">Education</span>
+            <strong className="resume-school">Michigan State University</strong>
+            <p>Full Stack Web Development Certificate · 2025</p>
+            <a
+              href="https://msu.credential.getsmarter.com/c01af6df-f030-4aa7-9cf0-de7bc925b148#acc.iYILFzgO"
+              target="_blank"
+              rel="noreferrer"
+              className="resume-inline-link"
+            >
+              Verified credential <ExternalLink size={14} aria-hidden="true" />
+            </a>
+          </section>
+        </aside>
 
-      <h2>Projects (select)</h2>
-      <ul>
-        <li>
-          <a
-            href="https://zombies-hub.onrender.com"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Zombies Hub
-          </a>{' '}
-          — Multi-map Easter egg guide with mobile-first React UI and clean
-          routing
-        </li>
-        <li>
-          <a
-            href="https://fairway-finder.onrender.com"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Fairway Finder
-          </a>{' '}
-          — Golf shot tracking platform with database-driven stats and insights
-        </li>
-        <li>
-          <a
-            href="https://the-daily-bytes-o4jo.onrender.com"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Daily Bytes
-          </a>{' '}
-          — Dynamic news feed app with React and REST API integration
-        </li>
-      </ul>
+        <div className="resume-main">
+          <section className="resume-panel resume-panel-main">
+            <span className="resume-section-label">Profile</span>
+            <h2>Product-minded engineering with practical execution.</h2>
+            <p>
+              I focus on clean, fast, user-focused software and enjoy projects that
+              combine front-end polish with real application logic, integrations,
+              deployment, and maintainable code.
+            </p>
+          </section>
 
-      <h2>Education</h2>
-      <p>
-        <strong>Michigan State University</strong> — Full Stack Web Development
-        Certificate (2025)
-      </p>
-      <p>
-        <a
-          href="https://msu.credential.getsmarter.com/c01af6df-f030-4aa7-9cf0-de7bc925b148#acc.iYILFzgO"
-          target="_blank"
-          rel="noreferrer"
-        >
-          View verified credential
-        </a>
-      </p>
+          <section className="resume-panel resume-panel-main">
+            <span className="resume-section-label">Selected projects</span>
+            <div className="resume-projects">
+              {selectedProjects.map(project => (
+                <a key={project.name} href={project.href} target="_blank" rel="noreferrer">
+                  <div>
+                    <h3>{project.name}</h3>
+                    <p>{project.description}</p>
+                  </div>
+                  <ExternalLink size={17} aria-hidden="true" />
+                </a>
+              ))}
+            </div>
+          </section>
 
-      <h2>Professional Experience</h2>
-      <p>
-        <strong>Kitchen Lead / Team Supervisor</strong> — 2013–2025
-      </p>
-      <ul>
-        <li>
-          Led daily operations and a small team in a fast-paced, high-pressure
-          environment with strict deadlines.
-        </li>
-        <li>
-          Trained and mentored new team members, improving consistency,
-          efficiency, and collaboration.
-        </li>
-        <li>
-          Promoted multiple times for reliability, ownership, and execution
-          under pressure.
-        </li>
-        <li>
-          Built strong problem-solving, time management, and communication
-          skills that carry directly into engineering work.
-        </li>
-      </ul>
-
-      <button
-        onClick={handleDownloadPDF}
-        className="resume-submit-btn"
-        style={{ marginTop: '2rem' }}
-      >
-        Download Resume as PDF
-      </button>
+          <section className="resume-panel resume-panel-main">
+            <span className="resume-section-label">Professional experience</span>
+            <div className="resume-role-heading">
+              <h2>Kitchen Lead / Team Supervisor</h2>
+              <span>2013–2025</span>
+            </div>
+            <ul className="resume-experience-list">
+              <li>Led daily operations and teams in a fast-paced environment with strict deadlines and changing priorities.</li>
+              <li>Trained and mentored team members, improving consistency, communication, and execution.</li>
+              <li>Promoted multiple times for reliability, ownership, and performance under pressure.</li>
+              <li>Built leadership, problem-solving, time-management, and communication skills that transfer directly into engineering work.</li>
+            </ul>
+          </section>
+        </div>
+      </div>
     </section>
   );
 };
