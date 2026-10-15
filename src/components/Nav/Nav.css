@@ -147,6 +147,8 @@
   transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
 }
 
+.nav-center .mobile-contact { display: none; }
+
 .theme-toggle:hover {
   color: var(--accent-color);
   background: rgba(56, 189, 248, 0.1);
@@ -186,6 +188,7 @@
 }
 
 @media (max-width: 600px) {
+  .nav-center .mobile-contact { display: inline-flex; }
   .nav {
     grid-template-columns: minmax(0, 1fr) auto;
     padding-inline: 0.75rem;

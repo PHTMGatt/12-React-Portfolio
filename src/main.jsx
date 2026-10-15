@@ -1,28 +1,29 @@
-import { StrictMode } from 'react';
+import { StrictMode, lazy } from 'react';
 import { createRoot } from 'react-dom/client';
 import './Global.css';
 import App from './App.jsx';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, createHashRouter, RouterProvider, Link } from 'react-router-dom';
 
 import About from './pages/About/About';
-import Resume from './pages/Resume/Resume';
-import Portfolio from './pages/Portfolio/Portfolio';
-import Contact from './pages/Contact/Contact';
+const Resume = lazy(() => import('./pages/Resume/Resume'));
+const Portfolio = lazy(() => import('./pages/Portfolio/Portfolio'));
+const Contact = lazy(() => import('./pages/Contact/Contact'));
 
 document.title = 'Bryen Gatt | Full-Stack Developer';
 
 const notFound = (
-  <main style={{ minHeight: '70vh', display: 'grid', placeItems: 'center', padding: '2rem', textAlign: 'center' }}>
+  <section style={{ minHeight: '70vh', display: 'grid', placeItems: 'center', padding: '2rem', textAlign: 'center' }}>
     <div>
       <p style={{ color: 'var(--accent-color)', fontWeight: 800, marginBottom: '.5rem' }}>404</p>
       <h1 style={{ margin: 0 }}>Page not found</h1>
       <p style={{ opacity: .72 }}>That route does not exist in this portfolio.</p>
-      <a href="/" style={{ fontWeight: 700 }}>Return home</a>
+      <Link to="/" style={{ fontWeight: 700 }}>Return home</Link>
     </div>
-  </main>
+  </section>
 );
 
-const router = createBrowserRouter([
+const createRouter = import.meta.env.VITE_REVIEW_HASH_ROUTER === 'true' ? createHashRouter : createBrowserRouter;
+const router = createRouter([
   {
     path: '/',
     element: <App />,
@@ -32,9 +33,9 @@ const router = createBrowserRouter([
       { path: 'resume', element: <Resume /> },
       { path: 'work', element: <Portfolio /> },
       { path: 'contact', element: <Contact /> },
+      { path: '*', element: notFound },
     ],
   },
-  { path: '*', element: notFound },
 ]);
 
 createRoot(document.getElementById('root')).render(

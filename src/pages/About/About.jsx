@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Github, Layers3, Sparkles, TerminalSquare } from 'lucide-react';
 import './About.css';

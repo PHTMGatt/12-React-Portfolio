@@ -1,4 +1,3 @@
-import React from 'react';
 import { FaGithub, FaLinkedin, FaDiscord, FaXbox, FaSteam } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
 import HobbitQuoteGenerator from './HobbitQuoteGenerator.jsx';
