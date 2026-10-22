@@ -1,36 +1,84 @@
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Menu, Moon, Sun, X } from 'lucide-react';
 import './Nav.css';
 
+const links = [
+  { to: '/', label: 'About', end: true },
+  { to: '/work', label: 'Work' },
+  { to: '/resume', label: 'Resume' },
+];
+
 const Nav = ({ theme, toggleTheme }) => {
-  const location = useLocation();
+  const [open, setOpen] = useState(false);
+  const { pathname } = useLocation();
+  const isDark = theme === 'dark';
+
+  // Close the mobile menu whenever the route changes.
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!open) return undefined;
+    const onKey = (event) => {
+      if (event.key === 'Escape') setOpen(false);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [open]);
 
   return (
-    <nav className="nav">
-      <div className="nav-left">
-        <Link to="/" className={location.pathname === '/' ? 'active' : ''}>
-          About
+    <header className={`site-nav${open ? ' is-open' : ''}`}>
+      <nav className="site-nav__inner container" aria-label="Primary">
+        <Link to="/" className="site-nav__brand" aria-label="Bryen Gatt, home">
+          <span className="site-nav__mark" aria-hidden="true">
+            BG
+          </span>
+          <span className="site-nav__name">
+            Bryen Gatt
+            <span className="site-nav__role">Full-Stack Developer</span>
+          </span>
         </Link>
-        <Link to="/resume" className={location.pathname === '/resume' ? 'active' : ''}>
-          Resume
-        </Link>
-        <Link to="/work" className={location.pathname === '/work' ? 'active' : ''}>
-          Portfolio
-        </Link>
-      </div>
 
-      <div className="nav-right">
-        <Link
-          to="/contact"
-          className={location.pathname === '/contact' ? 'active contact-link' : 'contact-link'}
-        >
-          Contact
-        </Link>
-        <button className={`theme-toggle ${theme}`} onClick={toggleTheme} aria-label="Toggle Theme">
-          {theme === 'dark' ? '✨ Light of Eärendil' : '🔥 Shadow and Flame'}
-        </button>
-      </div>
-    </nav>
+        <div className="site-nav__menu" id="site-menu">
+          <ul className="site-nav__links">
+            {links.map(({ to, label, end }) => (
+              <li key={to}>
+                <NavLink to={to} end={end} className="site-nav__link">
+                  {label}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+          <NavLink to="/contact" className="btn btn-primary btn-sm site-nav__cta">
+            Contact
+          </NavLink>
+        </div>
+
+        <div className="site-nav__actions">
+          <button
+            type="button"
+            className="icon-btn"
+            onClick={toggleTheme}
+            aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
+            title={isDark ? 'Light of Eärendil' : 'Shadow and Flame'}
+          >
+            {isDark ? <Sun size={18} aria-hidden="true" /> : <Moon size={18} aria-hidden="true" />}
+          </button>
+          <button
+            type="button"
+            className="icon-btn site-nav__toggle"
+            aria-expanded={open}
+            aria-controls="site-menu"
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            onClick={() => setOpen((value) => !value)}
+          >
+            {open ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}
+          </button>
+        </div>
+      </nav>
+    </header>
   );
 };
 

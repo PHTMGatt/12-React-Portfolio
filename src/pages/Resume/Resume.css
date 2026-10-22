@@ -1,129 +1,184 @@
-.resume {
-  max-width: 800px;
-  margin: 2rem auto;
-  background: rgba(0, 0, 0, 0.3); /* Darker glassy effect with transparency */
-  backdrop-filter: blur(12px); /* Applying the glass effect */
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  padding: 2rem;
-  border-radius: 20px;
-  color: var(--text-color);
-  box-shadow:
-    0 10px 30px rgba(56, 189, 248, 0.1),
-    0 0 50px rgba(56, 189, 248, 0.05);
-  transition: all 0.4s ease;
-  animation: fadeIn 0.5s ease-out;
+.resume-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: clamp(3rem, 7vw, 5rem) 0 2rem;
+  border-bottom: 1px solid var(--border);
 }
 
-/* 🌞 Light Theme Version */
-[data-theme='light'] .resume {
-  background: rgba(255, 255, 255, 0.3); /* Slightly lighter but subtle glassy background for light theme */
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow:
-    0 8px 24px rgba(0, 0, 0, 0.05),
-    0 0 40px rgba(56, 189, 248, 0.05);
+.resume-header__role {
+  margin-top: 0.4rem;
+  color: var(--text-muted);
+  font-size: 1.15rem;
+  font-weight: 500;
 }
 
-/* Headings */
-.resume h1 {
-  font-size: 2.5rem;
-  margin-bottom: 1.5rem;
-  text-align: center;
-  color: var(--accent-color);
-  text-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+.resume-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
 }
 
-.resume h2 {
-  font-size: 1.5rem;
-  margin-top: 2rem;
+.resume-contact a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 40px;
+  color: var(--text-muted);
+  font-size: 0.93rem;
+  font-weight: 550;
+}
+
+.resume-contact a:hover {
+  color: var(--accent);
+}
+
+.resume-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  padding-top: 2.5rem;
+}
+
+.resume-section + .resume-section {
+  margin-top: 2.5rem;
+}
+
+.resume-section h2,
+.resume-skills h2 {
   margin-bottom: 1rem;
-  color: var(--accent-color);
-  text-shadow: 0 0 6px rgba(56, 189, 248, 0.2);
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
-/* Text & Lists */
-.resume p {
-  margin-bottom: 0.75rem;
+.resume-section p {
+  color: var(--text-muted);
+  line-height: 1.75;
+}
+
+.resume-projects {
+  display: grid;
+  gap: 1.1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.resume-projects a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  gap: 0.4rem;
+  color: var(--text);
+  font-weight: 700;
+}
+
+.resume-projects a:hover {
+  color: var(--accent);
+}
+
+.resume-projects svg {
+  color: var(--text-subtle);
+}
+
+.resume-projects p {
+  margin-top: -0.35rem;
+  font-size: 0.95rem;
   line-height: 1.6;
-  text-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
 }
 
-.skills {
-  list-style-type: disc;
-  padding-left: 1.5rem;
+.resume-role {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.25rem 1rem;
+  margin-bottom: 0.6rem;
 }
 
-.skills li {
-  margin-bottom: 0.5rem;
-  text-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+.resume-role h3 {
+  font-size: 1.05rem;
 }
 
-/* ✨ Download Button */
-.resume-submit-btn {
-  background: var(--btn-bg);
-  color: var(--accent-color);
-  border: 2px solid var(--accent-color);
-  padding: 0.75rem 1.5rem;
-  border-radius: 9999px;
-  font-weight: 600;
-  cursor: pointer;
-  text-align: center;
-  box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
-  transition: all 0.3s ease;
-  animation: pulseGlow 3s infinite ease-in-out;
+.resume-role span {
+  color: var(--text-subtle);
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
 }
 
-.resume-submit-btn:hover {
-  background: var(--btn-hover);
-  color: var(--btn-text-hover);
-  box-shadow: 0 0 24px rgba(56, 189, 248, 0.6);
-  transform: translateY(-2px);
+.resume-bullets {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding-left: 1.15rem;
+  color: var(--text-muted);
+  line-height: 1.65;
 }
 
-/* Pulse Effect */
-@keyframes pulseGlow {
-  0%, 100% {
-    box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+.resume-bullets li::marker {
+  color: var(--accent);
+}
+
+.resume-credential {
+  margin-top: 0.6rem;
+}
+
+.resume-aside {
+  position: sticky;
+  top: calc(var(--nav-height) + 1.5rem);
+}
+
+.resume-skills {
+  padding: 1.5rem;
+}
+
+.resume-skills dl {
+  display: grid;
+  gap: 0.9rem;
+  margin: 0;
+}
+
+.resume-skills dt {
+  color: var(--text);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.resume-skills dd {
+  margin: 0.15rem 0 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.resume-skills__strengths {
+  margin-top: 1.75rem;
+}
+
+.resume-skills .chip {
+  white-space: normal;
+}
+
+@media (max-width: 860px) {
+  .resume-layout {
+    grid-template-columns: 1fr;
   }
-  50% {
-    box-shadow: 0 0 20px rgba(56, 189, 248, 0.6);
+
+  .resume-aside {
+    position: static;
   }
 }
 
-/* Fade-in Animation */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* 📱 Responsive */
-@media (max-width: 768px) {
-  .resume {
-    max-width: calc(100% - 2rem);
-    margin: 1rem auto;
-    padding: 1.5rem;
-  }
-
-  .resume h1 {
-    font-size: 2rem;
-  }
-
-  .resume h2 {
-    font-size: 1.25rem;
-  }
-
-  .resume p,
-  .skills li {
-    font-size: 0.95rem;
-  }
-
-  .resume-submit-btn {
+@media (max-width: 480px) {
+  .resume-header .btn {
     width: 100%;
-    font-size: 1rem;
   }
 }

@@ -1,32 +1,24 @@
 import emailjs from '@emailjs/browser';
 
-// Your service ID, template ID, and public key from EmailJS
+// EmailJS service ID, template ID and public key (public by design).
 const SERVICE_ID = 'service_qp2wa0u';
 const TEMPLATE_ID = 'template_kefqj3s';
 const PUBLIC_KEY = 'QAFA81H1YJE06zj4p';
 
-// Helper function for email validation.
-const validateEmail = (email) =>
-  /^(?!:\/\/)([A-Za-z0-9]+(?:[._%+-][A-Za-z0-9]+)*@[A-Za-z0-9-]+\.[A-Za-z]{2,})$/.test(email);
+// Permissive on purpose: accepts subdomains (name@mail.co.uk) and plus
+// addressing, rejects anything without a user, an @ and a dotted domain.
+export const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim());
 
 const sendEmail = async ({ name, email, subject, message }) => {
-  if (!validateEmail(email)) {
+  if (!isValidEmail(email)) {
     return { success: false, error: 'Please provide a valid email address.' };
   }
 
-  const formData = {
-    name,
-    email,
-    subject,
-    message,
-  };
-
   try {
-    // Sends the email using EmailJS.
-    const result = await emailjs.send(SERVICE_ID, TEMPLATE_ID, formData, PUBLIC_KEY);
+    const result = await emailjs.send(SERVICE_ID, TEMPLATE_ID, { name, email, subject, message }, PUBLIC_KEY);
     return { success: true, result };
   } catch (error) {
-    console.error("Error sending email:", error);
+    console.error('Error sending email:', error);
     return {
       success: false,
       error: 'Something went wrong with the email service. Please try again.',

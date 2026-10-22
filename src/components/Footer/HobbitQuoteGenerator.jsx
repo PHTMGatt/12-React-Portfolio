@@ -1,67 +1,67 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { Dices } from 'lucide-react';
 import './QuoteAnimations.css';
 
+const pickDifferent = (list, current) => {
+  if (list.length < 2) return list[0];
+  let next;
+  do {
+    next = list[Math.floor(Math.random() * list.length)];
+  } while (next.dialog === current?.dialog);
+  return next;
+};
+
+// A small Middle-earth easter egg from The One API. If the API is
+// unreachable the whole block stays hidden rather than showing a stuck loader.
 const HobbitQuoteGenerator = () => {
-  const fantasyFonts = [
-    'Playfair Display',
-    'Cormorant Garamond',
-    'Marcellus',
-    'Libre Baskerville',
-  ];
-
   const [quotes, setQuotes] = useState([]);
-  const [currentQuote, setCurrentQuote] = useState(null);
-  const [font, setFont] = useState(fantasyFonts[0]);
-  const [fadeClass, setFadeClass] = useState('fade-in');
-
-  const fetchQuotes = async () => {
-    try {
-      const res = await fetch('https://the-one-api.dev/v2/quote', {
-        headers: {
-          Authorization: 'Bearer 30pdImw6q06nrUVwdEpw',
-        },
-      });
-      const data = await res.json();
-      const filteredQuotes = data.docs.filter(
-        (q) => q.dialog && q.dialog.length < 200
-      );
-      setQuotes(filteredQuotes);
-      getRandomQuote(filteredQuotes);
-    } catch (err) {
-      console.error('Error fetching LOTR quotes:', err);
-    }
-  };
-
-  const getRandomQuote = (quoteList = quotes) => {
-    if (!quoteList.length) return;
-    let newQuote;
-    do {
-      newQuote = quoteList[Math.floor(Math.random() * quoteList.length)];
-    } while (newQuote.dialog === currentQuote?.dialog);
-
-    const randomFont = fantasyFonts[Math.floor(Math.random() * fantasyFonts.length)];
-
-    setFadeClass('fade-out');
-    setTimeout(() => {
-      setFont(randomFont);
-      setCurrentQuote(newQuote);
-      setFadeClass('fade-in');
-    }, 250);
-  };
+  const [current, setCurrent] = useState(null);
+  const [visible, setVisible] = useState(true);
+  const timer = useRef();
 
   useEffect(() => {
-    fetchQuotes();
+    const controller = new AbortController();
+
+    fetch('https://the-one-api.dev/v2/quote', {
+      headers: { Authorization: 'Bearer 30pdImw6q06nrUVwdEpw' },
+      signal: controller.signal,
+    })
+      .then((res) => (res.ok ? res.json() : Promise.reject(new Error(res.statusText))))
+      .then((data) => {
+        const usable = (data.docs || []).filter((q) => q.dialog && q.dialog.trim().length > 12 && q.dialog.length < 180);
+        if (!usable.length) return;
+        setQuotes(usable);
+        setCurrent(pickDifferent(usable, null));
+      })
+      .catch(() => {});
+
+    return () => {
+      controller.abort();
+      clearTimeout(timer.current);
+    };
   }, []);
 
+  if (!current) return null;
+
+  const nextQuote = () => {
+    setVisible(false);
+    clearTimeout(timer.current);
+    timer.current = setTimeout(() => {
+      setCurrent((prev) => pickDifferent(quotes, prev));
+      setVisible(true);
+    }, 200);
+  };
+
   return (
-    <div className="quote-container" style={{ fontFamily: `'${font}', serif` }}>
-      <p className={`quote-text ${fadeClass}`}>
-        {currentQuote ? `“${currentQuote.dialog}”` : 'Loading quote...'}
-      </p>
-      <button className="quote-button" onClick={() => getRandomQuote()} aria-label="New Hobbit Quote">
-        🎲 New Quote
+    <figure className="footer-quote">
+      <blockquote className={`footer-quote__text ${visible ? 'quote-in' : 'quote-out'}`} aria-live="polite">
+        “{current.dialog.trim()}”
+      </blockquote>
+      <button type="button" className="footer-quote__button" onClick={nextQuote}>
+        <Dices size={16} aria-hidden="true" />
+        Another quote
       </button>
-    </div>
+    </figure>
   );
 };
 
