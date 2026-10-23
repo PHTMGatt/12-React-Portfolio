@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
+import { FaGithub } from 'react-icons/fa';
 import ProjectImage from '../ProjectImage/ProjectImage';
 import './FeaturedStudy.css';
 
 const FeaturedStudy = ({ study, index = 0, eager = false, headingLevel = 3 }) => {
   const Heading = `h${headingLevel}`;
-  const primary = study.links.find((link) => link.primary);
-  const isLive = primary && !primary.href.includes('github.com');
+  const repo = study.links.find((link) => link.href.includes('github.com'));
+  const live = study.links.find((link) => !link.href.includes('github.com'));
 
   return (
     <article className={`featured-study${index % 2 ? ' featured-study--flip' : ''}`}>
@@ -16,6 +17,9 @@ const FeaturedStudy = ({ study, index = 0, eager = false, headingLevel = 3 }) =>
           alt=""
           eager={eager}
           sizes="(max-width: 900px) calc(100vw - 2rem), 620px"
+          title={study.title}
+          stack={study.stack}
+          summary={study.tagline}
         />
       </Link>
 
@@ -48,17 +52,24 @@ const FeaturedStudy = ({ study, index = 0, eager = false, headingLevel = 3 }) =>
         </ul>
 
         <div className="featured-study__actions">
+          {repo && (
+            <a className="btn btn-secondary" href={repo.href} target="_blank" rel="noopener noreferrer">
+              <FaGithub aria-hidden="true" />
+              GitHub
+              <span className="sr-only">: {repo.label} (opens in a new tab)</span>
+            </a>
+          )}
+          {live && (
+            <a className="btn btn-secondary" href={live.href} target="_blank" rel="noopener noreferrer">
+              Live
+              <ArrowUpRight size={17} aria-hidden="true" />
+              <span className="sr-only">: {study.title} live site (opens in a new tab)</span>
+            </a>
+          )}
           <Link to={`/work/${study.slug}`} className="btn btn-primary">
             Read the case study
             <ArrowRight size={17} aria-hidden="true" />
           </Link>
-          {isLive && (
-            <a className="btn btn-secondary" href={primary.href} target="_blank" rel="noopener noreferrer">
-              Live site
-              <ArrowUpRight size={17} aria-hidden="true" />
-              <span className="sr-only">(opens in a new tab)</span>
-            </a>
-          )}
         </div>
       </div>
     </article>

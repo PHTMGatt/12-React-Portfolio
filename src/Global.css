@@ -394,6 +394,73 @@ button {
   white-space: nowrap;
 }
 
+.status-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.12rem 0.5rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+/* =======================================
+   Project media: real screenshots and the
+   typographic fallback used until one exists
+========================================= */
+.project-shot {
+  object-position: top center;
+}
+
+.project-fallback {
+  container-type: size;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0.45em;
+  width: 100%;
+  height: 100%;
+  padding: clamp(1rem, 7cqi, 3rem);
+  background:
+    linear-gradient(160deg, var(--accent-soft), transparent 60%),
+    var(--surface-sunken);
+  color: var(--text);
+}
+
+.project-fallback p {
+  margin: 0;
+}
+
+.project-fallback__stack {
+  color: var(--accent);
+  font-size: clamp(0.66rem, 3.4cqi, 1rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.project-fallback__title {
+  font-size: clamp(1.15rem, 8cqi, 3.25rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.project-fallback__summary {
+  display: -webkit-box;
+  max-width: 46ch;
+  overflow: hidden;
+  color: var(--text-muted);
+  font-size: clamp(0.78rem, 3.9cqi, 1.2rem);
+  line-height: 1.45;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
 .surface-card {
   background: var(--surface);
   border: 1px solid var(--border);

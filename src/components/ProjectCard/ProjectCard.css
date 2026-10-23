@@ -61,6 +61,10 @@
 }
 
 .project-card__category {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
   color: var(--accent);
   font-size: 0.74rem;
   font-weight: 700;
@@ -91,7 +95,7 @@
   border-top: 1px solid var(--border);
 }
 
-.project-card__code {
+.project-card__study {
   margin-left: auto;
 }
 

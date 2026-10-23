@@ -1,6 +1,5 @@
 import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowRight, Archive, Info } from 'lucide-react';
-import { FaGithub } from 'react-icons/fa';
 import ProjectCard from '../../components/ProjectCard/ProjectCard';
 import ProjectImage from '../../components/ProjectImage/ProjectImage';
 import { archivedProjects, caseStudies, categories, projects } from '../../data/projects';
@@ -39,7 +38,14 @@ const Portfolio = () => {
           {caseStudies.map((study) => (
             <Link key={study.slug} to={`/work/${study.slug}`} className="study-tile">
               <div className="study-tile__media">
-                <ProjectImage image={study.image} alt="" sizes="(max-width: 760px) 100vw, 380px" />
+                <ProjectImage
+                  image={study.image}
+                  alt=""
+                  sizes="(max-width: 760px) 100vw, 380px"
+                  title={study.title}
+                  stack={study.stack}
+                  summary={study.tagline}
+                />
               </div>
               <div className="study-tile__body">
                 <p className="study-tile__kicker">{study.kicker}</p>
@@ -95,25 +101,20 @@ const Portfolio = () => {
             <Archive size={18} aria-hidden="true" />
             <span>
               Archive: the original Zombies map guides
-              <small>{archivedProjects.length} repositories, superseded by Zombies Hub 2.0</small>
+              <small>{archivedProjects.length} inactive projects, superseded by Zombies Hub 2.0</small>
             </span>
           </summary>
           <div className="archive__body">
             <p>
               Before Zombies Hub 2.0, each map guide was its own React app and Render service. Those deployments are
               now offline because 2.0 merged them into one application, but the source and history remain on GitHub.
+              The screenshots below were captured while they were still live.
             </p>
-            <ul className="archive__list">
-              {archivedProjects.map((item) => (
-                <li key={item.repo}>
-                  <a href={item.repo} target="_blank" rel="noopener noreferrer">
-                    <FaGithub aria-hidden="true" />
-                    {item.title}
-                    <span className="sr-only">(opens in a new tab)</span>
-                  </a>
-                </li>
+            <div className="work-grid archive__grid">
+              {archivedProjects.map((project) => (
+                <ProjectCard key={project.id} project={project} />
               ))}
-            </ul>
+            </div>
           </div>
         </details>
       </section>

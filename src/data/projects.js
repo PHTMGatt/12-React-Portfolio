@@ -1,18 +1,12 @@
 // Project and case-study content. Descriptions are drawn from each
 // project's own README so the portfolio stays factual.
+//
+// `image` is a real screenshot from ./screenshots.js, or null. Null renders an
+// honest typographic summary (title, stack, one-line description) instead.
+// `status` is 'legacy' for finished coursework without a deployment and
+// 'inactive' for projects whose deployment has been retired.
 
-const thumbs = import.meta.glob('../assets/thumbnails/webp/*.webp', {
-  eager: true,
-  import: 'default',
-});
-
-// Every thumbnail ships at 1280px with a 640px variant for small screens.
-const thumb = (name) => ({
-  src: thumbs[`../assets/thumbnails/webp/${name}.webp`],
-  srcSmall: thumbs[`../assets/thumbnails/webp/${name}-640.webp`],
-  width: 1280,
-  height: 720,
-});
+import { screenshotFor } from './screenshots';
 
 export const categories = [
   { id: 'all', label: 'All work' },
@@ -29,12 +23,12 @@ export const caseStudies = [
     kicker: 'Front-end architecture · CI/CD',
     title: 'Zombies Hub 2.0',
     tagline: 'Seven separate guide sites rebuilt as one fast, unified React application.',
-    image: thumb('zombies-hub-2'),
+    image: screenshotFor('zombies-hub-2'),
     role: 'Solo project: architecture, UI, content, CI and deployment.',
     stack: ['React', 'Vite', 'React Router', 'GitHub Actions', 'Render'],
     links: [
-      { label: 'Live site', href: 'https://zombies-hub-2-0.onrender.com/', primary: true },
-      { label: 'Source on GitHub', href: 'https://github.com/PHTMGatt/Zombies-Hub-2.0' },
+      { label: 'Source on GitHub', href: 'https://github.com/PHTMGatt/Zombies-Hub-2.0', primary: true },
+      { label: 'Live site', href: 'https://zombies-hub-2-0.onrender.com/' },
     ],
     highlights: [
       { value: '7', label: 'dedicated map guides in one app' },
@@ -58,12 +52,12 @@ export const caseStudies = [
     kicker: 'Full-stack · MERN + GraphQL',
     title: 'Fairway Finder',
     tagline: 'A golf trip planner that puts courses, routes, weather and handicaps in one app.',
-    image: thumb('fairway-finder'),
+    image: screenshotFor('fairway-finder'),
     role: 'Primary developer on a five-person team.',
     stack: ['React', 'TypeScript', 'Apollo GraphQL', 'Node.js', 'Express', 'MongoDB', 'JWT', 'Google Maps API'],
     links: [
-      { label: 'Live site', href: 'https://fairway-finder.onrender.com', primary: true },
-      { label: 'Source on GitHub', href: 'https://github.com/PHTMGatt/Fairway-Finder' },
+      { label: 'Source on GitHub', href: 'https://github.com/PHTMGatt/Fairway-Finder', primary: true },
+      { label: 'Live site', href: 'https://fairway-finder.onrender.com' },
     ],
     highlights: [
       { value: '3', label: 'third-party APIs behind one GraphQL back-end' },
@@ -87,11 +81,7 @@ export const caseStudies = [
     kicker: 'Automation · Discord bots',
     title: 'Clash of Clans Discord Suite',
     tagline: 'War intelligence and server operations bots, running together on a single host.',
-    image: thumb('war-oracle'),
-    gallery: [
-      { ...thumb('clash-commander'), alt: 'Clash Commander bot overview' },
-      { ...thumb('raspbi-pilot'), alt: 'raspbi-pilot multi-bot runtime overview' },
-    ],
+    image: screenshotFor('war-oracle'),
     role: 'Designed and built all three projects: two bots and the runtime that hosts them.',
     stack: ['Node.js', 'discord.js', 'Clash of Clans API', 'Render', 'Raspberry Pi'],
     links: [
@@ -124,8 +114,8 @@ export const projects = [
     summary: 'Seven Call of Duty Zombies guides unified into one React app with CI-gated Render deploys.',
     category: 'frontend',
     stack: ['React', 'Vite', 'GitHub Actions'],
-    image: thumb('zombies-hub-2'),
-    links: { live: 'https://zombies-hub-2-0.onrender.com/', repo: 'https://github.com/PHTMGatt/Zombies-Hub-2.0' },
+    image: screenshotFor('zombies-hub-2'),
+    links: { repo: 'https://github.com/PHTMGatt/Zombies-Hub-2.0', live: 'https://zombies-hub-2-0.onrender.com/' },
     caseStudy: 'zombies-hub-2',
   },
   {
@@ -134,8 +124,8 @@ export const projects = [
     summary: 'Golf trip planner combining course search, route maps, forecasts and handicap tracking.',
     category: 'full-stack',
     stack: ['React', 'GraphQL', 'MongoDB', 'JWT'],
-    image: thumb('fairway-finder'),
-    links: { live: 'https://fairway-finder.onrender.com', repo: 'https://github.com/PHTMGatt/Fairway-Finder' },
+    image: screenshotFor('fairway-finder'),
+    links: { repo: 'https://github.com/PHTMGatt/Fairway-Finder', live: 'https://fairway-finder.onrender.com' },
     caseStudy: 'fairway-finder',
   },
   {
@@ -144,7 +134,7 @@ export const projects = [
     summary: 'Clash of Clans war-intelligence bot with live status and deduplicated, threshold-based alerts.',
     category: 'automation',
     stack: ['Node.js', 'discord.js', 'CoC API'],
-    image: thumb('war-oracle'),
+    image: screenshotFor('war-oracle'),
     links: { repo: 'https://github.com/PHTMGatt/War-Oracle-Bot' },
     caseStudy: 'clash-automation',
   },
@@ -154,7 +144,7 @@ export const projects = [
     summary: 'Discord operations bot for clan leadership: audits, member notes, inactivity reports and pings.',
     category: 'automation',
     stack: ['Node.js', 'discord.js', 'Slash commands'],
-    image: thumb('clash-commander'),
+    image: screenshotFor('clash-commander'),
     links: { repo: 'https://github.com/PHTMGatt/Clash-Commander-Bot' },
     caseStudy: 'clash-automation',
   },
@@ -164,7 +154,7 @@ export const projects = [
     summary: 'Lightweight launcher that runs multiple Discord bots in one Node process on Render or a Raspberry Pi.',
     category: 'automation',
     stack: ['Node.js', 'Render', 'Raspberry Pi'],
-    image: thumb('raspbi-pilot'),
+    image: screenshotFor('raspbi-pilot'),
     links: { repo: 'https://github.com/PHTMGatt/raspbi-pilot' },
     caseStudy: 'clash-automation',
   },
@@ -174,7 +164,7 @@ export const projects = [
     summary: 'Webhook bot that turns GitHub repository activity into readable Discord updates, with GPT-assisted formatting.',
     category: 'automation',
     stack: ['Node.js', 'Webhooks', 'GitHub', 'Discord'],
-    image: thumb('captain-hook'),
+    image: screenshotFor('captain-hook'),
     links: { repo: 'https://github.com/PHTMGatt/Discord-WebHook-Bot' },
   },
   {
@@ -183,10 +173,10 @@ export const projects = [
     summary: 'Google Books search with accounts, JWT auth and a saved reading list over GraphQL.',
     category: 'full-stack',
     stack: ['React', 'TypeScript', 'Apollo', 'MongoDB'],
-    image: thumb('mern-book-search'),
+    image: screenshotFor('mern-book-search'),
     links: {
-      live: 'https://one8-mern-book-search-engine.onrender.com',
       repo: 'https://github.com/PHTMGatt/18-MERN-Book-Search-Engine',
+      live: 'https://one8-mern-book-search-engine.onrender.com',
     },
   },
   {
@@ -195,8 +185,8 @@ export const projects = [
     summary: 'Full-stack news and content application.',
     category: 'full-stack',
     stack: ['React', 'Vite'],
-    image: thumb('daily-bytes'),
-    links: { live: 'https://the-daily-bytes-o4jo.onrender.com', repo: 'https://github.com/PHTMGatt/The-Daily-Bytes' },
+    image: screenshotFor('daily-bytes'),
+    links: { repo: 'https://github.com/PHTMGatt/The-Daily-Bytes', live: 'https://the-daily-bytes-o4jo.onrender.com' },
   },
   {
     id: 'kanban-board',
@@ -204,8 +194,8 @@ export const projects = [
     summary: 'Task board with JWT-protected routes and To Do, In Progress and Done columns.',
     category: 'full-stack',
     stack: ['React', 'Node.js', 'Express', 'JWT'],
-    image: thumb('kanban-board'),
-    links: { live: 'https://one4-todo-board.onrender.com', repo: 'https://github.com/PHTMGatt/14-Todo-Board' },
+    image: screenshotFor('kanban-board'),
+    links: { repo: 'https://github.com/PHTMGatt/14-Todo-Board', live: 'https://one4-todo-board.onrender.com' },
   },
   {
     id: 'candidate-search',
@@ -213,10 +203,10 @@ export const projects = [
     summary: 'GitHub candidate browser with saved candidates, pagination and light and dark themes.',
     category: 'frontend',
     stack: ['React', 'TypeScript', 'GitHub API'],
-    image: thumb('candidate-search'),
+    image: screenshotFor('candidate-search'),
     links: {
-      live: 'https://one3-candidate-search-u82d.onrender.com',
       repo: 'https://github.com/PHTMGatt/13-Candidate-Search',
+      live: 'https://one3-candidate-search-u82d.onrender.com',
     },
   },
   {
@@ -225,8 +215,9 @@ export const projects = [
     summary: 'City search with current conditions, a 5-day forecast and persistent search history.',
     category: 'backend',
     stack: ['Node.js', 'Express', 'OpenWeather API'],
-    image: thumb('weather-app'),
+    image: screenshotFor('weather-app'),
     links: { repo: 'https://github.com/PHTMGatt/09-Weather-App' },
+    status: 'legacy',
   },
   {
     id: 'social-network-api',
@@ -234,8 +225,9 @@ export const projects = [
     summary: 'REST API for users, thoughts, reactions and friend lists on MongoDB.',
     category: 'backend',
     stack: ['Node.js', 'Express', 'MongoDB', 'Mongoose'],
-    image: thumb('social-network-api'),
+    image: screenshotFor('social-network-api'),
     links: { repo: 'https://github.com/PHTMGatt/17-Social-Network-API' },
+    status: 'legacy',
   },
   {
     id: 'tech-quiz-tests',
@@ -243,11 +235,12 @@ export const projects = [
     summary: 'Cypress component and end-to-end coverage for quiz start, question flow, scoring and restart.',
     category: 'testing',
     stack: ['Cypress', 'React', 'Node.js'],
-    image: thumb('tech-quiz'),
+    image: screenshotFor('tech-quiz-tests'),
     links: {
       repo: 'https://github.com/PHTMGatt/19-Testing-Tech-Quiz-Test-Suite',
       video: 'https://youtu.be/FcIQsPgJqd8',
     },
+    status: 'legacy',
   },
   {
     id: 'banking-system',
@@ -255,8 +248,9 @@ export const projects = [
     summary: 'Object-oriented CLI bank with validated login, transfers and overdraft protection.',
     category: 'backend',
     stack: ['Python', 'OOP'],
-    image: thumb('python-banking-system'),
+    image: screenshotFor('banking-system'),
     links: { repo: 'https://github.com/PHTMGatt/22-Banking-System' },
+    status: 'legacy',
   },
   {
     id: 'portfolio',
@@ -264,21 +258,68 @@ export const projects = [
     summary: 'React and Vite site with code-split routes, light and dark themes and case-study pages.',
     category: 'frontend',
     stack: ['React', 'Vite', 'React Router', 'CSS'],
-    image: thumb('react-portfolio'),
+    image: screenshotFor('portfolio'),
     links: { repo: 'https://github.com/PHTMGatt/12-React-Portfolio' },
   },
 ];
 
 // The original per-map guides, superseded by Zombies Hub 2.0. Their separate
-// Render deployments are offline, so only the source is linked.
+// Render deployments are offline, so only the source is linked. Screenshots
+// are real captures taken while the guides were still deployed.
+const legacyGuide = (id, title, summary, repo) => ({
+  id,
+  title,
+  summary,
+  category: 'frontend',
+  stack: ['React', 'Render'],
+  image: screenshotFor(id),
+  links: { repo },
+  status: 'inactive',
+});
+
 export const archivedProjects = [
-  { title: 'Zombies Hub 1.0', repo: 'https://github.com/PHTMGatt/Zombies-Hub' },
-  { title: 'Origins Guide', repo: 'https://github.com/PHTMGatt/Origins-Guide' },
-  { title: 'Mob of the Dead Guide', repo: 'https://github.com/PHTMGatt/MOTD-Guide' },
-  { title: 'Der Eisendrache Guide', repo: 'https://github.com/PHTMGatt/Der-Eisendrache-Guide' },
-  { title: 'Zetsubou No Shima Guide', repo: 'https://github.com/PHTMGatt/Zetsubou-Guide' },
-  { title: 'Gorod Krovi Guide', repo: 'https://github.com/PHTMGatt/Gorod-Krovi-Guide' },
-  { title: 'Revelations Guide', repo: 'https://github.com/PHTMGatt/Revelations-Guide' },
+  legacyGuide(
+    'zombies-hub-1',
+    'Zombies Hub 1.0',
+    'The original map-select hub that linked out to each separately hosted guide.',
+    'https://github.com/PHTMGatt/Zombies-Hub'
+  ),
+  legacyGuide(
+    'origins',
+    'Origins Guide',
+    'Little Lost Girl Easter egg walkthrough with separate pages for each elemental staff.',
+    'https://github.com/PHTMGatt/Origins-Guide'
+  ),
+  legacyGuide(
+    'mob-of-the-dead',
+    'Mob of the Dead Guide',
+    'Pop Goes the Weasel guide: Blundergat, spoon, Redeemer, audio logs and the final step.',
+    'https://github.com/PHTMGatt/MOTD-Guide'
+  ),
+  legacyGuide(
+    'der-eisendrache',
+    'Der Eisendrache Guide',
+    'Main Easter egg steps with an embedded video walkthrough and pages for bows, parts and wisps.',
+    'https://github.com/PHTMGatt/Der-Eisendrache-Guide'
+  ),
+  legacyGuide(
+    'zetsubou',
+    'Zetsubou No Shima Guide',
+    'Seeds of Doubt guide covering prerequisites, the blueprint, cogs, buildables and the boss fight.',
+    'https://github.com/PHTMGatt/Zetsubou-Guide'
+  ),
+  legacyGuide(
+    'gorod-krovi',
+    'Gorod Krovi Guide',
+    'Love and War guide with buildables, trophy challenges, a valve solver and the boss fight.',
+    'https://github.com/PHTMGatt/Gorod-Krovi-Guide'
+  ),
+  legacyGuide(
+    'revelations',
+    'Revelations Guide',
+    'For The Good Of All guide with Apothicon upgrade, egg locations and summoning key steps.',
+    'https://github.com/PHTMGatt/Revelations-Guide'
+  ),
 ];
 
 export const getCaseStudy = (slug) => caseStudies.find((study) => study.slug === slug);

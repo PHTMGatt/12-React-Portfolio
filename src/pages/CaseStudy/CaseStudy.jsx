@@ -72,9 +72,12 @@ const CaseStudy = () => {
         <figure className="case-study__hero">
           <ProjectImage
             image={study.image}
-            alt={`${study.title} interface preview`}
+            alt={`Screenshot of ${study.title}`}
             eager
             sizes="(max-width: 1200px) calc(100vw - 2rem), 1160px"
+            title={study.title}
+            stack={study.stack}
+            summary={study.tagline}
           />
         </figure>
 
