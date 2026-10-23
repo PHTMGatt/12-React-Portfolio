@@ -2,19 +2,19 @@ import React, { useState } from 'react';
 import ProjectCard from '../../components/ProjectCard/ProjectCard';
 import './Portfolio.css';
 
-import CandidateSearch from '../../assets/Pictures/CandiSearch.png';
-import DailyBytes from '../../assets/Pictures/DailyBytes.png';
-import DerEisendrache from '../../assets/Pictures/DE.png';
-import FairwayFinder from '../../assets/Pictures/FairwayFinder.png';
-import GK from '../../assets/Pictures/GK.png';
-import MernBookSearch from '../../assets/Pictures/MERN_Book_Search.png';
-import MOTD from '../../assets/Pictures/MOTD.png';
-import Origins from '../../assets/Pictures/Origins.png';
-import ReactPortfolio from '../../assets/Pictures/ReactFolio.png';
-import WeatherApp from '../../assets/Pictures/Screenshot9New.png';
-import REV from '../../assets/Pictures/REV.png';
-import ZNS from '../../assets/Pictures/ZETZ.png';
-import ZHub from '../../assets/Pictures/ZHub.png';
+import CandidateSearch from '../../assets/Pictures/CandiSearch.webp';
+import DailyBytes from '../../assets/Pictures/DailyBytes.webp';
+import DerEisendrache from '../../assets/Pictures/DE.webp';
+import FairwayFinder from '../../assets/Pictures/FairwayFinder.webp';
+import GK from '../../assets/Pictures/GK.webp';
+import MernBookSearch from '../../assets/Pictures/MERN_Book_Search.webp';
+import MOTD from '../../assets/Pictures/MOTD.webp';
+import Origins from '../../assets/Pictures/Origins.webp';
+import ReactPortfolio from '../../assets/Pictures/ReactFolio.webp';
+import WeatherApp from '../../assets/Pictures/Screenshot9New.webp';
+import REV from '../../assets/Pictures/REV.webp';
+import ZNS from '../../assets/Pictures/ZETZ.webp';
+import ZHub from '../../assets/Pictures/ZHub.webp';
 
 const projects = [
   {
