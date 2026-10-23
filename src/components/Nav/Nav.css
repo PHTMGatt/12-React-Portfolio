@@ -211,7 +211,9 @@
   }
 
   .contact-link {
-    display: none;
+    min-height: 34px;
+    display: inline-flex;
+    align-items: center;
   }
 
   .theme-toggle {
