@@ -11,6 +11,7 @@ import MernBookSearch from '../../assets/Pictures/MERN_Book_Search.png';
 import MOTD from '../../assets/Pictures/MOTD.png';
 import Origins from '../../assets/Pictures/Origins.png';
 import ReactPortfolio from '../../assets/Pictures/ReactFolio.png';
+import WeatherApp from '../../assets/Pictures/Screenshot9New.png';
 import REV from '../../assets/Pictures/REV.png';
 import ZNS from '../../assets/Pictures/ZETZ.png';
 import ZHub from '../../assets/Pictures/ZHub.png';
@@ -43,6 +44,8 @@ const projects = [
     id: 'weather-app',
     description: 'Weather App',
     repoLink: 'https://github.com/PHTMGatt/09-Weather-App',
+    renderLink: 'https://zero9-servers-and-apis.onrender.com',
+    screenshot: WeatherApp,
     status: 'API-focused weather dashboard • Search • Forecast data',
   },
   {
