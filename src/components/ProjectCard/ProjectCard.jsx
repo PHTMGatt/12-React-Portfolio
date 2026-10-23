@@ -13,14 +13,14 @@ const ProjectCard = ({ description, repoLink, renderLink, screenshot, status, in
       </div>
       {status && <div className={`project-status${inactive ? ' project-status--inactive' : ''}`}>{status}</div>}
       <div className="project-links">
+        <a href={repoLink} target="_blank" rel="noopener noreferrer">
+          GitHub
+        </a>
         {renderLink && (
           <a href={renderLink} target="_blank" rel="noopener noreferrer">
             Live Site
           </a>
         )}
-        <a href={repoLink} target="_blank" rel="noopener noreferrer">
-          GitHub
-        </a>
       </div>
     </div>
   );
