@@ -1,53 +1,30 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Dices } from 'lucide-react';
 import './QuoteAnimations.css';
 
-const pickDifferent = (list, current) => {
-  if (list.length < 2) return list[0];
-  let next;
-  do {
-    next = list[Math.floor(Math.random() * list.length)];
-  } while (next.dialog === current?.dialog);
-  return next;
-};
+// A small Middle-earth easter egg. The quotes ship with the site, so the footer
+// works offline and no private API token ever ends up in the browser bundle.
+const quotes = [
+  'Not all those who wander are lost.',
+  'Even the smallest person can change the course of the future.',
+  'All we have to decide is what to do with the time that is given us.',
+  'There is some good in this world, and it’s worth fighting for.',
+  'The road goes ever on and on.',
+];
 
-// A small Middle-earth easter egg from The One API. If the API is
-// unreachable the whole block stays hidden rather than showing a stuck loader.
+// A bounded pick that always moves to a different quote and cannot loop forever.
+const nextIndex = (current) => (current + 1 + Math.floor(Math.random() * (quotes.length - 1))) % quotes.length;
+
 const HobbitQuoteGenerator = () => {
-  const [quotes, setQuotes] = useState([]);
-  const [current, setCurrent] = useState(null);
+  const [index, setIndex] = useState(0);
   const [visible, setVisible] = useState(true);
   const timer = useRef();
-
-  useEffect(() => {
-    const controller = new AbortController();
-
-    fetch('https://the-one-api.dev/v2/quote', {
-      headers: { Authorization: 'Bearer 30pdImw6q06nrUVwdEpw' },
-      signal: controller.signal,
-    })
-      .then((res) => (res.ok ? res.json() : Promise.reject(new Error(res.statusText))))
-      .then((data) => {
-        const usable = (data.docs || []).filter((q) => q.dialog && q.dialog.trim().length > 12 && q.dialog.length < 180);
-        if (!usable.length) return;
-        setQuotes(usable);
-        setCurrent(pickDifferent(usable, null));
-      })
-      .catch(() => {});
-
-    return () => {
-      controller.abort();
-      clearTimeout(timer.current);
-    };
-  }, []);
-
-  if (!current) return null;
 
   const nextQuote = () => {
     setVisible(false);
     clearTimeout(timer.current);
     timer.current = setTimeout(() => {
-      setCurrent((prev) => pickDifferent(quotes, prev));
+      setIndex(nextIndex);
       setVisible(true);
     }, 200);
   };
@@ -55,7 +32,7 @@ const HobbitQuoteGenerator = () => {
   return (
     <figure className="footer-quote">
       <blockquote className={`footer-quote__text ${visible ? 'quote-in' : 'quote-out'}`} aria-live="polite">
-        “{current.dialog.trim()}”
+        “{quotes[index]}”
       </blockquote>
       <button type="button" className="footer-quote__button" onClick={nextQuote}>
         <Dices size={16} aria-hidden="true" />

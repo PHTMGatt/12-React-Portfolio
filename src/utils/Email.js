@@ -1,16 +1,13 @@
 import emailjs from '@emailjs/browser';
+import { validateEmail } from './validation';
 
 // EmailJS service ID, template ID and public key (public by design).
 const SERVICE_ID = 'service_qp2wa0u';
 const TEMPLATE_ID = 'template_kefqj3s';
 const PUBLIC_KEY = 'QAFA81H1YJE06zj4p';
 
-// Permissive on purpose: accepts subdomains (name@mail.co.uk) and plus
-// addressing, rejects anything without a user, an @ and a dotted domain.
-export const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim());
-
 const sendEmail = async ({ name, email, subject, message }) => {
-  if (!isValidEmail(email)) {
+  if (!validateEmail(email)) {
     return { success: false, error: 'Please provide a valid email address.' };
   }
 

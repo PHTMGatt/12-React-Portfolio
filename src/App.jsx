@@ -3,27 +3,17 @@ import { Outlet, ScrollRestoration } from 'react-router-dom';
 import Nav from './components/Nav/Nav';
 import Footer from './components/Footer/Footer';
 import NotFound from './pages/NotFound/NotFound';
+import { readPreference, writePreference } from './utils/storage';
 
-const readTheme = () => {
-  try {
-    const saved = localStorage.getItem('theme');
-    if (saved === 'light' || saved === 'dark') return saved;
-  } catch {
-    // Storage can be unavailable (private mode); fall back to the default.
-  }
-  return 'dark';
-};
+// Storage can be unavailable (private mode); readPreference falls back to the default.
+const readTheme = () => (readPreference('theme') === 'light' ? 'light' : 'dark');
 
 function App({ error = false }) {
   const [theme, setTheme] = useState(readTheme);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
-    try {
-      localStorage.setItem('theme', theme);
-    } catch {
-      // Not persisting the theme is acceptable.
-    }
+    writePreference('theme', theme);
   }, [theme]);
 
   const toggleTheme = () => setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));

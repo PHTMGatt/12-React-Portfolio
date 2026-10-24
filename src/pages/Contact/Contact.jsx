@@ -11,7 +11,9 @@ import {
   GiDevilMask,
   GiPerspectiveDiceSixFacesRandom,
 } from 'react-icons/gi';
-import sendEmail, { isValidEmail } from '../../utils/Email';
+import sendEmail from '../../utils/Email';
+import { readPreference, writePreference } from '../../utils/storage';
+import { validateEmail } from '../../utils/validation';
 import contactThemes from './elvenScriptures';
 import { profile } from '../../data/profile';
 import usePageTitle from '../../hooks/usePageTitle';
@@ -43,18 +45,15 @@ const validate = (form) => {
   const errors = {};
   if (!form.name.trim()) errors.name = 'Please enter your name.';
   if (!form.email.trim()) errors.email = 'Please enter your email address.';
-  else if (!isValidEmail(form.email)) errors.email = 'That email address doesn’t look quite right.';
+  else if (!validateEmail(form.email)) errors.email = 'That email address doesn’t look quite right.';
   if (!form.subject.trim()) errors.subject = 'Please add a short subject.';
   if (form.message.trim().length < 10) errors.message = 'Please write a message of at least 10 characters.';
   return errors;
 };
 
 const readStoredNumber = (key) => {
-  try {
-    return Number(localStorage.getItem(key)) || 0;
-  } catch {
-    return 0;
-  }
+  const value = Number(readPreference(key, '0'));
+  return Number.isInteger(value) && value >= 0 ? value : 0;
 };
 
 const Contact = () => {
@@ -67,13 +66,7 @@ const Contact = () => {
 
   // Optional Middle-earth flavour for the form. Off by default so the
   // standard form stays clear; the visitor's choice is remembered.
-  const [themed, setThemed] = useState(() => {
-    try {
-      return localStorage.getItem('contactThemed') === 'true';
-    } catch {
-      return false;
-    }
-  });
+  const [themed, setThemed] = useState(() => readPreference('contactThemed') === 'true');
   const [categoryIndex, setCategoryIndex] = useState(() => readStoredNumber('activeCategoryIndex') % scrollCategories.length);
   const [themeIndex, setThemeIndex] = useState(0);
 
@@ -89,13 +82,10 @@ const Contact = () => {
   const easterEgg = scroll?.category === 'Elf' && scroll?.title?.toLowerCase() === 'glimmer of galadriel';
   const CategoryIcon = iconMap[category];
 
+  // Remembering the preference is optional; writePreference ignores blocked storage.
   useEffect(() => {
-    try {
-      localStorage.setItem('contactThemed', String(themed));
-      localStorage.setItem('activeCategoryIndex', String(categoryIndex));
-    } catch {
-      // Remembering the preference is optional.
-    }
+    writePreference('contactThemed', themed);
+    writePreference('activeCategoryIndex', categoryIndex);
   }, [themed, categoryIndex]);
 
   const randomIndex = (list) => Math.floor(Math.random() * list.length);
@@ -137,7 +127,7 @@ const Contact = () => {
 
     setStatus('sending');
     const { name, email, subject, message } = form;
-    const result = await sendEmail({ name: name.trim(), email: email.trim(), subject: subject.trim(), message });
+    const result = await sendEmail({ name: name.trim(), email: email.trim(), subject: subject.trim(), message: message.trim() });
     if (result.success) {
       setStatus('sent');
       setForm(emptyForm);

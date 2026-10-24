@@ -1,6 +1,6 @@
 import { StrictMode, lazy } from 'react';
 import { createRoot } from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, createHashRouter, RouterProvider } from 'react-router-dom';
 import './Global.css';
 import App from './App.jsx';
 import About from './pages/About/About';
@@ -12,7 +12,11 @@ const Portfolio = lazy(() => import('./pages/Portfolio/Portfolio'));
 const CaseStudy = lazy(() => import('./pages/CaseStudy/CaseStudy'));
 const Contact = lazy(() => import('./pages/Contact/Contact'));
 
-const router = createBrowserRouter([
+// Subfolder-hosted review previews only: build with VITE_REVIEW_HASH_ROUTER=true
+// and --base=./. Production keeps clean history-based URLs.
+const createRouter = import.meta.env.VITE_REVIEW_HASH_ROUTER === 'true' ? createHashRouter : createBrowserRouter;
+
+const router = createRouter([
   {
     path: '/',
     element: <App />,
@@ -26,13 +30,10 @@ const router = createBrowserRouter([
       { path: '*', element: <NotFound /> },
     ],
   },
-], {
-  // Opt in to React Router v7 behaviour now (also silences the dev warnings).
-  future: { v7_relativeSplatPath: true },
-});
+]);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} future={{ v7_startTransition: true }} />
+    <RouterProvider router={router} />
   </StrictMode>
 );
