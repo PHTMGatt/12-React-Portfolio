@@ -109,6 +109,13 @@ const CaseStudy = () => {
             <h2 id="outcome-title">The outcome</h2>
             <p>{study.outcome}</p>
           </section>
+
+          {study.currentStatus && (
+            <section aria-labelledby="status-title">
+              <h2 id="status-title">Current status</h2>
+              <p>{study.currentStatus}</p>
+            </section>
+          )}
         </div>
 
         {study.gallery && (

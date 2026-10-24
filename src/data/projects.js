@@ -81,7 +81,7 @@ export const caseStudies = [
     slug: 'clash-automation',
     kicker: 'Automation · Discord bots',
     title: 'Clash of Clans Discord Suite',
-    tagline: 'War intelligence and server operations bots, running together on a single host.',
+    tagline: 'War intelligence and server operations bots, built to run together on a single host.',
     image: screenshotFor('war-oracle'),
     role: 'Designed and built all three projects: two bots and the runtime that hosts them.',
     stack: ['Node.js', 'discord.js', 'Clash of Clans API', 'Render', 'Raspberry Pi'],
@@ -104,7 +104,9 @@ export const caseStudies = [
       'raspbi-pilot is a lightweight supervisor that boots each bot’s start() in one Node process, so both run under a single Render worker or one Raspberry Pi with no code changes.',
     ],
     outcome:
-      'Automated, low-noise war oversight and server operations for clan leadership, with two independently maintained bots sharing one host instead of paying for two.',
+      'Automated, low-noise war oversight and server operations for clan leadership, designed so two independently maintained bots could share one host instead of paying for two.',
+    currentStatus:
+      'Clash Commander is currently paused, and raspbi-pilot is inactive: it needs repair or retirement, so the shared-host setup described above is not running at the moment. The source for all three projects remains on GitHub.',
   },
 ];
 
