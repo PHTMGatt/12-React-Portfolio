@@ -1,126 +1,161 @@
-# Motion plan: editorial scroll storytelling
+# Motion plan v2: the travelling ribbon
 
 Status: **plan only; awaiting approval.** No motion code or package has been added.
-Base: `claude/portfolio-polish` @ `41650b1` (redesign + stage 1 images + rework merge).
+Base: `claude/portfolio-polish` @ `9e459b8`. Replaces v1's "commit node" with a bolder travelling element.
 
 ## 1. Direction and rules
 
-- **Purpose first.** Every effect must answer "what does this help the visitor understand?". Motion tells the story *problem → build → outcome* and walks the visitor through the projects; it is never decoration for its own sake.
-- **Identity stays:** dark navy surfaces with cyan accent (`--bg #070b18`, `--accent #38bdf8`), plus the light theme from the same tokens. Inter for UI, oversized Inter 800 for editorial headlines. The Middle-earth easter eggs stay where they are (contact mode, footer quote).
-- **Tiered tooling**
-  - **Tier 1 (default): native.** CSS transitions, `@keyframes`, `IntersectionObserver` reveals, and CSS scroll-driven animations (`animation-timeline: view()` / `scroll()`) behind `@supports`, with the IntersectionObserver path as the fallback.
-  - **Tier 2: GSAP core + ScrollTrigger**, only where Tier 1 falls short: pinned sequences with scrubbed timelines and the travelling object's path. This is the **only** animation library.
-- **Forbidden:** Spline or any 3D runtime in the hero, generic particle fields, fake AI product imagery, effects without a narrative job, and more than one animation library.
+- **Purpose first.** Motion tells the story *problem → build → outcome* and leads the visitor from "who I am" through the three case studies to "let's talk". Every effect needs that job.
+- **Identity stays:** dark navy surfaces with cyan accent (`--bg #070b18`, `--accent #38bdf8`); the light theme uses the same tokens (`--accent #0369a1`). Inter, with oversized Inter 800 editorial headlines. The Middle-earth easter eggs stay as they are.
+- **Tooling tiers:**
+  - **Tier 1 (default): native.** CSS transitions and keyframes, `IntersectionObserver` reveals, CSS scroll-driven animations (`animation-timeline: view()`) behind `@supports`, and View Transitions where supported.
+  - **Tier 2: GSAP core + ScrollTrigger,** only for scrubbed or pinned work and the ribbon. This is the only animation library.
+- **Forbidden:** Spline or any 3D runtime, generic particle fields, fake or AI product imagery, decorative-only effects, and a second animation library.
 
-## 2. Effect map per section
+## 2. The travelling ribbon
 
-| Section | Effect | Tier | Purpose |
-|---|---|---|---|
-| **Hero** (`About.jsx` `.hero`) | Headline set very large (`clamp(3.5rem, 11vw, 9rem)`), revealed line by line with a clip-path mask (80ms stagger, once). The portrait settles in with a 12px rise. The facts list counts up only if numbers stay factual. The travelling object starts here (§3). | 1 | A confident first read; establishes the object as the guide |
-| **Nav** | Hide on scroll down, show on scroll up (transform only). Active link underline slides between items. The mobile menu sheet slides with opacity. | 1 | Gives content room; keeps orientation |
-| **Stack strip** | Slow horizontal drift (CSS, paused on hover and focus). Off under reduced motion. | 1 | Ambient signal of breadth; no information lost when static |
-| **Selected work** (`FeaturedStudy` ×3) | **Pinned storytelling.** On desktop the section pins while the three case studies advance: the screenshot or fallback panel crossfades, and the title and stats slide in. Scroll progress drives a 3-step indicator. | 2 | One story at a time instead of a long list |
-| **Capabilities** | Cards reveal with a 60ms stagger as they enter. Icons draw on via SVG stroke-dashoffset. | 1 | Light rhythm while scanning |
-| **About / principles** | Numbered principles reveal in order. Large index numerals use a subtle scroll-linked parallax (CSS `view()`). | 1 | Reading pace |
-| **CTA band** | The travelling object arrives and docks beside the CTA (§3). The button gets a one-time cyan glint. | 1–2 | Closes the narrative loop |
-| **Work page cards** | Reveal on enter (once). Hover lifts 4px with the accent border (exists now); the screenshot scales 1.03 (exists). Filter changes use a FLIP-style reflow (View Transitions API where supported, instant otherwise). | 1 | Shows that filtering kept your place |
-| **Case-study page** | Header copy reveals; stats count up; approach steps reveal in sequence; next-study link has an arrow nudge. Zombies Hub hero is special (§4). | 1–2 | Follows the problem → approach → outcome structure |
-| **Screenshots** | Real screenshots only. On enter: a soft unblur from a 1.02 scale. Optional "browser frame" chrome drawn in CSS around real captures. No mock UI. | 1 | Makes real work feel tangible without faking it |
-| **Backgrounds** | Static token gradients. One very low-contrast cyan radial glow follows section changes (CSS custom property set on enter). No particles, no noise video. | 1 | Depth without distraction |
-| **Route transitions** | View Transitions API crossfade (180ms) where supported; instant otherwise. Focus moves to `<main>` as today. | 1 | Continuity between pages |
-| **Hover / focus** | Existing button lift, chip highlight, focus rings unchanged. Focus styles are never animated away. | 1 | Accessibility first |
+One continuous cyan energy ribbon runs down the home page. It enters behind the hero headline, weaves through every section, and splits into three branches at Selected Work, one reaching toward each case study. The branches merge again and resolve into a single point of light beside the Contact call-to-action. The ribbon looks like it is part of the page because it passes *behind* some cards and type and *in front of* others.
 
-## 3. The travelling object
+### 2.1 Section-by-section behaviour (home page, `src/pages/About/About.jsx`)
 
-One original, lightweight SVG element that moves through the home page along a scroll-linked path. It ties hero → work → capabilities → CTA into one journey. Under 4 kB, no canvas or WebGL.
+| Section (class) | Ribbon behaviour | Layer |
+|---|---|---|
+| **Hero** (`.hero`) | Enters from the top-right edge on load (drawn over 1.2 s, after the headline is painted). Sweeps **behind** the giant headline (shows in the counters of letters) and passes **in front of** the portrait's lower edge. A soft leading "spark" travels a short way down, then waits for scroll. | back → front |
+| **Stack strip** (`.stack-strip`) | Crosses the strip horizontally **behind** the tech chips, like a cable running under a rail. | back |
+| **Selected work** (`.section` + 3 × `FeaturedStudy`) | Desktop: the section pins (§3.2). The ribbon **splits into three branches**. Each branch draws toward its case study as that study becomes active, wraps **in front of** the media frame's corner and tucks **behind** the text column. Inactive branches dim to 25%. | split; front at frame corners, back at text |
+| **Capabilities** (`.section--tint`, `.capability` cards) | Branches re-braid into one ribbon, which runs **behind** the four cards (visible in the gutters) and over the tinted background. | back |
+| **About / principles** (`.about`, `.about__principles`) | A gentle S-curve beside the numbered principles; passes **in front of** the large index numerals, so they appear "threaded". | front over numerals, back elsewhere |
+| **CTA band** (`.cta-band`) | Converges toward the "Contact me" button and **resolves**: the stroke narrows to a point and a single glow pulse plays once when the band is 60% visible. Then it rests. | front |
+| **Footer** | Not present (the story ends at Contact). | — |
 
-| Option | Concept | Pros | Cons |
-|---|---|---|---|
-| **A. "Commit" node** *(recommended)* | A small glowing cyan node with a short trailing line, like a git commit graph. Branches into three short forks at Selected Work (one per case study) and merges back. Docks as the CTA "merge" dot. | Directly tells a developer's story (branch → build → merge); trivially themeable; pure SVG path + `stroke-dashoffset` | Needs careful path design so it doesn't overlap text |
-| B. Cursor-caret | A blinking text caret that "types" each section heading, then hops to the next. | Very cheap; on-brand for a developer | Gimmicky if overused; weak visual continuity between sections |
-| C. Data packet | A small rounded packet travelling along a dashed "network" line between project cards, like a request/response trip. | Nice fit for the API and bot work | Less personal; similar to many generic tech sites |
+Other routes: **no full ribbon.** The Work page and case studies get a short static "ribbon tab" beside the page eyebrow (pure SVG, no JS) for continuity. The Zombies Hub case study hero is still the layered real-screenshot treatment (§5).
 
-**Recommendation: A.** Implementation:
-- One absolutely positioned SVG overlay on the home page, with path segments per section.
-- Desktop: ScrollTrigger scrubs `strokeDashoffset` plus the node's position along the path (`MotionPathPlugin` ships with GSAP, so no second library).
-- Mobile: the node snaps between section anchors with simple fades (no path).
-- Reduced motion: a static dot beside each section heading.
-- Decorative only: `aria-hidden="true"`, `pointer-events: none`.
+### 2.2 Depth layering, cheaply
 
-## 4. Zombies Hub case-study hero (exploded, layered, real)
+- **Two inline SVGs share one path.** `ribbon-back` sits in the page flow at `z-index: 0`. `ribbon-front` is an identical copy at `z-index: 2`. Section content wrappers (`.container`, cards) get `position: relative; z-index: 1`. Sections themselves stay non-positioned, so their backgrounds paint below `ribbon-back`.
+- **The front copy is masked.** Its `<mask>` contains a few `<rect>` "windows" at the crossing points (portrait edge, media-frame corners, numerals, CTA). Everywhere else only the back copy is visible, behind the content. One path definition is drawn twice; there's no per-frame compositing logic.
+- **Glow without filters:** a second, wider stroke at 15% opacity under the core stroke, instead of an animated `feGaussianBlur`. Gradient via `linearGradient` using `--accent` / `--accent-strong`.
+- **Geometry from the real layout:** sections carry `data-ribbon-anchor` attributes, and `geometry.js` turns their bounding boxes into a cubic Bézier `d` string. It recomputes on `ResizeObserver` (debounced 150 ms) and on font load, never on scroll.
+- **Accessibility:** both SVGs are `aria-hidden="true"`, `focusable="false"` and `pointer-events: none`. They never cover interactive targets because the mask windows avoid buttons and links.
 
-Built only from **real** captures. Needed first: a real Zombies Hub 2.0 capture set (home, map select, one map guide; desktop + mobile).
-- **Layers:** the 2.0 home as the base, a map guide plate and a mobile capture, offset in z with CSS `transform: translateZ()` / `perspective` (no 3D runtime).
-- **On scroll:** the layers start stacked, fan out ("explode") to show that one app now contains what were separate sites, then settle into a clean grid.
-- A "before" strip shows the real 1.0 screenshots (`ZHub.webp` + one guide), to contrast seven deployments with one.
-- **Fallback:** until the 2.0 captures exist, keep the current typographic hero. **Never** fake the layers.
+### 2.3 Animation (GSAP + ScrollTrigger)
 
-## 5. Staged implementation
+- **Draw:** one ScrollTrigger (`scrub: 0.6`) from the hero to the CTA maps progress to `stroke-dashoffset`, using `getTotalLength()`, on both copies via a shared CSS custom property. This needs no plugin. DrawSVGPlugin is an alternative.
+- **Spark head:** a small glowing circle follows the drawn tip using `path.getPointAtLength(progress × length)`, also plugin-free. MotionPathPlugin is an alternative if rotation along the path is wanted.
+- **Branches:** three short paths in the pinned Selected Work timeline, drawn and dimmed per active study.
+- **Pin:** Selected Work pins for 3 × 80vh on desktop. A 3-step progress indicator and the active case-study panel crossfade.
+- **Lifecycle:** everything is created in a `gsap.context()` and reverted on route change or unmount. `ScrollTrigger.refresh()` runs after the geometry recompute.
+- **Licence:** since GSAP 3.13 (April 2025) the whole library, including the formerly paid DrawSVG, MotionPath and SplitText plugins, is free under the standard GSAP licence. GSAP isn't installed in this repo yet, so this couldn't be checked locally. At install, confirm `node_modules/gsap/DrawSVGPlugin.js` exists and read `node_modules/gsap/README.md` / the licence note. The plan doesn't depend on any plugin beyond ScrollTrigger.
+
+### 2.4 Variants
+
+| | **A. Signal ribbon (SVG)** *(recommended)* | **B. Fibre bundle (Canvas 2D)** |
+|---|---|---|
+| Look | One smooth cyan ribbon with a soft glow and a spark head; branches into three. | Three thin strands braided together, with light pulses flowing along them; they unbraid into the three case studies and rebraid at Contact. |
+| Depth | Two SVG copies + mask windows (above). | Two canvases (back and front) with the same clip windows, redrawn on scroll. |
+| Cost | Static DOM paths; the browser rasterises them. Animation only changes `stroke-dashoffset`. Very cheap. | A redraw every scroll frame on two canvases, plus a HiDPI backing store. Heavier on mobile GPUs and INP. |
+| Theming / a11y | CSS variables; prints and zooms crisply; works in light theme for free. | Must re-read tokens and redraw on theme change; blurry if DPR handling slips. |
+| Fallback | The same SVG shown fully drawn (no JS animation). | Needs a separate static SVG fallback anyway. |
+
+**Recommendation: A.** It does the job with the fewest moving parts, layers naturally with the DOM, themes through tokens, and its static state is the mobile and reduced-motion fallback.
+
+## 3. Other effects (unchanged from v1, condensed)
+
+| Section | Effect | Tier |
+|---|---|---|
+| Hero | Headline `clamp(3.5rem, 11vw, 9rem)`, line-by-line clip-path reveal (80 ms stagger, once); portrait settles with a 12px rise | 1 |
+| Nav | Hide on scroll down, show on scroll up (transform only); sliding active underline | 1 |
+| Selected work | Desktop pin with a crossfading case-study panel (§2.3) | 2 |
+| Capabilities, principles | Staggered reveals; icons draw on via `stroke-dashoffset` | 1 |
+| Work page cards | Reveal once; existing hover lift; filter changes animate via View Transitions | 1 |
+| Case study | Copy reveals, stats count up, steps reveal in sequence | 1 |
+| Screenshots | Real captures only; soft unblur from 1.02 scale on enter; optional CSS browser frame | 1 |
+| Backgrounds | Static token gradients; one low-contrast glow that follows the active section | 1 |
+| Route transitions | View Transitions crossfade (180 ms); focus still moves to `<main>` | 1 |
+
+## 4. Mobile and touch (`(hover: none)` or width < 768 px)
+
+- **GSAP is not loaded.** No pinning anywhere.
+- **Static ribbon:** a simplified vertical S-path built from the same geometry. It is drawn with CSS `animation-timeline: view()` where supported, and shown fully drawn otherwise. Back layer only, no mask windows.
+- **No branches:** the three case studies each get a small static cyan tick on their left edge instead.
+- Reveals travel at most 16 px; no parallax; no `backdrop-filter` animation.
+
+## 5. Zombies Hub case-study hero (real screenshots only)
+
+Needs a real Zombies Hub 2.0 capture set first (home, map select, one guide; desktop + mobile).
+- Layers are offset in CSS 3D (`perspective`, `translateZ`); there's no 3D runtime.
+- On scroll they fan out to show that one app replaces seven sites, then settle into a grid.
+- A "before" strip shows the real 1.0 screenshots.
+- Until the 2.0 captures exist, the current text fallback stays. No faked layers.
+
+## 6. Performance budget and protections
+
+| Metric | Now (`9e459b8`) | Target |
+|---|---|---|
+| Entry JS (`index-*.js`) | 301.95 kB / **97.80 kB gz** | **≤ 100 kB gz.** Ribbon and GSAP are code-split; static ribbon geometry ≤ 2 kB gz in the home chunk |
+| Global CSS | 19.90 kB / 4.94 kB gz | ≤ 7 kB gz |
+| Lazy motion chunk (GSAP core + ScrollTrigger + ribbon animation) | — | **≤ 45 kB gz.** Estimated ~40 kB gz before install. If over budget after install, drop any optional plugin first (draw and spark are already plugin-free) |
+| Project screenshots | 664.6 kB (12 WebP, lazy) | unchanged; new captures ≤ 120 kB each plus a 640 px variant |
+| LCP (mid-range phone, 4G) | not measured (browser tools blocked) | ≤ 2.0 s |
+| CLS | ~0 | ≤ 0.02 |
+| INP | not measured | ≤ 150 ms |
+
+**LCP protection:**
+- The hero headline is the LCP element and renders without JS.
+- The ribbon SVG mounts in `requestIdleCallback` after first paint, and GSAP is imported dynamically after `load`.
+- No new fonts or images in the critical path.
+
+**CLS protection:**
+- The ribbon is absolutely positioned with `pointer-events: none` and never takes layout space.
+- Reveals use transform and opacity only.
+- The pin spacer is created before first scroll; ScrollTrigger runs with `anticipatePin: 1`.
+
+**INP protection:**
+- No custom scroll listeners; ScrollTrigger only.
+- Geometry recompute runs only on a debounced `ResizeObserver`.
+- No animated SVG filters.
+- Branch dimming uses opacity only.
+
+## 7. Reduced motion and no-JS
+
+- `prefers-reduced-motion: reduce`:
+  - The ribbon renders **fully drawn and static**, including its depth layering. Branches show, with no spark and no pulse.
+  - No pinning. GSAP is never imported.
+  - Reveals render in their final state; the global clamp in `Global.css` already exists.
+- **No JS:** content is fully visible (reveal states are gated behind a `.js-motion` class). The ribbon simply isn't shown.
+
+## 8. Implementation stages
 
 | Stage | Scope | Files touched | Library |
 |---|---|---|---|
-| 0 | `useReducedMotion` hook, `useInView` hook, `[data-reveal]` CSS utility, `@supports (animation-timeline: view())` utilities, motion tokens (`--motion-fast/base/slow`, easing) | `src/hooks/useReducedMotion.js`, `src/hooks/useInView.js`, `src/Global.css` | none |
-| 1 | Hero editorial type + line reveal; nav hide/show; card, capability and principle reveals; screenshot unblur; stack strip drift | `src/pages/About/About.jsx/.css`, `src/components/Nav/*`, `ProjectCard.css`, `ProjectImage.jsx`, `Portfolio.css` | none |
-| 2 | View Transitions for routes and filter changes (progressive) | `src/App.jsx`, `src/pages/Portfolio/Portfolio.jsx` | none |
-| 3 | Install GSAP. Pinned "Selected work" sequence (desktop only) | `package.json`, `src/components/FeaturedStudy/*`, `src/pages/About/About.jsx`, new `src/motion/gsap.js` (registers plugins once, lazy) | gsap |
-| 4 | Travelling commit node (§3) | new `src/components/CommitPath/CommitPath.jsx/.css`, `About.jsx` | gsap (MotionPath, ScrollTrigger) |
-| 5 | Zombies Hub layered hero, after real captures exist | `src/pages/CaseStudy/*`, `src/data/screenshots.js`, new assets | gsap (optional) or CSS only |
-| 6 | QA pass, budgets, smoke-test additions (reduced-motion assertions, no layout shift) | `scripts/browser-smoke.mjs` | none |
+| 0 | Motion tokens, `useReducedMotion`, `useInView`, `.js-motion` gating, reveal utilities | `src/Global.css`, `src/hooks/useReducedMotion.js`, `src/hooks/useInView.js`, `src/App.jsx` | none |
+| 1 | Native reveals, hero type, nav hide/show, screenshot unblur | `src/pages/About/About.jsx/.css`, `src/components/Nav/Nav.jsx/.css`, `src/components/ProjectCard/ProjectCard.css`, `src/components/ProjectImage/ProjectImage.jsx`, `src/pages/Portfolio/Portfolio.css`, `src/pages/CaseStudy/CaseStudy.css` | none |
+| 2 | View Transitions for routes and filters | `src/App.jsx`, `src/pages/Portfolio/Portfolio.jsx` | none |
+| 3 | **Static ribbon:** anchors, geometry, back and front SVG with mask windows, z-index layering. Also the mobile and reduced-motion version | new `src/components/Ribbon/Ribbon.jsx`, `Ribbon.css`, `geometry.js`; `src/pages/About/About.jsx/.css` (anchors, `position/z-index` on containers) | none |
+| 4 | **Install GSAP**; lazy loader; scrubbed draw, spark, branches; Selected Work pin | `package.json`, `package-lock.json`, new `src/motion/loadGsap.js`, new `src/components/Ribbon/animate.js`, `src/components/FeaturedStudy/FeaturedStudy.jsx/.css` | gsap |
+| 5 | Zombies Hub layered hero (after real 2.0 captures) | `src/pages/CaseStudy/CaseStudy.jsx/.css`, `src/data/screenshots.js`, new assets | none or gsap |
+| 6 | QA, bundle check, smoke-test additions (reduced-motion state, no CLS, ribbon `aria-hidden`, GSAP absent on touch) | `scripts/browser-smoke.mjs` | none |
 
-GSAP loads with dynamic `import()` from the home and case-study routes only, after first paint, so it never enters the entry chunk.
-
-**Exact install command (stage 3; needs approval):**
+**Install command (stage 4 only, after approval):**
 
 ```bash
 npm install gsap@^3.13.0
 ```
 
-GSAP 3.13+ includes ScrollTrigger and MotionPathPlugin in the free package. No `@gsap/react`: a 10-line `useLayoutEffect` + `gsap.context()` helper is enough.
+No `@gsap/react`; a small `useLayoutEffect` + `gsap.context()` helper is enough.
 
-## 6. Performance budget
+## 9. QA checklist
 
-| Metric | Now (`41650b1` build) | Target after motion |
-|---|---|---|
-| Entry JS (`index-*.js`) | 301.6 kB / **97.7 kB gz** | ≤ 100 kB gz (no growth: motion code split) |
-| Global CSS | 19.9 kB / 4.9 kB gz | ≤ 7 kB gz |
-| GSAP chunk (lazy) | — | ≤ 45 kB gz (core + ScrollTrigger + MotionPath), loaded after LCP |
-| Project screenshots | 664.6 kB total (12 WebP, lazy) | unchanged; new captures ≤ 120 kB each at 1280 px plus a 640 px variant |
-| LCP (Moto G-class, 4G) | not yet measured | ≤ 2.0 s; hero text is the LCP element and must not wait for JS |
-| CLS | ~0 (fixed media boxes) | ≤ 0.02; reveals use transform and opacity only |
-| INP | not yet measured | ≤ 150 ms; no scroll handlers outside ScrollTrigger and IntersectionObserver |
-
-**Mobile rules** (`(hover: none)` or width < 768 px):
-- No pinning.
-- Travelling object in snap mode.
-- Reveals at most 16px of travel.
-- Parallax disabled.
-- No `backdrop-filter` animation.
-- GSAP not loaded at all on touch devices unless stage 5 needs it.
-
-## 7. Reduced motion
-
-With `prefers-reduced-motion: reduce` (already globally clamped in `Global.css`):
-- All reveals render in their final state; content is visible without JS.
-- No pinning and no scrub. The commit node is a static dot per section.
-- The Zombies layered hero renders as a static grid.
-- The stack strip doesn't drift.
-- View Transitions are skipped.
-- `useReducedMotion` also gates GSAP, so it is never imported.
-
-Without JS, every `[data-reveal]` element is visible by default (`.js-motion` class gating).
-
-## 8. QA checklist
-
-- [ ] Reduced motion: all content visible, nothing pinned, no animation longer than 0.01 ms
+- [ ] Reduced motion: ribbon static and fully drawn, nothing pinned, no animation longer than 0.01 ms, GSAP absent from the network
 - [ ] No-JS: all content visible
-- [ ] Desktop 1440, tablet 768, mobile 390 × dark/light: no overflow, no overlap of the commit node with text
-- [ ] Keyboard: focus order unchanged inside pinned sections; focus rings visible; pinned sections release on Tab-out
-- [ ] Screen reader: decorative SVG is `aria-hidden`; no duplicate announcements from reveals
-- [ ] Lighthouse mobile: Performance ≥ 90, CLS ≤ 0.02, LCP ≤ 2.0 s; entry JS ≤ 100 kB gz
-- [ ] GSAP chunk absent from the network on touch devices and with reduced motion
-- [ ] Scroll back up: pinned sequence and node reverse cleanly; no stuck states after route change (ScrollTrigger killed on unmount)
-- [ ] Safari, Firefox, Chrome: scroll-driven CSS falls back to IntersectionObserver where unsupported
-- [ ] Only real screenshots; no AI imagery; `scripts/browser-smoke.mjs` still passes
-- [ ] Console clean in all routes
+- [ ] 1440 / 768 / 390 × dark / light: ribbon never covers text or controls; mask windows line up after resize and font load
+- [ ] Ribbon passes behind cards and headline and in front at the planned crossings; nothing flickers at section boundaries
+- [ ] Keyboard: focus order unchanged inside the pin; focus rings visible above the front ribbon layer
+- [ ] Screen reader: ribbon SVGs `aria-hidden`; no duplicate announcements
+- [ ] Lighthouse mobile ≥ 90; LCP ≤ 2.0 s; CLS ≤ 0.02; INP ≤ 150 ms; entry JS ≤ 100 kB gz; motion chunk ≤ 45 kB gz
+- [ ] Touch devices: no pin, GSAP not requested, static ribbon only
+- [ ] Route change away and back: no leftover ScrollTriggers, no stuck pin
+- [ ] Safari, Firefox, Chrome: `view()` falls back cleanly where unsupported
+- [ ] Real screenshots only; smoke test passes; console clean
 
 **Stop: awaiting approval before stage 0.**
