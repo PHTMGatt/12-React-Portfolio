@@ -3,8 +3,9 @@
 //
 // `image` is a real screenshot from ./screenshots.js, or null. Null renders an
 // honest typographic summary (title, stack, one-line description) instead.
-// `status` is 'legacy' for finished coursework without a deployment and
-// 'inactive' for projects whose deployment has been retired.
+// `status` is 'legacy' for finished coursework without a deployment,
+// 'paused' for projects on hold, and 'inactive' for projects that are retired
+// or not currently running. An optional `statusNote` says why, on the card.
 
 import { screenshotFor } from './screenshots';
 
@@ -147,6 +148,7 @@ export const projects = [
     image: screenshotFor('clash-commander'),
     links: { repo: 'https://github.com/PHTMGatt/Clash-Commander-Bot' },
     caseStudy: 'clash-automation',
+    status: 'paused',
   },
   {
     id: 'raspbi-pilot',
@@ -157,6 +159,8 @@ export const projects = [
     image: screenshotFor('raspbi-pilot'),
     links: { repo: 'https://github.com/PHTMGatt/raspbi-pilot' },
     caseStudy: 'clash-automation',
+    status: 'inactive',
+    statusNote: 'Needs repair or retirement.',
   },
   {
     id: 'captain-hook',

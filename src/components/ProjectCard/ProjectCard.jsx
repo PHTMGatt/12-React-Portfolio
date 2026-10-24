@@ -9,11 +9,12 @@ const categoryLabel = (id) => categories.find((c) => c.id === id)?.label ?? id;
 
 const statusLabels = {
   legacy: { text: 'Legacy', title: 'Finished coursework project with no live deployment' },
-  inactive: { text: 'Inactive', title: 'Deployment retired; source remains on GitHub' },
+  paused: { text: 'Paused', title: 'Development is on hold; source remains on GitHub' },
+  inactive: { text: 'Inactive', title: 'Not currently running; source remains on GitHub' },
 };
 
 const ProjectCard = ({ project }) => {
-  const { title, summary, category, stack, image, links, caseStudy, status } = project;
+  const { title, summary, category, stack, image, links, caseStudy, status, statusNote } = project;
   const statusLabel = statusLabels[status];
 
   return (
@@ -41,6 +42,7 @@ const ProjectCard = ({ project }) => {
         </p>
         <h3 className="project-card__title">{title}</h3>
         <p className="project-card__summary">{summary}</p>
+        {statusNote && <p className="project-card__note">{statusNote}</p>}
         <ul className="chip-list" aria-label={`${title} technologies`}>
           {stack.map((tech) => (
             <li key={tech} className="chip">

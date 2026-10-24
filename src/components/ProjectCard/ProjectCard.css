@@ -85,6 +85,13 @@
   line-height: 1.6;
 }
 
+.project-card__note {
+  margin-top: -0.2rem;
+  color: var(--text-subtle);
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
 .project-card__actions {
   display: flex;
   flex-wrap: wrap;
