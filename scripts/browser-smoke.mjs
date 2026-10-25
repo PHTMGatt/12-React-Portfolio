@@ -11,7 +11,17 @@ const viewports = [
   { name: 'tablet', width: 768, height: 1024 },
   { name: 'mobile', width: 390, height: 844 },
 ];
-const routes = ['/', '/work', '/work?type=automation', '/work/zombies-hub-2', '/resume', '/contact', '/does-not-exist'];
+const routes = [
+  '/',
+  '/work',
+  '/work?type=automation',
+  '/work/zombies-hub-2',
+  '/work/fairway-finder',
+  '/work/clash-automation',
+  '/resume',
+  '/contact',
+  '/does-not-exist',
+];
 // Standalone guide deployments are retired and must never be linked as live.
 const retiredHosts = ['der-eisendrache-guide', 'gorod-krovi-guide', 'motd-guide', 'revelations-guide', 'zetsubou-guide', 'origins-wtyd'];
 
