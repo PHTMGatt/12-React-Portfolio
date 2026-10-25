@@ -9,8 +9,6 @@ This **React-based portfolio** showcases my web development projects and skills.
 
 **🔗 [View Live Portfolio](https://one2-react-portfolio.onrender.com)**
 
-![Portfolio Screenshot](./src/assets/Pictures/render.png)
-
 ---
 
 ## ✨ **Features**
@@ -37,10 +35,10 @@ This **React-based portfolio** showcases my web development projects and skills.
 
 Each project in the portfolio includes:
 
-- **Visual preview** (image or GIF)
-- **Project title**
-- **Live demo** link
-- **GitHub repository** for detailed code exploration
+- **GitHub repository** link first, for the source and project history
+- **Live demo** link second, only where a deployment exists
+- A **real screenshot** of the project, or a plain text summary until one is captured (no generated imagery)
+- A status label for **Legacy**, **Paused** or **Inactive** projects
 
 ---
 
