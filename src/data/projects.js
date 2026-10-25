@@ -1,4 +1,4 @@
-// Project and case-study content. Descriptions are drawn from each
+// Project content for the Work page. Descriptions are drawn from each
 // project's own README so the portfolio stays factual.
 //
 // `image` is a real screenshot from ./screenshots.js, or null. Null renders an
@@ -18,97 +18,9 @@ export const categories = [
   { id: 'testing', label: 'Testing' },
 ];
 
-export const caseStudies = [
-  {
-    slug: 'zombies-hub-2',
-    kicker: 'Front-end architecture · CI/CD',
-    title: 'Zombies Hub 2.0',
-    tagline: 'Seven separate guide sites rebuilt as one fast, unified React application.',
-    image: screenshotFor('zombies-hub-2'),
-    role: 'Solo project: architecture, UI, content, CI and deployment.',
-    stack: ['React', 'Vite', 'React Router', 'GitHub Actions', 'Render'],
-    links: [
-      { label: 'Source on GitHub', href: 'https://github.com/PHTMGatt/Zombies-Hub-2.0', primary: true },
-      { label: 'Live site', href: 'https://zombies-hub-2-0.onrender.com/' },
-    ],
-    highlights: [
-      { value: '7', label: 'dedicated map guides in one app' },
-      { value: '1', label: 'router, codebase and Render service' },
-      { value: 'CI', label: 'gated deploys with production smoke checks' },
-    ],
-    problem:
-      'Zombies Hub 1.0 ran every map guide as its own React app on its own Render service. Moving between maps meant jumping between independent deployments, with duplicated code, duplicated dependencies and repeated cold-start delays.',
-    approach: [
-      'Rebuilt the project as one React application with a single router, so each dedicated map guide loads as an internal route instead of a separate website.',
-      'Organised the codebase into a main hub app, self-contained map modules and shared UI, with map CSS scoped per module so one guide can never restyle another or the hub.',
-      'Designed each guide around one question, “what do I do next?”, with short visual steps, puzzle solvers, boss references and video timestamps where seeing a location beats reading about it.',
-      'Added a quality gate: source verification and a production compile on every push, Render deploys only after CI passes, and every build writes build-info.json so the live site maps to an exact commit.',
-      'Set up scheduled production smoke checks plus an on-demand 100-page desktop and mobile screenshot pass for visual QA.',
-    ],
-    outcome:
-      'One codebase and one hosting service replace a fleet of separate sites. Map-to-map navigation is instant, each guide keeps its own visual identity, and releases follow a repeatable, verified pipeline.',
-  },
-  {
-    slug: 'fairway-finder',
-    kicker: 'Full-stack · MERN + GraphQL',
-    title: 'Fairway Finder',
-    tagline: 'A golf trip planner that puts courses, routes, weather and handicaps in one app.',
-    image: screenshotFor('fairway-finder'),
-    role: 'Primary developer on a five-person team.',
-    stack: ['React', 'TypeScript', 'Apollo GraphQL', 'Node.js', 'Express', 'MongoDB', 'JWT', 'Google Maps API'],
-    links: [
-      { label: 'Source on GitHub', href: 'https://github.com/PHTMGatt/Fairway-Finder', primary: true },
-      { label: 'Live site', href: 'https://fairway-finder.onrender.com' },
-    ],
-    highlights: [
-      { value: '3', label: 'third-party APIs behind one GraphQL back-end' },
-      { value: '5', label: 'person team, as primary developer' },
-      { value: 'JWT', label: 'auth with instant, reload-free UI updates' },
-    ],
-    problem:
-      'Planning a golf trip usually means juggling separate tools for course details, driving directions, the weather on tee-off day and handicap maths.',
-    approach: [
-      'Built secure sign-up and login with JSON Web Tokens, using React Context so the interface updates the moment auth state changes, with no page reloads.',
-      'Integrated the Golf Course API for course search with tee-box ratings and slopes, saved straight to a trip itinerary.',
-      'Added route planning with the Google Maps API, including amenities such as courses, fuel and rest areas along the way.',
-      'Pulled 7-day OpenWeather forecasts with a Fahrenheit and Celsius toggle, and calculated a USGA handicap index from live slope and rating data.',
-      'Served everything through an Apollo GraphQL API on Express and MongoDB Atlas, deployed to Render with GitHub Actions CI and scoped CSS to prevent style conflicts.',
-    ],
-    outcome:
-      'A single-page app that replaces four separate planning tools, with a responsive interface that works on the phone in your golf bag.',
-  },
-  {
-    slug: 'clash-automation',
-    kicker: 'Automation · Discord bots',
-    title: 'Clash of Clans Discord Suite',
-    tagline: 'War intelligence and server operations bots, built to run together on a single host.',
-    image: screenshotFor('war-oracle'),
-    role: 'Designed and built all three projects: two bots and the runtime that hosts them.',
-    stack: ['Node.js', 'discord.js', 'Clash of Clans API', 'Render', 'Raspberry Pi'],
-    links: [
-      { label: 'War Oracle on GitHub', href: 'https://github.com/PHTMGatt/War-Oracle-Bot', primary: true },
-      { label: 'Clash Commander on GitHub', href: 'https://github.com/PHTMGatt/Clash-Commander-Bot' },
-      { label: 'raspbi-pilot on GitHub', href: 'https://github.com/PHTMGatt/raspbi-pilot' },
-    ],
-    highlights: [
-      { value: '2', label: 'independent bots, one Node runtime' },
-      { value: '1×', label: 'each alert fires once per condition, per war' },
-      { value: '0', label: 'destructive permissions requested' },
-    ],
-    problem:
-      'Competitive clans were checking war progress by hand and moderating busy servers manually, and running every bot as its own hosted service duplicated infrastructure cost.',
-    approach: [
-      'War Oracle polls the Clash of Clans API on a fixed interval, stores war snapshots over time and posts live status: score, stars, destruction and remaining attacks.',
-      'Threshold-based alerts are fully deduplicated, so each condition fires once per war: no repeat pings, no channel spam.',
-      'Clash Commander adds slash-command operations for leadership: permission and bot-safety audits, member snapshots and notes, inactivity reports and controlled moderator pings.',
-      'raspbi-pilot is a lightweight supervisor that boots each bot’s start() in one Node process, so both run under a single Render worker or one Raspberry Pi with no code changes.',
-    ],
-    outcome:
-      'Automated, low-noise war oversight and server operations for clan leadership, designed so two independently maintained bots could share one host instead of paying for two.',
-    currentStatus:
-      'Clash Commander is currently paused, and raspbi-pilot is inactive: it needs repair or retirement, so the shared-host setup described above is not running at the moment. The source for all three projects remains on GitHub.',
-  },
-];
+// Case studies live in ./caseStudies.js (summaries) and ./caseStudyStories.js
+// (long-form text, case-study route only). Re-exported here for the Work page.
+export { caseStudies } from './caseStudies';
 
 export const projects = [
   {
@@ -327,5 +239,3 @@ export const archivedProjects = [
     'https://github.com/PHTMGatt/Revelations-Guide'
   ),
 ];
-
-export const getCaseStudy = (slug) => caseStudies.find((study) => study.slug === slug);

@@ -1,9 +1,12 @@
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense, lazy, useEffect, useState } from 'react';
 import { Outlet, ScrollRestoration } from 'react-router-dom';
 import Nav from './components/Nav/Nav';
-import Footer from './components/Footer/Footer';
-import NotFound from './pages/NotFound/NotFound';
 import { readPreference, writePreference } from './utils/storage';
+
+// The footer is below the fold on every page, and the 404 page is rarely
+// needed, so both load after the main bundle.
+const Footer = lazy(() => import('./components/Footer/Footer'));
+const NotFound = lazy(() => import('./pages/NotFound/NotFound'));
 
 // Storage can be unavailable (private mode); readPreference falls back to the default.
 const readTheme = () => (readPreference('theme') === 'light' ? 'light' : 'dark');
@@ -25,15 +28,13 @@ function App({ error = false }) {
       </a>
       <Nav theme={theme} toggleTheme={toggleTheme} />
       <main id="main" className="app-content" tabIndex={-1}>
-        {error ? (
-          <NotFound />
-        ) : (
-          <Suspense fallback={<div className="route-loading" aria-busy="true" />}>
-            <Outlet />
-          </Suspense>
-        )}
+        <Suspense fallback={<div className="route-loading" aria-busy="true" />}>
+          {error ? <NotFound /> : <Outlet />}
+        </Suspense>
       </main>
-      <Footer />
+      <Suspense fallback={null}>
+        <Footer />
+      </Suspense>
       <ScrollRestoration />
     </>
   );

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
-import { FaGithub } from 'react-icons/fa';
+import GithubMark from '../GithubMark/GithubMark';
 import ProjectImage from '../ProjectImage/ProjectImage';
 import './FeaturedStudy.css';
 
@@ -54,7 +54,7 @@ const FeaturedStudy = ({ study, index = 0, eager = false, headingLevel = 3 }) =>
         <div className="featured-study__actions">
           {repo && (
             <a className="btn btn-secondary" href={repo.href} target="_blank" rel="noopener noreferrer">
-              <FaGithub aria-hidden="true" />
+              <GithubMark aria-hidden="true" />
               GitHub
               <span className="sr-only">: {repo.label} (opens in a new tab)</span>
             </a>

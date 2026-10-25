@@ -1,9 +1,10 @@
 import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
-import { FaGithub } from 'react-icons/fa';
+import GithubMark from '../../components/GithubMark/GithubMark';
 import ProjectImage from '../../components/ProjectImage/ProjectImage';
 import NotFound from '../NotFound/NotFound';
-import { caseStudies, getCaseStudy } from '../../data/projects';
+import { caseStudies } from '../../data/caseStudies';
+import { getCaseStudy } from '../../data/caseStudyStories';
 import usePageTitle from '../../hooks/usePageTitle';
 import './CaseStudy.css';
 
@@ -14,7 +15,7 @@ const CaseStudy = () => {
 
   if (!study) return <NotFound />;
 
-  const position = caseStudies.indexOf(study);
+  const position = caseStudies.findIndex((item) => item.slug === study.slug);
   const next = caseStudies[(position + 1) % caseStudies.length];
 
   return (
@@ -58,7 +59,7 @@ const CaseStudy = () => {
                 rel="noopener noreferrer"
                 className={`btn ${link.primary ? 'btn-primary' : 'btn-secondary'}`}
               >
-                {isRepo && <FaGithub aria-hidden="true" />}
+                {isRepo && <GithubMark aria-hidden="true" />}
                 {link.label}
                 {!isRepo && <ArrowUpRight size={17} aria-hidden="true" />}
                 <span className="sr-only">(opens in a new tab)</span>

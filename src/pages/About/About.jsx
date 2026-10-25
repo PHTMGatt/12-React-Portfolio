@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, Award, Bot, LayoutDashboard, Mail, Server, Users } from 'lucide-react';
 import FeaturedStudy from '../../components/FeaturedStudy/FeaturedStudy';
-import { caseStudies } from '../../data/projects';
+import { caseStudies } from '../../data/caseStudies';
 import { coreStack, profile } from '../../data/profile';
 import usePageTitle from '../../hooks/usePageTitle';
 import headshot from '../../assets/Pictures/bryen-headshot.webp';

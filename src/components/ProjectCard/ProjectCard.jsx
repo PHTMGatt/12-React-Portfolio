@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ArrowUpRight, PlayCircle } from 'lucide-react';
-import { FaGithub } from 'react-icons/fa';
+import GithubMark from '../GithubMark/GithubMark';
 import ProjectImage from '../ProjectImage/ProjectImage';
 import { categories } from '../../data/projects';
 import './ProjectCard.css';
@@ -60,7 +60,7 @@ const ProjectCard = ({ project }) => {
           rel="noopener noreferrer"
           aria-label={`${title} source code on GitHub (opens in a new tab)`}
         >
-          <FaGithub aria-hidden="true" />
+          <GithubMark aria-hidden="true" />
           GitHub
         </a>
         {links.live && (

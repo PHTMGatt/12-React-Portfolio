@@ -4,9 +4,9 @@ import { createBrowserRouter, createHashRouter, RouterProvider } from 'react-rou
 import './Global.css';
 import App from './App.jsx';
 import About from './pages/About/About';
-import NotFound from './pages/NotFound/NotFound';
 
 // The home page ships in the main bundle; every other route loads on demand.
+const NotFound = lazy(() => import('./pages/NotFound/NotFound'));
 const Resume = lazy(() => import('./pages/Resume/Resume'));
 const Portfolio = lazy(() => import('./pages/Portfolio/Portfolio'));
 const CaseStudy = lazy(() => import('./pages/CaseStudy/CaseStudy'));
