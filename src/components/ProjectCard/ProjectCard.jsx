@@ -8,7 +8,7 @@ import './ProjectCard.css';
 const categoryLabel = (id) => categories.find((c) => c.id === id)?.label ?? id;
 
 const statusLabels = {
-  legacy: { text: 'Legacy', title: 'Finished coursework project with no live deployment' },
+  legacy: { text: 'Legacy', title: 'Finished coursework project; no longer actively developed' },
   paused: { text: 'Paused', title: 'Development is on hold; source remains on GitHub' },
   inactive: { text: 'Inactive', title: 'Not currently running; source remains on GitHub' },
 };

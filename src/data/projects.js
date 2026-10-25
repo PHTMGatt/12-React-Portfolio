@@ -3,7 +3,7 @@
 //
 // `image` is a real screenshot from ./screenshots.js, or null. Null renders an
 // honest typographic summary (title, stack, one-line description) instead.
-// `status` is 'legacy' for finished coursework without a deployment,
+// `status` is 'legacy' for finished coursework that is no longer developed,
 // 'paused' for projects on hold, and 'inactive' for projects that are retired
 // or not currently running. An optional `statusNote` says why, on the card.
 
@@ -222,7 +222,7 @@ export const projects = [
     category: 'backend',
     stack: ['Node.js', 'Express', 'OpenWeather API'],
     image: screenshotFor('weather-app'),
-    links: { repo: 'https://github.com/PHTMGatt/09-Weather-App' },
+    links: { repo: 'https://github.com/PHTMGatt/09-Weather-App', live: 'https://zero9-servers-and-apis.onrender.com' },
     status: 'legacy',
   },
   {
