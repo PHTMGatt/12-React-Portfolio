@@ -3,8 +3,9 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 
 // Browser checks against a running preview build (npm run preview -- --port 4174).
+// Base URL: first CLI argument, then SMOKE_BASE_URL, then the CI default.
 // Email delivery is intercepted, so no real message is ever sent.
-const base = process.env.SMOKE_BASE_URL || 'http://127.0.0.1:4174';
+const base = process.argv[2] || process.env.SMOKE_BASE_URL || 'http://127.0.0.1:4174';
 const viewports = [
   { name: 'desktop', width: 1440, height: 900 },
   { name: 'tablet', width: 768, height: 1024 },
@@ -14,7 +15,8 @@ const routes = ['/', '/work', '/work?type=automation', '/work/zombies-hub-2', '/
 // Standalone guide deployments are retired and must never be linked as live.
 const retiredHosts = ['der-eisendrache-guide', 'gorod-krovi-guide', 'motd-guide', 'revelations-guide', 'zetsubou-guide', 'origins-wtyd'];
 
-const browser = await chromium.launch({ headless: true });
+// Use Playwright's bundled Chromium (CI); fall back to an installed Google Chrome locally.
+const browser = await chromium.launch({ headless: true }).catch(() => chromium.launch({ headless: true, channel: 'chrome' }));
 const results = [];
 await fs.mkdir('artifacts/screenshots', { recursive: true });
 
@@ -60,6 +62,8 @@ try {
       const firstActions = await page.locator('.project-card__actions').first().locator('a').allTextContents();
       assert.match(firstActions[0], /GitHub/, 'GitHub is the first card action');
       await page.goto(`${base}/work`);
+      // allTextContents() does not wait, so wait for the lazily loaded cards first.
+      await page.locator('.project-card__actions').first().waitFor();
       const liveIndex = (await page.locator('.project-card__actions').first().locator('a').allTextContents()).findIndex((t) => /Live/.test(t));
       assert.equal(liveIndex, 1, 'Live is the second action when a deployment exists');
       for (const host of retiredHosts) {
@@ -81,7 +85,8 @@ try {
       // Contact is reachable at every width (inside the menu on small screens).
       const menuToggle = page.locator('.site-nav__toggle');
       if (await menuToggle.isVisible()) await menuToggle.click();
-      await page.getByRole('link', { name: 'Contact', exact: true }).click();
+      // Scope to the header: the footer also has a "Contact" link (strict mode would reject two matches).
+      await page.locator('.site-nav').getByRole('link', { name: 'Contact', exact: true }).click();
       await page.waitForURL('**/contact');
 
       // Theme toggle flips the attribute.
