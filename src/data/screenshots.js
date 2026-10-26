@@ -5,16 +5,13 @@
 //
 // A small set of projects has no meaningful UI screenshot (Discord bots,
 // API/testing utilities, and the Raspberry Pi launcher). For those only, use
-// the reviewed local PORT-IMG_3 artwork instead of leaving an empty card.
-// Banking System still uses the honest typographic fallback because it has no
-// approved visual yet. See docs/IMAGE-AUDIT.md before replacing a real capture.
+// the reviewed PORT-IMG_3 artwork instead of leaving an empty card. The art is
+// loaded from its immutable source commit so these multi-megabyte PNGs do not
+// get copied into the Vite production bundle. Banking System still uses the
+// honest typographic fallback because it has no approved visual yet.
 import portfolioCover from '../../docs/portfolio/cover.webp';
-import warOracleArt from '../assets/project-images/War Oracle.png';
-import clashCommanderArt from '../assets/project-images/Clash Commander.png';
-import raspbiPilotArt from '../assets/project-images/raspbi.png';
-import captainHookArt from '../assets/project-images/Captain Hook.png';
-import socialNetworkApiArt from '../assets/project-images/Social Network API.png';
-import techQuizArt from '../assets/project-images/Tech Quiz.png';
+
+const PORT_IMG_COMMIT = 'a2c43d8301679dbda14ad06dc225d61e5515e431';
 
 const cover = (repo, width, height) => ({
   src: `https://raw.githubusercontent.com/PHTMGatt/${repo}/main/docs/portfolio/cover.webp`,
@@ -22,22 +19,24 @@ const cover = (repo, width, height) => ({
   height,
 });
 
-const localArt = (src) => ({ src });
+const portfolioArt = (filename) => ({
+  src: `https://raw.githubusercontent.com/PHTMGatt/12-React-Portfolio/${PORT_IMG_COMMIT}/src/assets/project-images/${encodeURIComponent(filename)}`,
+});
 
 export const screenshots = {
   'zombies-hub-2': cover('Zombies-Hub-2.0', 1280, 800),
   'fairway-finder': cover('Fairway-Finder', 1176, 818),
-  'war-oracle': localArt(warOracleArt),
-  'clash-commander': localArt(clashCommanderArt),
-  'raspbi-pilot': localArt(raspbiPilotArt),
-  'captain-hook': localArt(captainHookArt),
+  'war-oracle': portfolioArt('War Oracle.png'),
+  'clash-commander': portfolioArt('Clash Commander.png'),
+  'raspbi-pilot': portfolioArt('raspbi.png'),
+  'captain-hook': portfolioArt('Captain Hook.png'),
   'mern-book-search': cover('18-MERN-Book-Search-Engine', 1280, 800),
   'daily-bytes': cover('The-Daily-Bytes', 1280, 606),
   'kanban-board': cover('14-Todo-Board', 1280, 800),
   'candidate-search': cover('13-Candidate-Search', 1280, 800),
   'weather-app': cover('09-Weather-App', 1280, 728),
-  'social-network-api': localArt(socialNetworkApiArt),
-  'tech-quiz-tests': localArt(techQuizArt),
+  'social-network-api': portfolioArt('Social Network API.png'),
+  'tech-quiz-tests': portfolioArt('Tech Quiz.png'),
   'zombies-hub-1': cover('Zombies-Hub', 1280, 798),
   origins: cover('Origins-Guide', 1280, 612),
   'mob-of-the-dead': cover('MOTD-Guide', 1280, 608),
