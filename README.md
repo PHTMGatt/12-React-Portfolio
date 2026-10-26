@@ -9,6 +9,8 @@ This **React-based portfolio** showcases my web development projects and skills.
 
 **🔗 [View Live Portfolio](https://one2-react-portfolio.onrender.com)**
 
+![The Work page with case-study cards](docs/portfolio/cover.webp)
+
 ---
 
 ## ✨ **Features**

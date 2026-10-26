@@ -1,5 +1,8 @@
 # Project image audit
 
+> **Update 2026-10-25 (canonical covers).** Each project with a real capture now owns `docs/portfolio/cover.webp` on its `main` branch, and `src/data/screenshots.js` loads it from `raw.githubusercontent.com`. Fresh live captures: Zombies Hub 2.0 (Gorod Krovi guide), MERN Book Search (results for "Dune"), Kanban (public demo board), Candidate Search (reference profile, avatar blurred), Weather (Chicago forecast). Reused real captures: Fairway Finder (signed-in map view, already its README image), The Daily Bytes (`Project.png`), and the seven legacy guides (April 2025 PNGs below). This repo's own cover is bundled locally because its default branch (`sandbox`) does not carry unreleased work.
+> **Typographic fallback, by design:** War Oracle, Clash Commander, raspbi-pilot and Captain Hook (Discord bots; no real capture without exposing server/member names), Social Network API (no UI), Tech Quiz (repo GIF is the bootcamp's demo), Python Banking (repo images are labelled mock-ups). The findings below are the original audit.
+
 Audited 2026-10-23 on branch `sandbox` (commit `752579a`), compared with `origin/gandalf/rework-2026-10-15` using remote-tracking refs that may be stale. Nothing has been changed yet; this file records findings only.
 
 **Summary:** every one of the 16 current project thumbnails is AI-generated and must be replaced. The repo already contains authentic browser screenshots for 11 projects, all from about April 2025. The remaining projects need new captures or real non-visual evidence.

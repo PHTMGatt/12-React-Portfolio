@@ -3,13 +3,9 @@
 // ./caseStudyStories.js so it only loads with the case-study route.
 // Descriptions are drawn from each project's own README so they stay factual.
 
-// Imported directly rather than via ./screenshots.js so the home page doesn't
-// pull every project screenshot URL into the main bundle. Keep in sync with
-// the 'fairway-finder' entry there; Zombies Hub 2.0 and the Clash suite have
-// no real capture yet (null renders the typographic fallback).
-import fairwayFinderSrc from '../assets/Pictures/FairwayFinder.webp';
-
-const fairwayFinderShot = { src: fairwayFinderSrc, width: 1176, height: 818 };
+// Covers come from each repo's docs/portfolio/cover.webp (see ./screenshots.js).
+// The Clash suite has no real capture yet (null renders the typographic fallback).
+import { screenshotFor } from './screenshots';
 
 export const caseStudies = [
   {
@@ -17,7 +13,7 @@ export const caseStudies = [
     kicker: 'Front-end architecture · CI/CD',
     title: 'Zombies Hub 2.0',
     tagline: 'Seven separate guide sites rebuilt as one fast, unified React application.',
-    image: null,
+    image: screenshotFor('zombies-hub-2'),
     role: 'Solo project: architecture, UI, content, CI and deployment.',
     stack: ['React', 'Vite', 'React Router', 'GitHub Actions', 'Render'],
     links: [
@@ -35,7 +31,7 @@ export const caseStudies = [
     kicker: 'Full-stack · MERN + GraphQL',
     title: 'Fairway Finder',
     tagline: 'A golf trip planner that puts courses, routes, weather and handicaps in one app.',
-    image: fairwayFinderShot,
+    image: screenshotFor('fairway-finder'),
     role: 'Primary developer on a five-person team.',
     stack: ['React', 'TypeScript', 'Apollo GraphQL', 'Node.js', 'Express', 'MongoDB', 'JWT', 'Google Maps API'],
     links: [
