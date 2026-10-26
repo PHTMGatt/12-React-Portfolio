@@ -1,40 +1,57 @@
-// Real screenshots of each project. Every project repo owns one canonical
-// capture at docs/portfolio/cover.webp (also used by its README where it
-// fits), and the portfolio loads it straight from GitHub so the two never
-// drift. To replace one, push a new cover.webp to that repo's main branch and
-// update its size here.
-// Projects without an entry render a typographic summary instead: the Discord
-// bots, Social Network API, Tech Quiz and Banking System have no real UI
-// capture yet. See docs/IMAGE-AUDIT.md before adding anything that is not a
-// real capture.
-import portfolioCover from '../../docs/portfolio/cover.webp';
+// PORT-IMG_3 is the current portfolio artwork authority.
+// Keep these local assets as the displayed covers until the user explicitly
+// replaces them with a newer image set. Projects without a PORT-IMG_3 asset
+// continue to use the existing typographic fallback.
+import candidateSearch from '../assets/project-images/Candidate Search.png';
+import captainHook from '../assets/project-images/Captain Hook.png';
+import clashCommander from '../assets/project-images/Clash Commander.png';
+import derEisendrache from '../assets/project-images/DE.png';
+import dailyBytes from '../assets/project-images/Daily Bytes.png';
+import fairwayFinder from '../assets/project-images/Fairway Finder.png';
+import gorodKrovi from '../assets/project-images/GK.png';
+import kanban from '../assets/project-images/Kanban.png';
+import mobOfTheDead from '../assets/project-images/MOTD.png';
+import mernBook from '../assets/project-images/Mern Book.png';
+import origins from '../assets/project-images/Origins.png';
+import portfolio from '../assets/project-images/Portfolio.png';
+import revelations from '../assets/project-images/Rev.png';
+import socialNetwork from '../assets/project-images/Social Network API.png';
+import techQuiz from '../assets/project-images/Tech Quiz.png';
+import warOracle from '../assets/project-images/War Oracle.png';
+import weatherApp from '../assets/project-images/Weather App.png';
+import zetsubou from '../assets/project-images/Zetsubou.png';
+import zombiesHub from '../assets/project-images/Zombies Hub.png';
+import raspbi from '../assets/project-images/raspbi.png';
 
-const cover = (repo, width, height) => ({
-  src: `https://raw.githubusercontent.com/PHTMGatt/${repo}/main/docs/portfolio/cover.webp`,
-  width,
-  height,
-});
+const artwork = (src) => ({ src });
 
 export const screenshots = {
-  'zombies-hub-2': cover('Zombies-Hub-2.0', 1280, 800),
-  'fairway-finder': cover('Fairway-Finder', 1176, 818),
-  'mern-book-search': cover('18-MERN-Book-Search-Engine', 1280, 800),
-  'daily-bytes': cover('The-Daily-Bytes', 1280, 606),
-  'kanban-board': cover('14-Todo-Board', 1280, 800),
-  'candidate-search': cover('13-Candidate-Search', 1280, 800),
-  'weather-app': cover('09-Weather-App', 1280, 728),
-  'zombies-hub-1': cover('Zombies-Hub', 1280, 798),
-  origins: cover('Origins-Guide', 1280, 612),
-  'mob-of-the-dead': cover('MOTD-Guide', 1280, 608),
-  'der-eisendrache': cover('Der-Eisendrache-Guide', 1280, 610),
-  zetsubou: cover('Zetsubou-Guide', 1280, 602),
-  'gorod-krovi': cover('Gorod-Krovi-Guide', 1280, 612),
-  revelations: cover('Revelations-Guide', 1280, 614),
-  // This repo's own cover is bundled locally: its default branch (sandbox)
-  // is not where unreleased work lives, so a GitHub URL could point at a
-  // stale or missing file.
-  portfolio: { src: portfolioCover, width: 1280, height: 800 },
+  'zombies-hub-2': artwork(zombiesHub),
+  'fairway-finder': artwork(fairwayFinder),
+  'war-oracle': artwork(warOracle),
+  'clash-commander': artwork(clashCommander),
+  'raspbi-pilot': artwork(raspbi),
+  'captain-hook': artwork(captainHook),
+  'mern-book-search': artwork(mernBook),
+  'daily-bytes': artwork(dailyBytes),
+  'kanban-board': artwork(kanban),
+  'candidate-search': artwork(candidateSearch),
+  'weather-app': artwork(weatherApp),
+  'social-network-api': artwork(socialNetwork),
+  'tech-quiz-tests': artwork(techQuiz),
+  portfolio: artwork(portfolio),
+
+  // PORT-IMG_3 has one Zombies Hub cover, so use it for both current and
+  // archived hub cards until a separate 1.0 replacement is supplied.
+  'zombies-hub-1': artwork(zombiesHub),
+  origins: artwork(origins),
+  'mob-of-the-dead': artwork(mobOfTheDead),
+  'der-eisendrache': artwork(derEisendrache),
+  zetsubou: artwork(zetsubou),
+  'gorod-krovi': artwork(gorodKrovi),
+  revelations: artwork(revelations),
 };
 
-// Returns the screenshot for a project id, or null to use the typographic fallback.
+// Banking System has no PORT-IMG_3 image yet, so it intentionally keeps the
+// honest typographic fallback until a replacement is provided.
 export const screenshotFor = (id) => screenshots[id] ?? null;
