@@ -39,7 +39,7 @@ Each project in the portfolio includes:
 
 - **GitHub repository** link first, for the source and project history
 - **Live demo** link second, only where a deployment exists
-- A **real screenshot** of the project, or a plain text summary until one is captured (no generated imagery)
+- A **real screenshot** when the project has meaningful UI; reviewed project artwork for bots/APIs and other projects without a useful UI capture; or a plain text fallback when no approved visual exists
 - A status label for **Legacy**, **Paused** or **Inactive** projects
 
 ---
