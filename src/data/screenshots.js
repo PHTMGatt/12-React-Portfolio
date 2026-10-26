@@ -1,13 +1,20 @@
-// Real screenshots of each project. Every project repo owns one canonical
-// capture at docs/portfolio/cover.webp (also used by its README where it
-// fits), and the portfolio loads it straight from GitHub so the two never
-// drift. To replace one, push a new cover.webp to that repo's main branch and
-// update its size here.
-// Projects without an entry render a typographic summary instead: the Discord
-// bots, Social Network API, Tech Quiz and Banking System have no real UI
-// capture yet. See docs/IMAGE-AUDIT.md before adding anything that is not a
-// real capture.
+// Authentic screenshots remain the first choice for projects with real UI.
+// Every screenshot-backed project repo owns one canonical capture at
+// docs/portfolio/cover.webp (also used by its README where it fits), and the
+// portfolio loads it straight from GitHub so the two do not drift.
+//
+// A small set of projects has no meaningful UI screenshot (Discord bots,
+// API/testing utilities, and the Raspberry Pi launcher). For those only, use
+// the reviewed local PORT-IMG_3 artwork instead of leaving an empty card.
+// Banking System still uses the honest typographic fallback because it has no
+// approved visual yet. See docs/IMAGE-AUDIT.md before replacing a real capture.
 import portfolioCover from '../../docs/portfolio/cover.webp';
+import warOracleArt from '../assets/project-images/War Oracle.png';
+import clashCommanderArt from '../assets/project-images/Clash Commander.png';
+import raspbiPilotArt from '../assets/project-images/raspbi.png';
+import captainHookArt from '../assets/project-images/Captain Hook.png';
+import socialNetworkApiArt from '../assets/project-images/Social Network API.png';
+import techQuizArt from '../assets/project-images/Tech Quiz.png';
 
 const cover = (repo, width, height) => ({
   src: `https://raw.githubusercontent.com/PHTMGatt/${repo}/main/docs/portfolio/cover.webp`,
@@ -15,14 +22,22 @@ const cover = (repo, width, height) => ({
   height,
 });
 
+const localArt = (src) => ({ src });
+
 export const screenshots = {
   'zombies-hub-2': cover('Zombies-Hub-2.0', 1280, 800),
   'fairway-finder': cover('Fairway-Finder', 1176, 818),
+  'war-oracle': localArt(warOracleArt),
+  'clash-commander': localArt(clashCommanderArt),
+  'raspbi-pilot': localArt(raspbiPilotArt),
+  'captain-hook': localArt(captainHookArt),
   'mern-book-search': cover('18-MERN-Book-Search-Engine', 1280, 800),
   'daily-bytes': cover('The-Daily-Bytes', 1280, 606),
   'kanban-board': cover('14-Todo-Board', 1280, 800),
   'candidate-search': cover('13-Candidate-Search', 1280, 800),
   'weather-app': cover('09-Weather-App', 1280, 728),
+  'social-network-api': localArt(socialNetworkApiArt),
+  'tech-quiz-tests': localArt(techQuizArt),
   'zombies-hub-1': cover('Zombies-Hub', 1280, 798),
   origins: cover('Origins-Guide', 1280, 612),
   'mob-of-the-dead': cover('MOTD-Guide', 1280, 608),
@@ -36,5 +51,5 @@ export const screenshots = {
   portfolio: { src: portfolioCover, width: 1280, height: 800 },
 };
 
-// Returns the screenshot for a project id, or null to use the typographic fallback.
+// Returns the visual for a project id, or null to use the typographic fallback.
 export const screenshotFor = (id) => screenshots[id] ?? null;
