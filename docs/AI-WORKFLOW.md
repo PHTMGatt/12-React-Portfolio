@@ -20,16 +20,26 @@ AI work begins on that AI's persistent branch. Before editing, synchronize from 
 
 Render production must deploy from `main`. Do not point production at an AI working branch, sandbox branch, staging branch, or task-specific branch.
 
-## Portfolio image authority
+## Canonical image workflow
 
-`PORT-IMG_3` is the authoritative source for Portfolio Work-card imagery until the user explicitly replaces it with a newer approved image set.
+`src/assets/photos/` is the single source of truth for Portfolio imagery.
 
-For every project represented by a `PORT-IMG_3` image:
+- Keep the original headshot source and its optimized web version in this folder.
+- Keep one approved project image per Portfolio visual in this folder.
+- Do not create parallel `Pictures`, `project-images`, `thumbnails`, or `docs/portfolio` image libraries.
+- The Work page imports its project visuals only from `src/assets/photos/`.
+- Matching project repository READMEs should reference the same `main`-branch image from this repository, so replacing one canonical file updates both the Portfolio card and README presentation.
+- Banking remains a text fallback until an approved Banking image is supplied; do not substitute legacy artwork.
 
-1. The Portfolio Work card must use the matching `PORT-IMG_3` visual.
-2. The matching project's repository README must show that same approved visual.
-3. Older thumbnails, screenshots, `docs/portfolio` covers, generated artwork, or legacy image sets must not override `PORT-IMG_3`.
-4. Do not guess a substitute when a mapping is ambiguous. Preserve the approved state and surface the mismatch.
+### Replacing a project image
+
+1. Replace the corresponding file in `src/assets/photos/` on the AI working branch.
+2. Keep the filename stable unless the mapping itself is intentionally changing.
+3. Verify the Portfolio build and Work card.
+4. Verify the matching project README points at that canonical file.
+5. Merge the validated change into `main`.
+
+The current approved batch originated as `PORT-IMG_3`; the folder name is no longer part of the workflow. The canonical location is `src/assets/photos/`.
 
 ## Navigation requirement
 

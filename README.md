@@ -1,5 +1,6 @@
-
 # 🚀 **React Portfolio**
+
+![React Portfolio](src/assets/photos/Portfolio.png)
 
 ---
 
@@ -8,8 +9,6 @@
 This **React-based portfolio** showcases my web development projects and skills. It serves as a professional platform for potential employers and fellow developers to explore my creations. The portfolio is fully responsive, interactive, and deployed live on Render for easy accessibility.
 
 **🔗 [View Live Portfolio](https://one2-react-portfolio.onrender.com)**
-
-![The Work page with case-study cards](docs/portfolio/cover.webp)
 
 ---
 
@@ -39,7 +38,7 @@ Each project in the portfolio includes:
 
 - **GitHub repository** link first, for the source and project history
 - **Live demo** link second, only where a deployment exists
-- A **real screenshot** when the project has meaningful UI; reviewed project artwork for bots/APIs and other projects without a useful UI capture; or a plain text fallback when no approved visual exists
+- The approved canonical visual from `src/assets/photos/`, shared with the matching repository README where an approved image exists
 - A status label for **Legacy**, **Paused** or **Inactive** projects
 
 ---
