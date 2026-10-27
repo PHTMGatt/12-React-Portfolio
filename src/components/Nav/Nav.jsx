@@ -7,7 +7,6 @@ const links = [
   { to: '/', label: 'About', end: true },
   { to: '/work', label: 'Work' },
   { to: '/resume', label: 'Resume' },
-  { to: '/contact', label: 'Contact', mobileOnly: true },
 ];
 
 const Nav = ({ theme, toggleTheme }) => {
@@ -44,8 +43,8 @@ const Nav = ({ theme, toggleTheme }) => {
 
         <div className="site-nav__menu" id="site-menu">
           <ul className="site-nav__links">
-            {links.map(({ to, label, end, mobileOnly }) => (
-              <li key={to} className={mobileOnly ? 'site-nav__mobile-only' : undefined}>
+            {links.map(({ to, label, end }) => (
+              <li key={to}>
                 <NavLink to={to} end={end} className="site-nav__link">
                   {label}
                 </NavLink>
