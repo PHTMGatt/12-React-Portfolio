@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1536" height="864" viewBox="0 0 1536 864">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#061426"/><stop offset="0.55" stop-color="#0b315b"/><stop offset="1" stop-color="#07101e"/></linearGradient>
+    <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#2fa8ff"/><stop offset="1" stop-color="#0a5fd7"/></linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffd85a"/><stop offset="1" stop-color="#e59b18"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="14" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="1536" height="864" fill="url(#bg)"/>
+  <g opacity=".16" stroke="#61b8ff" stroke-width="2"><path d="M0 130H1536M0 260H1536M0 390H1536M0 520H1536M0 650H1536M180 0V864M420 0V864M660 0V864M900 0V864M1140 0V864M1380 0V864"/></g>
+  <g transform="translate(70 145)">
+    <rect width="570" height="480" rx="28" fill="#07121f" stroke="#28699d" stroke-width="5"/>
+    <rect width="570" height="58" rx="28" fill="#0f2439"/><circle cx="34" cy="29" r="9" fill="#ff6b63"/><circle cx="62" cy="29" r="9" fill="#ffcf55"/><circle cx="90" cy="29" r="9" fill="#5ee38b"/>
+    <g fill="#d9ecff" font-family="ui-monospace,Consolas,monospace" font-size="27"><text x="42" y="115">Welcome to Bryen Bank</text><text x="42" y="170" fill="#64d8a8">1.</text><text x="82" y="170">View Balance</text><text x="42" y="220" fill="#64d8a8">2.</text><text x="82" y="220">Deposit</text><text x="42" y="270" fill="#64d8a8">3.</text><text x="82" y="270">Withdraw</text><text x="42" y="320" fill="#64d8a8">4.</text><text x="82" y="320">Transfer</text><text x="42" y="370" fill="#64d8a8">5.</text><text x="82" y="370">Transactions</text><text x="42" y="430" fill="#4baeff">&gt; _</text></g>
+  </g>
+  <g transform="translate(865 115)" filter="url(#glow)">
+    <path d="M105 180V112h315v68" fill="none" stroke="#ffca52" stroke-width="22"/><path d="M72 180h382l-42 47H113z" fill="url(#gold)"/><rect x="105" y="227" width="316" height="250" rx="12" fill="#c98a25"/><g fill="#f5c75c"><rect x="135" y="250" width="42" height="195"/><rect x="215" y="250" width="42" height="195"/><rect x="295" y="250" width="42" height="195"/><rect x="375" y="250" width="42" height="195"/></g><path d="M72 477h382v45H72z" fill="#efb944"/>
+  </g>
+  <g transform="translate(660 320)">
+    <path d="M0 55c0-42 34-76 76-76h120c42 0 76 34 76 76v95c0 38-31 69-69 69H83C37 219 0 182 0 136z" fill="url(#blue)"/><circle cx="72" cy="55" r="12" fill="#fff"/><path d="M272 111c0 42-34 76-76 76H76c-42 0-76-34-76-76v-34h129c28 0 50-22 50-50V0h17c42 0 76 34 76 76z" fill="url(#gold)" opacity=".98"/><circle cx="206" cy="132" r="12" fill="#fff"/></g>
+  <g transform="translate(1130 495)" filter="url(#glow)"><path d="M110 0l110 40v90c0 93-62 157-110 179C62 287 0 223 0 130V40z" fill="url(#blue)" stroke="#75c8ff" stroke-width="8"/><rect x="65" y="112" width="90" height="83" rx="12" fill="#d9efff"/><path d="M85 112V86c0-34 50-34 50 0v26" fill="none" stroke="#d9efff" stroke-width="20"/></g>
+  <g fill="url(#gold)" opacity=".95"><ellipse cx="1020" cy="700" rx="72" ry="19"/><ellipse cx="1020" cy="674" rx="72" ry="19"/><ellipse cx="1020" cy="648" rx="72" ry="19"/><ellipse cx="1115" cy="716" rx="72" ry="19"/><ellipse cx="1115" cy="690" rx="72" ry="19"/></g>
+</svg>
