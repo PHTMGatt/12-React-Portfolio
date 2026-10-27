@@ -51,9 +51,6 @@ const Nav = ({ theme, toggleTheme }) => {
               </li>
             ))}
           </ul>
-          <NavLink to="/contact" className="btn btn-primary btn-sm site-nav__cta">
-            Contact
-          </NavLink>
         </div>
 
         <div className="site-nav__actions">
@@ -66,6 +63,9 @@ const Nav = ({ theme, toggleTheme }) => {
           >
             {isDark ? <Sun size={18} aria-hidden="true" /> : <Moon size={18} aria-hidden="true" />}
           </button>
+          <NavLink to="/contact" className="btn btn-primary btn-sm site-nav__cta">
+            Contact
+          </NavLink>
           <button
             type="button"
             className="icon-btn site-nav__toggle"
