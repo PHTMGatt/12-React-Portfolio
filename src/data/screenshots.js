@@ -3,7 +3,7 @@
 // matching repository README that references the same main-branch asset.
 import candidateSearch from '../assets/photos/Candidate Search.png';
 import captainHook from '../assets/photos/Captain Hook.png';
-import clashCommander from '../assets/photos/Clash Commander.png';
+import clashCommander from '../assets/photos/Clash Commander.webp';
 import derEisendrache from '../assets/photos/DE.png';
 import dailyBytes from '../assets/photos/Daily Bytes.png';
 import fairwayFinder from '../assets/photos/Fairway Finder.png';
@@ -21,6 +21,7 @@ import weatherApp from '../assets/photos/Weather App.png';
 import zetsubou from '../assets/photos/Zetsubou.png';
 import zombiesHub from '../assets/photos/Zombies Hub.png';
 import raspbi from '../assets/photos/raspbi.png';
+import bankingSystem from '../assets/photos/Banking System.webp';
 
 const artwork = (src) => ({ src });
 
@@ -38,6 +39,7 @@ export const screenshots = {
   'weather-app': artwork(weatherApp),
   'social-network-api': artwork(socialNetwork),
   'tech-quiz-tests': artwork(techQuiz),
+  'banking-system': artwork(bankingSystem),
   'zombies-hub-1': artwork(zombiesHub),
   origins: artwork(origins),
   'mob-of-the-dead': artwork(mobOfTheDead),
@@ -48,6 +50,4 @@ export const screenshots = {
   portfolio: artwork(portfolio),
 };
 
-// Banking System intentionally remains a text fallback until an approved
-// canonical image is added to src/assets/photos/.
 export const screenshotFor = (id) => screenshots[id] ?? null;
