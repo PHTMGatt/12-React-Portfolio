@@ -266,24 +266,64 @@
 
 @media (max-width: 760px) {
   .hero {
-    grid-template-columns: 1fr;
-    padding-top: 2.5rem;
+    grid-template-columns: 96px minmax(0, 1fr);
+    align-items: start;
+    gap: 1rem 1.1rem;
+    padding-top: 2rem;
+  }
+
+  .hero__copy {
+    display: contents;
+  }
+
+  .hero__copy > .eyebrow {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: center;
+    min-height: 96px;
+    margin: 0;
+    line-height: 1.45;
+  }
+
+  .hero__title,
+  .hero__lede,
+  .hero__actions,
+  .hero__facts {
+    grid-column: 1 / -1;
+  }
+
+  .hero__title {
+    grid-row: 2;
+    margin-top: 0.35rem;
+  }
+
+  .hero__lede {
+    grid-row: 3;
+  }
+
+  .hero__actions {
+    grid-row: 4;
+  }
+
+  .hero__facts {
+    grid-row: 5;
   }
 
   .hero__portrait {
-    order: -1;
+    grid-column: 1;
+    grid-row: 1;
     justify-self: start;
-    width: 132px;
+    width: 96px;
   }
 
   .hero__portrait::before {
-    inset: 8px -8px -8px 8px;
-    border-radius: 20px;
+    inset: 6px -6px -6px 6px;
+    border-radius: 18px;
   }
 
   .hero__portrait img {
     aspect-ratio: 1;
-    border-radius: 20px;
+    border-radius: 18px;
     object-position: 60% 30%;
   }
 
