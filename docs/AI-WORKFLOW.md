@@ -29,7 +29,7 @@ Render production must deploy from `main`. Do not point production at an AI work
 - Do not create parallel `Pictures`, `project-images`, `thumbnails`, or `docs/portfolio` image libraries.
 - The Work page imports its project visuals only from `src/assets/photos/`.
 - Matching project repository READMEs should reference the same `main`-branch image from this repository, so replacing one canonical file updates both the Portfolio card and README presentation.
-- Banking remains a text fallback until an approved Banking image is supplied; do not substitute legacy artwork.
+- Python Banking System and Clash Commander use their approved canonical WebP artwork (`Banking System.webp` and `Clash Commander.webp`); do not fall back to legacy or substitute artwork.
 
 ### Replacing a project image
 
@@ -43,7 +43,7 @@ The current approved batch originated as `PORT-IMG_3`; the folder name is no lon
 
 ## Navigation requirement
 
-Keep Contact in the right-side navigation actions unless the user explicitly requests a redesign.
+Keep Contact as the right-side CTA on desktop. On mobile, Contact belongs inside the hamburger menu while the light/dark theme toggle stays beside the hamburger button, unless the user explicitly requests another redesign.
 
 ## Preservation rule
 
