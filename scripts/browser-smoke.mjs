@@ -137,13 +137,13 @@ try {
     }
   }
 
-  // Image delivery failure: authentic remote captures should degrade to the
+  // Image delivery failure: canonical local captures should degrade to the
   // same honest typographic treatment used when a project has no screenshot.
   const imageFailureContext = await browser.newContext({
     viewport: { width: 1440, height: 900 },
     reducedMotion: 'reduce',
   });
-  await imageFailureContext.route('https://raw.githubusercontent.com/**', (route) => route.abort());
+  await imageFailureContext.route('**/*.png', (route) => route.abort());
   const imageFailurePage = await imageFailureContext.newPage();
   await imageFailurePage.goto(`${base}/work`, { waitUntil: 'networkidle' });
   const imageFailureCard = imageFailurePage.locator('.project-card', { hasText: 'Zombies Hub 2.0' }).first();
@@ -151,9 +151,9 @@ try {
   assert.equal(
     await imageFailureCard.locator('.project-fallback').count(),
     1,
-    'failed remote project image uses typographic fallback'
+    'failed canonical project image uses typographic fallback'
   );
-  assert.equal(await imageFailureCard.locator('.project-shot').count(), 0, 'failed remote project image is removed');
+  assert.equal(await imageFailureCard.locator('.project-shot').count(), 0, 'failed canonical project image is removed');
   await imageFailureContext.close();
 } finally {
   await browser.close();
