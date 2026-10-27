@@ -73,6 +73,10 @@
   list-style: none;
 }
 
+.site-nav__mobile-only {
+  display: none;
+}
+
 .site-nav__link {
   position: relative;
   display: inline-flex;
@@ -140,7 +144,19 @@
 
 /* Mobile */
 @media (max-width: 760px) {
+  .site-nav__inner {
+    gap: 0.75rem;
+  }
+
   .site-nav__role {
+    display: none;
+  }
+
+  .site-nav__actions {
+    gap: 0.35rem;
+  }
+
+  .site-nav__cta {
     display: none;
   }
 
@@ -178,6 +194,10 @@
     align-items: stretch;
   }
 
+  .site-nav__mobile-only {
+    display: list-item;
+  }
+
   .site-nav__link {
     min-height: 48px;
     padding-inline: 0.75rem;
@@ -195,10 +215,5 @@
     bottom: 12px;
     width: 3px;
     height: auto;
-  }
-
-  .site-nav__cta {
-    min-height: 48px;
-    font-size: 1rem;
   }
 }
