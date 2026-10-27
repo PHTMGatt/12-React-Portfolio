@@ -29,7 +29,8 @@ Render production must deploy from `main`. Do not point production at an AI work
 - Do not create parallel `Pictures`, `project-images`, `thumbnails`, or `docs/portfolio` image libraries.
 - The Work page imports its project visuals only from `src/assets/photos/`.
 - Matching project repository READMEs should reference the same `main`-branch image from this repository, so replacing one canonical file updates both the Portfolio card and README presentation.
-- Python Banking System and Clash Commander use their approved canonical WebP artwork (`Banking System.webp` and `Clash Commander.webp`); do not fall back to legacy or substitute artwork.
+- Clash Commander uses its approved canonical WebP artwork (`Clash Commander.webp`); do not fall back to legacy or substitute artwork.
+- Python Banking System remains a text fallback until an approved image is explicitly supplied. Do not map `Banking System.webp` or another substitute into the Work page merely because a file exists.
 
 ### Replacing a project image
 
