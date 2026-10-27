@@ -1,36 +1,32 @@
-// Portfolio visuals are intentionally pinned to the reviewed PORT-IMG_3 batch.
-// Keeping the source commit immutable prevents accidental drift while the
-// project cards are being polished. Banking System remains the only text
-// fallback because PORT-IMG_3 does not include an approved Banking image.
-const PORT_IMG_COMMIT = 'a2c43d8301679dbda14ad06dc225d61e5515e431';
-
-const portfolioArt = (filename) => ({
-  src: `https://raw.githubusercontent.com/PHTMGatt/12-React-Portfolio/${PORT_IMG_COMMIT}/src/assets/project-images/${encodeURIComponent(filename)}`,
-});
+// PORT-IMG_3 is the single source of truth for every Work-page visual.
+// Do not fall back to legacy screenshots, thumbnails, Pictures, or raw GitHub assets.
+const img3 = (filename) => ({ src: `/port-img3/${filename}` });
 
 export const screenshots = {
-  'zombies-hub-2': portfolioArt('Zombies Hub.png'),
-  'fairway-finder': portfolioArt('Fairway Finder.png'),
-  'war-oracle': portfolioArt('War Oracle.png'),
-  'clash-commander': portfolioArt('Clash Commander.png'),
-  'raspbi-pilot': portfolioArt('raspbi.png'),
-  'captain-hook': portfolioArt('Captain Hook.png'),
-  'mern-book-search': portfolioArt('Mern Book.png'),
-  'daily-bytes': portfolioArt('Daily Bytes.png'),
-  'kanban-board': portfolioArt('Kanban.png'),
-  'candidate-search': portfolioArt('Candidate Search.png'),
-  'weather-app': portfolioArt('Weather App.png'),
-  'social-network-api': portfolioArt('Social Network API.png'),
-  'tech-quiz-tests': portfolioArt('Tech Quiz.png'),
-  'zombies-hub-1': portfolioArt('Zombies Hub.png'),
-  origins: portfolioArt('Origins.png'),
-  'mob-of-the-dead': portfolioArt('MOTD.png'),
-  'der-eisendrache': portfolioArt('DE.png'),
-  zetsubou: portfolioArt('Zetsubou.png'),
-  'gorod-krovi': portfolioArt('GK.png'),
-  revelations: portfolioArt('Rev.png'),
-  portfolio: portfolioArt('Portfolio.png'),
+  'zombies-hub-2': img3('zombies-hub-2.avif'),
+  'fairway-finder': img3('fairway-finder.avif'),
+  'war-oracle': img3('war-oracle.avif'),
+  'clash-commander': img3('clash-commander.avif'),
+  'raspbi-pilot': img3('raspbi-pilot.avif'),
+  'captain-hook': img3('captain-hook.avif'),
+  'mern-book-search': img3('mern-book-search.avif'),
+  'daily-bytes': img3('daily-bytes.avif'),
+  'kanban-board': img3('kanban-board.avif'),
+  'candidate-search': img3('candidate-search.avif'),
+  'weather-app': img3('weather-app.avif'),
+  'social-network-api': img3('social-network-api.avif'),
+  'tech-quiz-tests': img3('tech-quiz.avif'),
+  'banking-system': img3('python-banking-system.avif'),
+  portfolio: img3('react-portfolio.avif'),
+
+  // Archived Work cards also stay inside the IMG-3 authority set.
+  'zombies-hub-1': img3('zombies-hub-2.avif'),
+  origins: img3('origins.avif'),
+  'mob-of-the-dead': img3('mob-of-the-dead.png'),
+  'der-eisendrache': img3('der-eisendrache.png'),
+  zetsubou: img3('zetsubou.png'),
+  'gorod-krovi': img3('gorod-krovi.png'),
+  revelations: img3('revelations.png'),
 };
 
-// Returns the visual for a project id, or null to use the typographic fallback.
 export const screenshotFor = (id) => screenshots[id] ?? null;
