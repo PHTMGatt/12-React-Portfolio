@@ -4,7 +4,7 @@ import FeaturedStudy from '../../components/FeaturedStudy/FeaturedStudy';
 import { caseStudies } from '../../data/caseStudies';
 import { coreStack, profile } from '../../data/profile';
 import usePageTitle from '../../hooks/usePageTitle';
-import headshot from '../../assets/Pictures/bryen-headshot.webp';
+import headshot from '../../assets/photos/bryen-headshot.webp';
 import './About.css';
 
 const capabilities = [
