@@ -1,36 +1,53 @@
-// Portfolio visuals are intentionally pinned to the reviewed PORT-IMG_3 batch.
-// Keeping the source commit immutable prevents accidental drift while the
-// project cards are being polished. Banking System remains the only text
-// fallback because PORT-IMG_3 does not include an approved Banking image.
-const PORT_IMG_COMMIT = 'a2c43d8301679dbda14ad06dc225d61e5515e431';
+// Canonical Portfolio Work-card visuals.
+// Replace a file in src/assets/photos/ to update the Portfolio card and every
+// matching repository README that references the same main-branch asset.
+import candidateSearch from '../assets/photos/Candidate Search.png';
+import captainHook from '../assets/photos/Captain Hook.png';
+import clashCommander from '../assets/photos/Clash Commander.png';
+import derEisendrache from '../assets/photos/DE.png';
+import dailyBytes from '../assets/photos/Daily Bytes.png';
+import fairwayFinder from '../assets/photos/Fairway Finder.png';
+import gorodKrovi from '../assets/photos/GK.png';
+import kanban from '../assets/photos/Kanban.png';
+import mobOfTheDead from '../assets/photos/MOTD.png';
+import mernBook from '../assets/photos/Mern Book.png';
+import origins from '../assets/photos/Origins.png';
+import portfolio from '../assets/photos/Portfolio.png';
+import revelations from '../assets/photos/Rev.png';
+import socialNetwork from '../assets/photos/Social Network API.png';
+import techQuiz from '../assets/photos/Tech Quiz.png';
+import warOracle from '../assets/photos/War Oracle.png';
+import weatherApp from '../assets/photos/Weather App.png';
+import zetsubou from '../assets/photos/Zetsubou.png';
+import zombiesHub from '../assets/photos/Zombies Hub.png';
+import raspbi from '../assets/photos/raspbi.png';
 
-const portfolioArt = (filename) => ({
-  src: `https://raw.githubusercontent.com/PHTMGatt/12-React-Portfolio/${PORT_IMG_COMMIT}/src/assets/project-images/${encodeURIComponent(filename)}`,
-});
+const artwork = (src) => ({ src });
 
 export const screenshots = {
-  'zombies-hub-2': portfolioArt('Zombies Hub.png'),
-  'fairway-finder': portfolioArt('Fairway Finder.png'),
-  'war-oracle': portfolioArt('War Oracle.png'),
-  'clash-commander': portfolioArt('Clash Commander.png'),
-  'raspbi-pilot': portfolioArt('raspbi.png'),
-  'captain-hook': portfolioArt('Captain Hook.png'),
-  'mern-book-search': portfolioArt('Mern Book.png'),
-  'daily-bytes': portfolioArt('Daily Bytes.png'),
-  'kanban-board': portfolioArt('Kanban.png'),
-  'candidate-search': portfolioArt('Candidate Search.png'),
-  'weather-app': portfolioArt('Weather App.png'),
-  'social-network-api': portfolioArt('Social Network API.png'),
-  'tech-quiz-tests': portfolioArt('Tech Quiz.png'),
-  'zombies-hub-1': portfolioArt('Zombies Hub.png'),
-  origins: portfolioArt('Origins.png'),
-  'mob-of-the-dead': portfolioArt('MOTD.png'),
-  'der-eisendrache': portfolioArt('DE.png'),
-  zetsubou: portfolioArt('Zetsubou.png'),
-  'gorod-krovi': portfolioArt('GK.png'),
-  revelations: portfolioArt('Rev.png'),
-  portfolio: portfolioArt('Portfolio.png'),
+  'zombies-hub-2': artwork(zombiesHub),
+  'fairway-finder': artwork(fairwayFinder),
+  'war-oracle': artwork(warOracle),
+  'clash-commander': artwork(clashCommander),
+  'raspbi-pilot': artwork(raspbi),
+  'captain-hook': artwork(captainHook),
+  'mern-book-search': artwork(mernBook),
+  'daily-bytes': artwork(dailyBytes),
+  'kanban-board': artwork(kanban),
+  'candidate-search': artwork(candidateSearch),
+  'weather-app': artwork(weatherApp),
+  'social-network-api': artwork(socialNetwork),
+  'tech-quiz-tests': artwork(techQuiz),
+  'zombies-hub-1': artwork(zombiesHub),
+  origins: artwork(origins),
+  'mob-of-the-dead': artwork(mobOfTheDead),
+  'der-eisendrache': artwork(derEisendrache),
+  zetsubou: artwork(zetsubou),
+  'gorod-krovi': artwork(gorodKrovi),
+  revelations: artwork(revelations),
+  portfolio: artwork(portfolio),
 };
 
-// Returns the visual for a project id, or null to use the typographic fallback.
+// Banking System intentionally remains a text fallback until an approved
+// canonical image is added to src/assets/photos/.
 export const screenshotFor = (id) => screenshots[id] ?? null;
