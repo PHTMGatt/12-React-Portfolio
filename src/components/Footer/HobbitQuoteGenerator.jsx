@@ -1,67 +1,44 @@
-import React, { useEffect, useState } from 'react';
+import { useRef, useState } from 'react';
+import { Dices } from 'lucide-react';
 import './QuoteAnimations.css';
 
+// A small Middle-earth easter egg. The quotes ship with the site, so the footer
+// works offline and no private API token ever ends up in the browser bundle.
+const quotes = [
+  'Not all those who wander are lost.',
+  'Even the smallest person can change the course of the future.',
+  'All we have to decide is what to do with the time that is given us.',
+  'There is some good in this world, and it’s worth fighting for.',
+  'The road goes ever on and on.',
+];
+
+// A bounded pick that always moves to a different quote and cannot loop forever.
+const nextIndex = (current) => (current + 1 + Math.floor(Math.random() * (quotes.length - 1))) % quotes.length;
+
 const HobbitQuoteGenerator = () => {
-  const fantasyFonts = [
-    'Playfair Display',
-    'Cormorant Garamond',
-    'Marcellus',
-    'Libre Baskerville',
-  ];
+  const [index, setIndex] = useState(0);
+  const [visible, setVisible] = useState(true);
+  const timer = useRef();
 
-  const [quotes, setQuotes] = useState([]);
-  const [currentQuote, setCurrentQuote] = useState(null);
-  const [font, setFont] = useState(fantasyFonts[0]);
-  const [fadeClass, setFadeClass] = useState('fade-in');
-
-  const fetchQuotes = async () => {
-    try {
-      const res = await fetch('https://the-one-api.dev/v2/quote', {
-        headers: {
-          Authorization: 'Bearer 30pdImw6q06nrUVwdEpw',
-        },
-      });
-      const data = await res.json();
-      const filteredQuotes = data.docs.filter(
-        (q) => q.dialog && q.dialog.length < 200
-      );
-      setQuotes(filteredQuotes);
-      getRandomQuote(filteredQuotes);
-    } catch (err) {
-      console.error('Error fetching LOTR quotes:', err);
-    }
+  const nextQuote = () => {
+    setVisible(false);
+    clearTimeout(timer.current);
+    timer.current = setTimeout(() => {
+      setIndex(nextIndex);
+      setVisible(true);
+    }, 200);
   };
-
-  const getRandomQuote = (quoteList = quotes) => {
-    if (!quoteList.length) return;
-    let newQuote;
-    do {
-      newQuote = quoteList[Math.floor(Math.random() * quoteList.length)];
-    } while (newQuote.dialog === currentQuote?.dialog);
-
-    const randomFont = fantasyFonts[Math.floor(Math.random() * fantasyFonts.length)];
-
-    setFadeClass('fade-out');
-    setTimeout(() => {
-      setFont(randomFont);
-      setCurrentQuote(newQuote);
-      setFadeClass('fade-in');
-    }, 250);
-  };
-
-  useEffect(() => {
-    fetchQuotes();
-  }, []);
 
   return (
-    <div className="quote-container" style={{ fontFamily: `'${font}', serif` }}>
-      <p className={`quote-text ${fadeClass}`}>
-        {currentQuote ? `“${currentQuote.dialog}”` : 'Loading quote...'}
-      </p>
-      <button className="quote-button" onClick={() => getRandomQuote()} aria-label="New Hobbit Quote">
-        🎲 New Quote
+    <figure className="footer-quote">
+      <blockquote className={`footer-quote__text ${visible ? 'quote-in' : 'quote-out'}`} aria-live="polite">
+        “{quotes[index]}”
+      </blockquote>
+      <button type="button" className="footer-quote__button" onClick={nextQuote}>
+        <Dices size={16} aria-hidden="true" />
+        Another quote
       </button>
-    </div>
+    </figure>
   );
 };
 

@@ -1,11 +1,42 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <title>Bryen Gatt | Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Almendra+SC&family=Cinzel+Decorative&family=EB+Garamond&family=IM+Fell+English&family=Cormorant+Garamond&family=Libre+Baskerville&family=Marcellus&family=Playfair+Display&family=Uncial+Antiqua&display=swap" rel="stylesheet">
+    <title>Bryen Gatt — Full-Stack Developer</title>
+    <meta
+      name="description"
+      content="Bryen Gatt is a full-stack developer building React front-ends, Node and GraphQL APIs, and Discord automation. Case studies, projects, résumé and contact."
+    />
+    <meta name="author" content="Bryen Gatt" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Bryen Gatt — Full-Stack Developer" />
+    <meta
+      property="og:description"
+      content="React front-ends, Node and GraphQL APIs, and Discord automation — with case studies of the work."
+    />
+    <meta property="og:url" content="https://one2-react-portfolio.onrender.com/" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="theme-color" content="#070b18" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f5f8fc" media="(prefers-color-scheme: light)" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Apply the saved theme before first paint so there is no flash of the wrong theme. -->
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem('theme');
+          if (saved === 'light' || saved === 'dark') document.documentElement.setAttribute('data-theme', saved);
+        } catch (e) {}
+      })();
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500&family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div id="root"></div>

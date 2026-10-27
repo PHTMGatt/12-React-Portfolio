@@ -1,139 +1,124 @@
-import React from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
+import { ArrowRight, Archive, Info } from 'lucide-react';
 import ProjectCard from '../../components/ProjectCard/ProjectCard';
+import ProjectImage from '../../components/ProjectImage/ProjectImage';
+import { archivedProjects, caseStudies, categories, projects } from '../../data/projects';
+import usePageTitle from '../../hooks/usePageTitle';
 import './Portfolio.css';
 
-// Image imports
-import ZHub from '../../assets/Pictures/ZHub.png';
-import DailyBytes from '../../assets/Pictures/DailyBytes.png';
-import FairwayFinder from '../../assets/Pictures/FairwayFinder.png';
-import CandiSearch from '../../assets/Pictures/CandiSearch.png';
-import DE from '../../assets/Pictures/DE.png';
-import GK from '../../assets/Pictures/GK.png';
-import MOTD from '../../assets/Pictures/MOTD.png';
-import Origins from '../../assets/Pictures/Origins.png';
-import REV from '../../assets/Pictures/REV.png';
-import WeatherApp from '../../assets/Pictures/Screenshot9New.png';
-import ZNS from '../../assets/Pictures/ZETZ.png';
-import MERNBook from '../../assets/Pictures/MERN_Book_Search.png';
-import AdvancedCSSImg from '../../assets/Pictures/Challenge2New.jpg';
-
-// Final project list (top 3 pinned, rest alphabetical)
-const projects = [
-  // Pinned
-  {
-    id: 'zombies-hub',
-    description: 'Zombies Hub',
-    repoLink: 'https://github.com/PHTMGatt/Zombies-Hub',
-    renderLink: 'https://zombies-hub.onrender.com',
-    screenshot: ZHub,
-  },
-  {
-    id: 'daily-bytes',
-    description: 'Daily Bytes',
-    repoLink: 'https://github.com/PHTMGatt/The-Daily-Bytes',
-    renderLink: 'https://the-daily-bytes-o4jo.onrender.com',
-    screenshot: DailyBytes,
-  },
-  {
-    id: 'fairway-finder',
-    description: 'Fairway Finder',
-    repoLink: 'https://github.com/PHTMGatt/Fairway-Finder',
-    renderLink: 'https://fairway-finder.onrender.com',
-    screenshot: FairwayFinder,
-  },
-
-  // Alphabetical
-  {
-    id: 'advanced-css',
-    description: 'Advanced CSS',
-    repoLink: 'https://github.com/PHTMGatt/02-Advanced-CSS',
-    renderLink: 'https://zero2-advanced-css.onrender.com',
-    screenshot: AdvancedCSSImg,
-  },
-  {
-    id: 'candidate-search',
-    description: 'Candidate Search',
-    repoLink: 'https://github.com/PHTMGatt/13-Candidate-Search',
-    renderLink: 'https://one3-candidate-search-u82d.onrender.com',
-    screenshot: CandiSearch,
-  },
-  {
-    id: 'de',
-    description: 'Der Eisendrache',
-    repoLink: 'https://github.com/PHTMGatt/Der-Eisendrache-Guide',
-    renderLink: 'https://der-eisendrache-guide.onrender.com',
-    screenshot: DE,
-  },
-  {
-    id: 'gk',
-    description: 'Gorod Krovi',
-    repoLink: 'https://github.com/PHTMGatt/Gorod-Krovi-Guide',
-    renderLink: 'https://gorod-krovi-guide.onrender.com',
-    screenshot: GK,
-  },
-  {
-    id: 'mern-book-search',
-    description: 'MERN Book Search Engine',
-    repoLink: 'https://github.com/PHTMGatt/18-MERN-Book-Search-Engine',
-    renderLink: 'https://one8-mern-book-search-engine.onrender.com',
-    screenshot: MERNBook,
-  },
-  {
-    id: 'motd',
-    description: 'Mob of the Dead',
-    repoLink: 'https://github.com/PHTMGatt/MOTD-Guide',
-    renderLink: 'https://motd-guide.onrender.com',
-    screenshot: MOTD,
-  },
-  {
-    id: 'origins',
-    description: 'Origins Guide',
-    repoLink: 'https://github.com/PHTMGatt/Origins-Guide',
-    renderLink: 'https://origins-wtyd.onrender.com',
-    screenshot: Origins,
-  },
-  {
-    id: 'rev',
-    description: 'Revelations',
-    repoLink: 'https://github.com/PHTMGatt/Revelations-Guide',
-    renderLink: 'https://revelations-guide.onrender.com',
-    screenshot: REV,
-  },
-  {
-    id: 'weather-app',
-    description: 'Weather App',
-    repoLink: 'https://github.com/PHTMGatt/12-Weather-API',
-    renderLink: 'https://zero9-servers-and-apis.onrender.com',
-    screenshot: WeatherApp,
-  },
-  {
-    id: 'zns',
-    description: 'Zetsubou No Shima',
-    repoLink: 'https://github.com/PHTMGatt/Zetsubou-Guide',
-    renderLink: 'https://zetsubou-guide.onrender.com',
-    screenshot: ZNS,
-  },
-];
+const countFor = (id) => (id === 'all' ? projects.length : projects.filter((p) => p.category === id).length);
 
 const Portfolio = () => {
+  usePageTitle('Work');
+  const [params, setParams] = useSearchParams();
+  const requested = params.get('type');
+  const active = categories.some((c) => c.id === requested) ? requested : 'all';
+  const visible = active === 'all' ? projects : projects.filter((p) => p.category === active);
+
+  const selectCategory = (id) => {
+    setParams(id === 'all' ? {} : { type: id }, { replace: true, preventScrollReset: true });
+  };
+
   return (
-    <section className="portfolio-section fade-in">
-      <div className="portfolio-header">
-        <h1 className="portfolio-title">My Projects</h1>
-        <p className="portfolio-subtext">A collection of my work — clean, functional, and built with care.</p>
-      </div>
-      <div className="work-grid">
-        {projects.map((project) => (
-          <ProjectCard
-            key={project.id}
-            description={project.description}
-            repoLink={project.repoLink}
-            renderLink={project.renderLink}
-            screenshot={project.screenshot}
-          />
-        ))}
-      </div>
-    </section>
+    <div className="work page-enter">
+      <header className="page-header container">
+        <p className="eyebrow">Work</p>
+        <h1 className="page-title">Things I’ve designed, built and shipped</h1>
+        <p className="section-lede work__lede">
+          Full-stack apps, APIs, Discord automation and testing. Start with the case studies for the full story, or
+          filter the complete list below.
+        </p>
+      </header>
+
+      <section className="container" aria-labelledby="studies-title">
+        <h2 id="studies-title" className="work__subheading">
+          Case studies
+        </h2>
+        <div className="study-tiles">
+          {caseStudies.map((study) => (
+            <Link key={study.slug} to={`/work/${study.slug}`} className="study-tile">
+              <div className="study-tile__media">
+                <ProjectImage
+                  image={study.image}
+                  alt=""
+                  sizes="(max-width: 760px) 100vw, 380px"
+                  title={study.title}
+                  stack={study.stack}
+                  summary={study.tagline}
+                />
+              </div>
+              <div className="study-tile__body">
+                <p className="study-tile__kicker">{study.kicker}</p>
+                <h3>{study.title}</h3>
+                <p>{study.tagline}</p>
+                <span className="text-link">
+                  Read case study <ArrowRight size={16} aria-hidden="true" />
+                </span>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="container work__all" aria-labelledby="all-title">
+        <div className="work__toolbar">
+          <h2 id="all-title" className="work__subheading">
+            All projects
+          </h2>
+          <div className="filter-group" role="group" aria-label="Filter projects by type">
+            {categories.map((category) => (
+              <button
+                key={category.id}
+                type="button"
+                className="filter-chip"
+                aria-pressed={active === category.id}
+                onClick={() => selectCategory(category.id)}
+              >
+                {category.label}
+                <span className="filter-chip__count">{countFor(category.id)}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <p className="sr-only" aria-live="polite">
+          Showing {visible.length} {visible.length === 1 ? 'project' : 'projects'}
+        </p>
+
+        <div className="work-grid">
+          {visible.map((project) => (
+            <ProjectCard key={project.id} project={project} />
+          ))}
+        </div>
+
+        <p className="work__note">
+          <Info size={16} aria-hidden="true" />
+          Live demos run on free-tier hosting and can take up to a minute to wake up on the first visit.
+        </p>
+
+        <details className="archive">
+          <summary>
+            <Archive size={18} aria-hidden="true" />
+            <span>
+              Archive: the original Zombies map guides
+              <small>{archivedProjects.length} inactive projects, superseded by Zombies Hub 2.0</small>
+            </span>
+          </summary>
+          <div className="archive__body">
+            <p>
+              Before Zombies Hub 2.0, each map guide was its own React app and Render service. Those deployments are
+              now offline because 2.0 merged them into one application, but the source and history remain on GitHub.
+              The screenshots below were captured while they were still live.
+            </p>
+            <div className="work-grid archive__grid">
+              {archivedProjects.map((project) => (
+                <ProjectCard key={project.id} project={project} />
+              ))}
+            </div>
+          </div>
+        </details>
+      </section>
+    </div>
   );
 };
 

@@ -1,5 +1,4 @@
 // elvenScriptures.jsx
-import React from 'react';
 import { IoHome } from 'react-icons/io5';  // Updated: Using IoHome instead of BiHandicap
 import { GiHobbitDoor, GiBattleAxe, GiElfHelmet, GiWizardStaff, GiSwordsEmblem, GiDevilMask } from 'react-icons/gi';
 

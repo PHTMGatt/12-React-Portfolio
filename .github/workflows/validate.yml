@@ -1,0 +1,28 @@
+name: Validate Portfolio
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - name: Browser checks with mocked email delivery
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 4174 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:4174 >/dev/null && break; sleep 1; done
+          npm run test:browser
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: portfolio-browser-evidence
+          path: artifacts/
