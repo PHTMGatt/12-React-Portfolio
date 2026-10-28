@@ -15,6 +15,7 @@ const substantialAsset = async (path, label) => {
 test('approved Banking and Clash artwork is wired into the Portfolio', async () => {
   await substantialAsset('src/assets/photos/Banking System.webp', 'Banking System artwork');
   await substantialAsset('src/assets/photos/Clash Commander.webp', 'Clash Commander artwork');
+  await substantialAsset('src/assets/photos/Clash Suite.webp', 'Clash Suite artwork');
 
   const screenshots = await read('src/data/screenshots.js');
   assert.match(screenshots, /'banking-system': artwork\(bankingSystem\)/);
@@ -23,7 +24,7 @@ test('approved Banking and Clash artwork is wired into the Portfolio', async () 
   const caseStudies = await read('src/data/caseStudies.js');
   assert.match(
     caseStudies,
-    /slug: 'clash-automation'[\s\S]*image: screenshotFor\('clash-commander'\)/,
-    'Clash of Clans Discord Suite case study should use the approved Clash Commander artwork'
+    /slug: 'clash-automation'[\s\S]*image: screenshotFor\('clash-suite'\)/,
+    'Clash of Clans Discord Suite case study should use the approved Clash Suite artwork'
   );
 });
