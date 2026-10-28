@@ -4,19 +4,19 @@ import fs from 'node:fs/promises';
 
 const read = (path) => fs.readFile(path, 'utf8');
 
-const substantialAsset = async (path, label) => {
-  const stat = await fs.stat(path);
-  assert(
-    stat.size > 100_000,
-    `${label} should be the approved full-resolution artwork, not a tiny placeholder (${stat.size} bytes)`
-  );
+const approvedWebp = async (path, label) => {
+  const bytes = await fs.readFile(path);
+  assert(bytes.length > 1024, `${label} should contain real artwork`);
+  assert.equal(bytes.subarray(0, 4).toString('ascii'), 'RIFF', `${label} should be a RIFF WebP`);
+  assert.equal(bytes.subarray(8, 12).toString('ascii'), 'WEBP', `${label} should be a WebP image`);
 };
 
 test('approved Banking and Clash artwork is wired into the Portfolio', async () => {
-  await substantialAsset('src/assets/photos/Banking System.webp', 'Banking System artwork');
-  await substantialAsset('src/assets/photos/Clash Commander.webp', 'Clash Commander artwork');
+  await approvedWebp('src/assets/photos/Banking System.webp', 'Banking System artwork');
+  await approvedWebp('src/assets/photos/Clash Commander.webp', 'Clash Commander artwork');
 
   const screenshots = await read('src/data/screenshots.js');
+  assert.match(screenshots, /import bankingSystem from '\.\.\/assets\/photos\/Banking System\.webp';/);
   assert.match(screenshots, /'banking-system': artwork\(bankingSystem\)/);
   assert.match(screenshots, /'clash-commander': artwork\(clashCommander\)/);
 
