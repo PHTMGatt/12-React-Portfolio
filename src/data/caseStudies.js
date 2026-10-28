@@ -3,8 +3,7 @@
 // ./caseStudyStories.js so it only loads with the case-study route.
 // Descriptions are drawn from each project's own README so they stay factual.
 
-// Covers come from each repo's docs/portfolio/cover.webp (see ./screenshots.js).
-// The Clash suite has no real capture yet (null renders the typographic fallback).
+// Case-study artwork comes from the same canonical Portfolio image library used by Work cards.
 import { screenshotFor } from './screenshots';
 
 export const caseStudies = [
@@ -49,7 +48,7 @@ export const caseStudies = [
     kicker: 'Automation · Discord bots',
     title: 'Clash of Clans Discord Suite',
     tagline: 'War intelligence and server operations bots, built to run together on a single host.',
-    image: null,
+    image: screenshotFor('clash-commander'),
     role: 'Designed and built all three projects: two bots and the runtime that hosts them.',
     stack: ['Node.js', 'discord.js', 'Clash of Clans API', 'Render', 'Raspberry Pi'],
     links: [

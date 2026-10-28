@@ -1,6 +1,7 @@
 // Canonical Portfolio Work-card visuals.
 // Replace a file in src/assets/photos/ to update the Portfolio card and every
 // matching repository README that references the same main-branch asset.
+import bankingSystem from '../assets/photos/Banking System.webp';
 import candidateSearch from '../assets/photos/Candidate Search.png';
 import captainHook from '../assets/photos/Captain Hook.png';
 import clashCommander from '../assets/photos/Clash Commander.webp';
@@ -38,6 +39,7 @@ export const screenshots = {
   'weather-app': artwork(weatherApp),
   'social-network-api': artwork(socialNetwork),
   'tech-quiz-tests': artwork(techQuiz),
+  'banking-system': artwork(bankingSystem),
   'zombies-hub-1': artwork(zombiesHub),
   origins: artwork(origins),
   'mob-of-the-dead': artwork(mobOfTheDead),
