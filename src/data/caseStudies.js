@@ -48,7 +48,7 @@ export const caseStudies = [
     kicker: 'Automation · Discord bots',
     title: 'Clash of Clans Discord Suite',
     tagline: 'War intelligence and server operations bots, built to run together on a single host.',
-    image: screenshotFor('clash-commander'),
+    image: screenshotFor('clash-suite'),
     role: 'Designed and built all three projects: two bots and the runtime that hosts them.',
     stack: ['Node.js', 'discord.js', 'Clash of Clans API', 'Render', 'Raspberry Pi'],
     links: [

@@ -1,10 +1,11 @@
 // Canonical Portfolio Work-card visuals.
 // Replace a file in src/assets/photos/ to update the Portfolio card and every
 // matching repository README that references the same main-branch asset.
-import bankingSystem from '../assets/photos/Banking System.webp';
+import bankingSystem from '../assets/photos/Banking System.svg';
 import candidateSearch from '../assets/photos/Candidate Search.png';
 import captainHook from '../assets/photos/Captain Hook.png';
-import clashCommander from '../assets/photos/Clash Commander.webp';
+import clashCommander from '../assets/photos/Clash Commander.svg';
+import clashSuite from '../assets/photos/Clash Suite.svg';
 import derEisendrache from '../assets/photos/DE.png';
 import dailyBytes from '../assets/photos/Daily Bytes.png';
 import fairwayFinder from '../assets/photos/Fairway Finder.png';
@@ -30,6 +31,7 @@ export const screenshots = {
   'fairway-finder': artwork(fairwayFinder),
   'war-oracle': artwork(warOracle),
   'clash-commander': artwork(clashCommander),
+  'clash-suite': artwork(clashSuite),
   'raspbi-pilot': artwork(raspbi),
   'captain-hook': artwork(captainHook),
   'mern-book-search': artwork(mernBook),
