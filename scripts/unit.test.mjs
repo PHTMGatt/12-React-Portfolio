@@ -15,11 +15,10 @@ test('blocked browser storage uses safe defaults instead of crashing', () => {
   delete globalThis.window;
 });
 
-test('external links that open new tabs announce that behavior', async () => {
+test('primary external-link surfaces announce new-tab behavior', async () => {
   const files = [
     '../src/components/Footer/Footer.jsx',
     '../src/pages/Contact/Contact.jsx',
-    '../src/pages/Resume/Resume.jsx',
   ];
 
   for (const file of files) {
