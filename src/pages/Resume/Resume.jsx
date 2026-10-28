@@ -208,12 +208,14 @@ const Resume = () => {
                 <a href={profile.github} target="_blank" rel="noopener noreferrer">
                   <FaGithub aria-hidden="true" />
                   {profile.githubHandle}
+                  <span className="sr-only">(opens in a new tab)</span>
                 </a>
               </li>
               <li>
                 <a href={profile.linkedin} target="_blank" rel="noopener noreferrer">
                   <FaLinkedin aria-hidden="true" />
                   LinkedIn
+                  <span className="sr-only">(opens in a new tab)</span>
                 </a>
               </li>
             </ul>
