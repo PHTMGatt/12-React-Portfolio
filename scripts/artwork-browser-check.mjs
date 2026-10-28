@@ -28,12 +28,35 @@ const assertDecodedImage = async (page, image, label) => {
 
   const metrics = await image.evaluate((img) => {
     const rect = img.getBoundingClientRect();
+    const canvas = document.createElement('canvas');
+    canvas.width = 64;
+    canvas.height = 36;
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+    let minLuma = 255;
+    let maxLuma = 0;
+    let sum = 0;
+    let sumSq = 0;
+    let count = 0;
+    for (let index = 0; index < pixels.length; index += 4) {
+      const luma = pixels[index] * 0.2126 + pixels[index + 1] * 0.7152 + pixels[index + 2] * 0.0722;
+      minLuma = Math.min(minLuma, luma);
+      maxLuma = Math.max(maxLuma, luma);
+      sum += luma;
+      sumSq += luma * luma;
+      count += 1;
+    }
+    const mean = sum / count;
+    const variance = sumSq / count - mean * mean;
     return {
       src: img.currentSrc || img.src,
       naturalWidth: img.naturalWidth,
       naturalHeight: img.naturalHeight,
       renderedWidth: rect.width,
       renderedHeight: rect.height,
+      lumaRange: maxLuma - minLuma,
+      lumaStdDev: Math.sqrt(Math.max(variance, 0)),
     };
   });
 
@@ -41,6 +64,8 @@ const assertDecodedImage = async (page, image, label) => {
   assert(metrics.naturalHeight > 0, `${label} should decode pixels`);
   assert(metrics.renderedWidth > 0, `${label} should occupy visible width`);
   assert(metrics.renderedHeight > 0, `${label} should occupy visible height`);
+  assert(metrics.lumaRange > 20, `${label} should contain visible image detail, not a flat panel`);
+  assert(metrics.lumaStdDev > 5, `${label} should contain meaningful pixel variation`);
   return metrics;
 };
 
@@ -84,14 +109,8 @@ try {
     await page.goto(`${base}/work`, { waitUntil: 'networkidle' });
     for (let index = 0; index < cardCount; index += 1) {
       const card = page.locator('.work-grid:not(.archive__grid) .project-card').nth(index);
-      await card.scrollIntoViewIfNeeded();
-      const image = card.locator('.project-shot');
-      if (await image.count()) {
-        const handle = await image.elementHandle();
-        if (handle) {
-          await page.waitForFunction((img) => img.complete && img.naturalWidth > 0, handle, { timeout: 10000 });
-        }
-      }
+      const title = (await card.locator('.project-card__title').textContent())?.trim() || `project ${index + 1}`;
+      await assertDecodedImage(page, card.locator('.project-shot'), `${title} card artwork screenshot gate`);
     }
     await page.screenshot({
       path: `artifacts/screenshots/${viewport.name}-dark-work-all-artwork.png`,
