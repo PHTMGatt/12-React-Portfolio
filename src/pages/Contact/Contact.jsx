@@ -191,6 +191,7 @@ const Contact = () => {
                 <span>
                   LinkedIn<small>Connect professionally</small>
                 </span>
+                <span className="sr-only"> (opens in a new tab)</span>
               </a>
             </li>
             <li>
@@ -199,6 +200,7 @@ const Contact = () => {
                 <span>
                   GitHub<small>{profile.githubHandle}</small>
                 </span>
+                <span className="sr-only"> (opens in a new tab)</span>
               </a>
             </li>
             <li>
@@ -207,6 +209,7 @@ const Contact = () => {
                 <span>
                   Discord<small>{profile.discordHandle}</small>
                 </span>
+                <span className="sr-only"> (opens in a new tab)</span>
               </a>
             </li>
           </ul>
