@@ -31,7 +31,7 @@ Render production must deploy from `main`. Do not point production at an AI work
 - Do not create parallel `Pictures`, `project-images`, `thumbnails`, or `docs/portfolio` image libraries.
 - The Work page imports its project visuals only from `src/assets/photos/`.
 - Matching project repository READMEs should reference the same `main`-branch image from this repository, so replacing one canonical file updates both the Portfolio card and README presentation.
-- Clash Commander and the Clash of Clans Discord Suite use the approved canonical artwork in `Clash Commander.webp`; do not fall back to legacy or substitute artwork.
+- Clash Commander and the Clash of Clans Discord Suite use their distinct approved canonical artwork in `Clash Commander.webp` and `Clash Suite.webp`, respectively; do not fall back to legacy or substitute artwork.
 - Python Banking System uses the approved canonical artwork in `Banking System.webp`; do not revert it to a text fallback.
 
 ### Replacing a project image
@@ -41,7 +41,7 @@ Render production must deploy from `main`. Do not point production at an AI work
 3. Verify that the file is a valid decodable image, not merely a file with the expected extension.
 4. Verify the Portfolio build and Work card on desktop and mobile.
 5. Verify any matching case-study hero and project README point at that canonical file.
-6. Merge the validated change into `main`.
+6. Push the verified checkpoint to `chatgpt-forge`; integration into `main` requires explicit release authorization.
 
 The current approved batch originated as `PORT-IMG_3`; the folder name is no longer part of the workflow. The canonical location is `src/assets/photos/`.
 

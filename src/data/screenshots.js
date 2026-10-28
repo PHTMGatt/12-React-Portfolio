@@ -1,11 +1,11 @@
 // Canonical Portfolio Work-card visuals.
 // Replace a file in src/assets/photos/ to update the Portfolio card and every
 // matching repository README that references the same main-branch asset.
-import bankingSystem from '../assets/photos/Banking System.svg';
+import bankingSystem from '../assets/photos/Banking System.webp';
 import candidateSearch from '../assets/photos/Candidate Search.png';
 import captainHook from '../assets/photos/Captain Hook.png';
-import clashCommander from '../assets/photos/Clash Commander.svg';
-import clashSuite from '../assets/photos/Clash Suite.svg';
+import clashCommander from '../assets/photos/Clash Commander.webp';
+import clashSuite from '../assets/photos/Clash Suite.webp';
 import derEisendrache from '../assets/photos/DE.png';
 import dailyBytes from '../assets/photos/Daily Bytes.png';
 import fairwayFinder from '../assets/photos/Fairway Finder.png';
