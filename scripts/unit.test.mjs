@@ -19,6 +19,7 @@ test('primary external-link surfaces announce new-tab behavior', async () => {
   const files = [
     '../src/components/Footer/Footer.jsx',
     '../src/pages/Contact/Contact.jsx',
+    '../src/pages/Resume/Resume.jsx',
   ];
 
   for (const file of files) {
