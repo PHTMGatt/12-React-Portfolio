@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "test": "node --test scripts/*.test.mjs",
-    "test:browser": "node scripts/browser-smoke.mjs",
+    "test:browser": "node scripts/browser-smoke.mjs && node scripts/artwork-browser-check.mjs",
     "dev": "vite",
     "build": "vite build",
     "start": "vite preview --host",
