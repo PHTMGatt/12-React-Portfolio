@@ -23,3 +23,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Rebuilt from canonical artwork before development/build.
+src/assets/photos/generated/

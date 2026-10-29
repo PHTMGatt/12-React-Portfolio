@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { Menu, Moon, Sun, X } from 'lucide-react';
 import './Nav.css';
@@ -11,6 +11,7 @@ const links = [
 
 const Nav = ({ theme, toggleTheme }) => {
   const [open, setOpen] = useState(false);
+  const menuToggleRef = useRef(null);
   const { pathname } = useLocation();
   const isDark = theme === 'dark';
 
@@ -22,7 +23,10 @@ const Nav = ({ theme, toggleTheme }) => {
   useEffect(() => {
     if (!open) return undefined;
     const onKey = (event) => {
-      if (event.key === 'Escape') setOpen(false);
+      if (event.key === 'Escape') {
+        setOpen(false);
+        menuToggleRef.current?.focus();
+      }
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
@@ -67,6 +71,7 @@ const Nav = ({ theme, toggleTheme }) => {
             Contact
           </NavLink>
           <button
+            ref={menuToggleRef}
             type="button"
             className="icon-btn site-nav__toggle"
             aria-expanded={open}

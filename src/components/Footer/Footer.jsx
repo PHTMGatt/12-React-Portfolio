@@ -50,6 +50,7 @@ const Footer = () => {
                   <a href={href} {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
                     <Icon aria-hidden="true" />
                     {label}
+                    {external && <span className="sr-only"> (opens in a new tab)</span>}
                   </a>
                 </li>
               ))}
@@ -64,6 +65,7 @@ const Footer = () => {
                   <a href={href} target="_blank" rel="noopener noreferrer">
                     <Icon aria-hidden="true" />
                     {label}
+                    <span className="sr-only"> (opens in a new tab)</span>
                   </a>
                 </li>
               ))}

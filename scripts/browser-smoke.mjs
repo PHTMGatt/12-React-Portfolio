@@ -86,9 +86,13 @@ try {
 
       // Keyboard: the first Tab lands on a visible skip link.
       await page.goto(`${base}/`);
-      await page.keyboard.press('Tab');
       const skip = page.locator('.skip-link');
+      // Client rendering may finish after the document's load event.
+      await skip.waitFor({ state: 'attached' });
+      await page.keyboard.press('Tab');
       assert(await skip.evaluate((el) => el === document.activeElement), 'skip link receives focus first');
+      // Even reduced-motion transitions need a rendered frame to settle.
+      await page.waitForFunction(() => document.querySelector('.skip-link')?.getBoundingClientRect().y >= 0);
       const box = await skip.boundingBox();
       assert(box && box.y >= 0 && box.width > 0, 'focused skip link is visible');
 
@@ -143,7 +147,7 @@ try {
     viewport: { width: 1440, height: 900 },
     reducedMotion: 'reduce',
   });
-  await imageFailureContext.route('**/*.png', (route) => route.abort());
+  await imageFailureContext.route(/\.(png|webp)(\?.*)?$/, (route) => route.abort());
   const imageFailurePage = await imageFailureContext.newPage();
   await imageFailurePage.goto(`${base}/work`, { waitUntil: 'networkidle' });
   const imageFailureCard = imageFailurePage.locator('.project-card', { hasText: 'Zombies Hub 2.0' }).first();

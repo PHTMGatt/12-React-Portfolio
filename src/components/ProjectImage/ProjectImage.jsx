@@ -22,8 +22,8 @@ const ProjectImage = ({ image, alt, sizes, eager = false, className = '', title,
     <img
       className={`project-shot ${className}`.trim()}
       src={image.src}
-      srcSet={image.srcSmall ? `${image.srcSmall} 640w, ${image.src} 1280w` : undefined}
-      sizes={image.srcSmall ? sizes : undefined}
+      srcSet={image.srcSet}
+      sizes={image.srcSet ? sizes : undefined}
       width={image.width}
       height={image.height}
       alt={alt}

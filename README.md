@@ -83,3 +83,11 @@ The GitHub repository maintains best practices including:
 ---
 
 🌟 **Keep Exploring! Your feedback and suggestions are warmly welcomed. Happy coding!** 🚀
+
+## Project artwork delivery
+
+Approved originals remain in `src/assets/photos/`. `npm run dev`, `npm run start:dev`, and `npm run build` generate WebP delivery variants in the ignored `src/assets/photos/generated/` directory. Do not edit or commit those derivatives. After changing artwork while the dev server is running, run `npm run artwork:generate` (or restart the server).
+
+The generator preserves aspect ratios, never enlarges an original, and provides 480/800/1280-pixel candidates plus a larger candidate capped at 1920 pixels for case studies. Source artwork remains unchanged, including the approved Banking and Clash images. `ProjectImage` uses the existing layout-specific `sizes` values to select a candidate for the viewport and pixel density.
+
+Run `npm test`, `npm run lint`, and `npm run build`. With the production preview on port 4174, `npm run test:browser` checks pages, artwork decoding, and mobile image selection at 1×/2×/3× density, including a 1 MB initial Work-image budget.

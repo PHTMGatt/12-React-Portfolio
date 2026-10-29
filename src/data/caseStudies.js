@@ -3,8 +3,7 @@
 // ./caseStudyStories.js so it only loads with the case-study route.
 // Descriptions are drawn from each project's own README so they stay factual.
 
-// Covers come from each repo's docs/portfolio/cover.webp (see ./screenshots.js).
-// The Clash suite has no real capture yet (null renders the typographic fallback).
+// Case-study artwork comes from the same canonical Portfolio image library used by Work cards.
 import { screenshotFor } from './screenshots';
 
 export const caseStudies = [

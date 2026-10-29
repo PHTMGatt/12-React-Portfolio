@@ -26,19 +26,22 @@ Render production must deploy from `main`. Do not point production at an AI work
 
 - Keep the original headshot source and its optimized web version in this folder.
 - Keep one approved project image per Portfolio visual in this folder.
+- Every active Work/project card must render an image; do not intentionally leave a blank or text-only artwork panel.
+- Every case-study hero must render approved artwork; do not use `image: null` as a normal fallback.
 - Do not create parallel `Pictures`, `project-images`, `thumbnails`, or `docs/portfolio` image libraries.
 - The Work page imports its project visuals only from `src/assets/photos/`.
 - Matching project repository READMEs should reference the same `main`-branch image from this repository, so replacing one canonical file updates both the Portfolio card and README presentation.
-- Clash Commander uses its approved canonical WebP artwork (`Clash Commander.webp`); do not fall back to legacy or substitute artwork.
-- Python Banking System remains a text fallback until an approved image is explicitly supplied. Do not map `Banking System.webp` or another substitute into the Work page merely because a file exists.
+- Clash Commander and the Clash of Clans Discord Suite use their distinct approved canonical artwork in `Clash Commander.webp` and `Clash Suite.webp`, respectively; do not fall back to legacy or substitute artwork.
+- Python Banking System uses the approved canonical artwork in `Banking System.webp`; do not revert it to a text fallback.
 
 ### Replacing a project image
 
 1. Replace the corresponding file in `src/assets/photos/` on the AI working branch.
 2. Keep the filename stable unless the mapping itself is intentionally changing.
-3. Verify the Portfolio build and Work card.
-4. Verify the matching project README points at that canonical file.
-5. Merge the validated change into `main`.
+3. Verify that the file is a valid decodable image, not merely a file with the expected extension.
+4. Verify the Portfolio build and Work card on desktop and mobile.
+5. Verify any matching case-study hero and project README point at that canonical file.
+6. Push the verified checkpoint to `chatgpt-forge`; integration into `main` requires explicit release authorization.
 
 The current approved batch originated as `PORT-IMG_3`; the folder name is no longer part of the workflow. The canonical location is `src/assets/photos/`.
 
