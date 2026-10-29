@@ -1,55 +1,36 @@
 // Canonical Portfolio Work-card visuals.
 // Replace a file in src/assets/photos/ to update the Portfolio card and every
 // matching repository README that references the same main-branch asset.
-import bankingSystem from '../assets/photos/Banking System.webp';
-import candidateSearch from '../assets/photos/Candidate Search.png';
-import captainHook from '../assets/photos/Captain Hook.png';
-import clashCommander from '../assets/photos/Clash Commander.webp';
-import clashSuite from '../assets/photos/Clash Suite.webp';
-import derEisendrache from '../assets/photos/DE.png';
-import dailyBytes from '../assets/photos/Daily Bytes.png';
-import fairwayFinder from '../assets/photos/Fairway Finder.png';
-import gorodKrovi from '../assets/photos/GK.png';
-import kanban from '../assets/photos/Kanban.png';
-import mobOfTheDead from '../assets/photos/MOTD.png';
-import mernBook from '../assets/photos/Mern Book.png';
-import origins from '../assets/photos/Origins.png';
-import portfolio from '../assets/photos/Portfolio.png';
-import revelations from '../assets/photos/Rev.png';
-import socialNetwork from '../assets/photos/Social Network API.png';
-import techQuiz from '../assets/photos/Tech Quiz.png';
-import warOracle from '../assets/photos/War Oracle.png';
-import weatherApp from '../assets/photos/Weather App.png';
-import zetsubou from '../assets/photos/Zetsubou.png';
-import zombiesHub from '../assets/photos/Zombies Hub.png';
-import raspbi from '../assets/photos/raspbi.png';
+// npm run build/dev regenerates delivery variants from those approved originals.
 
-const artwork = (src) => ({ src });
+import { artwork as generatedArtwork } from '../assets/photos/generated/index.js';
+
+const artwork = (filename) => generatedArtwork[filename];
 
 export const screenshots = {
-  'zombies-hub-2': artwork(zombiesHub),
-  'fairway-finder': artwork(fairwayFinder),
-  'war-oracle': artwork(warOracle),
-  'clash-commander': artwork(clashCommander),
-  'clash-suite': artwork(clashSuite),
-  'raspbi-pilot': artwork(raspbi),
-  'captain-hook': artwork(captainHook),
-  'mern-book-search': artwork(mernBook),
-  'daily-bytes': artwork(dailyBytes),
-  'kanban-board': artwork(kanban),
-  'candidate-search': artwork(candidateSearch),
-  'weather-app': artwork(weatherApp),
-  'social-network-api': artwork(socialNetwork),
-  'tech-quiz-tests': artwork(techQuiz),
-  'banking-system': artwork(bankingSystem),
-  'zombies-hub-1': artwork(zombiesHub),
-  origins: artwork(origins),
-  'mob-of-the-dead': artwork(mobOfTheDead),
-  'der-eisendrache': artwork(derEisendrache),
-  zetsubou: artwork(zetsubou),
-  'gorod-krovi': artwork(gorodKrovi),
-  revelations: artwork(revelations),
-  portfolio: artwork(portfolio),
+  'zombies-hub-2': artwork('Zombies Hub.png'),
+  'fairway-finder': artwork('Fairway Finder.png'),
+  'war-oracle': artwork('War Oracle.png'),
+  'clash-commander': artwork('Clash Commander.webp'),
+  'clash-suite': artwork('Clash Suite.webp'),
+  'raspbi-pilot': artwork('raspbi.png'),
+  'captain-hook': artwork('Captain Hook.png'),
+  'mern-book-search': artwork('Mern Book.png'),
+  'daily-bytes': artwork('Daily Bytes.png'),
+  'kanban-board': artwork('Kanban.png'),
+  'candidate-search': artwork('Candidate Search.png'),
+  'weather-app': artwork('Weather App.png'),
+  'social-network-api': artwork('Social Network API.png'),
+  'tech-quiz-tests': artwork('Tech Quiz.png'),
+  'banking-system': artwork('Banking System.webp'),
+  'zombies-hub-1': artwork('Zombies Hub.png'),
+  origins: artwork('Origins.png'),
+  'mob-of-the-dead': artwork('MOTD.png'),
+  'der-eisendrache': artwork('DE.png'),
+  zetsubou: artwork('Zetsubou.png'),
+  'gorod-krovi': artwork('GK.png'),
+  revelations: artwork('Rev.png'),
+  portfolio: artwork('Portfolio.png'),
 };
 
 export const screenshotFor = (id) => screenshots[id] ?? null;

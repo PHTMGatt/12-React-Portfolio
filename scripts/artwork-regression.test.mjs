@@ -61,12 +61,9 @@ test('every Portfolio project card and case study is wired to artwork', async ()
     );
   }
 
-  assert.match(screenshots, /import bankingSystem from '\.\.\/assets\/photos\/Banking System\.webp';/);
-  assert.match(screenshots, /import clashCommander from '\.\.\/assets\/photos\/Clash Commander\.webp';/);
-  assert.match(screenshots, /import clashSuite from '\.\.\/assets\/photos\/Clash Suite\.webp';/);
-  assert.match(screenshots, /'banking-system': artwork\(bankingSystem\)/);
-  assert.match(screenshots, /'clash-commander': artwork\(clashCommander\)/);
-  assert.match(screenshots, /'clash-suite': artwork\(clashSuite\)/);
+  assert.match(screenshots, /'banking-system': artwork\('Banking System\.webp'\)/);
+  assert.match(screenshots, /'clash-commander': artwork\('Clash Commander\.webp'\)/);
+  assert.match(screenshots, /'clash-suite': artwork\('Clash Suite\.webp'\)/);
   assert.match(
     caseStudies,
     /slug: 'clash-automation'[\s\S]*image: screenshotFor\('clash-suite'\)/,
