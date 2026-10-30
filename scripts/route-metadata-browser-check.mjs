@@ -21,6 +21,7 @@ try {
       await page.waitForFunction((url) => document.querySelector('link[rel="canonical"]').href === url, `${origin}${path}`);
       assert.equal(await page.title(), `${title} — Bryen Gatt`);
       assert.equal(await page.locator('meta[property="og:url"]').getAttribute('content'), `${origin}${path}`);
+      assert.equal(await page.locator('meta[name="robots"]').getAttribute('content'), 'index, follow');
       assert.equal(await page.locator('meta[name="description"]').getAttribute('content'), await page.locator('meta[property="og:description"]').getAttribute('content'));
       await page.getByRole('link', { name: 'All work', exact: true }).click();
       await page.waitForFunction(() => document.title === 'Work — Bryen Gatt');
@@ -31,16 +32,19 @@ try {
     await page.goto(`${base}/work?type=automation`);
     await page.waitForFunction(() => document.title === 'Work — Bryen Gatt');
     assert.equal(await page.locator('link[rel="canonical"]').getAttribute('href'), `${origin}/work`);
+    assert.equal(await page.locator('meta[name="robots"]').getAttribute('content'), 'index, follow');
     await page.goto(`${base}/does-not-exist`);
     await page.waitForFunction(() => document.title === 'Page not found — Bryen Gatt');
     assert.equal(await page.locator('link[rel="canonical"]').getAttribute('href'), null);
+    assert.equal(await page.locator('meta[name="robots"]').getAttribute('content'), 'noindex, nofollow');
     await page.getByRole('link', { name: 'Back home' }).click();
     await page.waitForFunction(() => document.title === 'Bryen Gatt — Full-Stack Developer');
     assert.equal(await page.locator('link[rel="canonical"]').getAttribute('href'), `${origin}/`);
+    assert.equal(await page.locator('meta[name="robots"]').getAttribute('content'), 'index, follow');
     assert.deepEqual(errors, []);
     await page.close();
   }
-  console.log('Route metadata: raw HTTP, client navigation, history, filters, and missing-page recovery pass at 1440px and 390px.');
+  console.log('Route metadata: raw HTTP, client navigation, history, filters, robots directives, and missing-page recovery pass at 1440px and 390px.');
 } finally {
   await browser.close();
 }
