@@ -73,7 +73,7 @@ const buildPdf = async () => {
   const pageHeight = 792;
   const marginX = 48;
   const contentWidth = pageWidth - marginX * 2;
-  const lh = 15;
+  const lh = 13;
   let y = 56;
 
   const ensureSpace = (needed = lh) => {
@@ -130,13 +130,22 @@ const buildPdf = async () => {
   doc.text(profile.role, marginX, y);
   y += 18;
   doc.setFontSize(10);
-  doc.text(
-    `${profile.email}   ·   ${profile.githubHandle}   ·   linkedin.com/in/bryen-gatt-8b3b69321   ·   Portfolio: ${PORTFOLIO_URL.replace('https://', '')}`,
-    marginX,
-    y
-  );
+  // Keep full addresses readable in print and actionable in the downloaded PDF.
+  const contactLinks = [
+    { label: profile.email, url: `mailto:${profile.email}` },
+    { label: profile.github.replace('https://', ''), url: profile.github },
+    { label: profile.linkedin.replace('https://www.', ''), url: profile.linkedin },
+    { label: `Portfolio: ${PORTFOLIO_URL.replace('https://', '')}`, url: PORTFOLIO_URL },
+  ];
+  doc.setTextColor(3, 105, 161);
+  contactLinks.forEach(({ label, url }) => {
+    doc.splitTextToSize(label, contentWidth).forEach((line) => {
+      ensureSpace();
+      doc.textWithLink(line, marginX, y, { url });
+      y += lh;
+    });
+  });
   doc.setTextColor(20, 24, 33);
-  y += 10;
 
   heading('Summary');
   paragraph(summary);
@@ -151,9 +160,10 @@ const buildPdf = async () => {
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(10.5);
     doc.text(name, marginX, y);
+    const linkX = marginX + doc.getTextWidth(name) + 10;
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(3, 105, 161);
-    doc.textWithLink(url.replace('https://', ''), marginX + doc.getTextWidth(`${name}  `) + 4, y, { url });
+    doc.textWithLink(url.replace('https://', ''), linkX, y, { url });
     doc.setTextColor(20, 24, 33);
     y += lh;
     paragraph(description);
