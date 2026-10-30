@@ -16,6 +16,7 @@ export default function usePageTitle(title) {
       'meta[property="og:description"]': metadata?.description || 'The requested page could not be found.',
       'meta[name="twitter:description"]': metadata?.description || 'The requested page could not be found.',
       'meta[property="og:url"]': metadata?.canonical,
+      'meta[name="robots"]': metadata ? 'index, follow' : 'noindex, nofollow',
     };
     for (const [selector, value] of Object.entries(values)) {
       const element = document.querySelector(selector);
