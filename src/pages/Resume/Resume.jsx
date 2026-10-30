@@ -131,7 +131,7 @@ const buildPdf = async () => {
   y += 18;
   doc.setFontSize(10);
   doc.text(
-    `${profile.email}   ·   ${profile.githubHandle}   ·   linkedin.com/in/bryen-gatt   ·   Portfolio: ${PORTFOLIO_URL.replace('https://', '')}`,
+    `${profile.email}   ·   ${profile.githubHandle}   ·   linkedin.com/in/bryen-gatt-8b3b69321   ·   Portfolio: ${PORTFOLIO_URL.replace('https://', '')}`,
     marginX,
     y
   );
