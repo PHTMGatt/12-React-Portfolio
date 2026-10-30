@@ -1,11 +1,9 @@
-import { useEffect } from 'react';
+import usePageTitle from '../../hooks/usePageTitle';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 
 const NotFound = () => {
-  useEffect(() => {
-    document.title = 'Page not found — Bryen Gatt';
-  }, []);
+  usePageTitle('Page not found');
 
   return (
     <section className="container not-found page-enter">
