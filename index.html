@@ -9,7 +9,10 @@
       content="Bryen Gatt is a full-stack developer building React front-ends, Node and GraphQL APIs, and Discord automation. Case studies, projects, résumé and contact."
     />
     <meta name="author" content="Bryen Gatt" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://one2-react-portfolio.onrender.com/" />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Bryen Gatt Portfolio" />
     <meta property="og:title" content="Bryen Gatt — Full-Stack Developer" />
     <meta
       property="og:description"
@@ -17,11 +20,46 @@
     />
     <meta property="og:url" content="https://one2-react-portfolio.onrender.com/" />
     <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Bryen Gatt — Full-Stack Developer" />
+    <meta
+      name="twitter:description"
+      content="React front-ends, Node and GraphQL APIs, and Discord automation — with case studies of the work."
+    />
     <meta name="theme-color" content="#070b18" media="(prefers-color-scheme: dark)" />
     <meta name="theme-color" content="#f5f8fc" media="(prefers-color-scheme: light)" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-
-    <!-- Apply the saved theme before first paint so there is no flash of the wrong theme. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ProfilePage",
+        "name": "Bryen Gatt — Full-Stack Developer",
+        "url": "https://one2-react-portfolio.onrender.com/",
+        "description": "Portfolio of Bryen Gatt, a full-stack developer building React front-ends, Node and GraphQL APIs, and Discord automation.",
+        "mainEntity": {
+          "@type": "Person",
+          "name": "Bryen Gatt",
+          "jobTitle": "Full-Stack Developer",
+          "url": "https://one2-react-portfolio.onrender.com/",
+          "sameAs": [
+            "https://github.com/PHTMGatt",
+            "https://www.linkedin.com/in/bryen-gatt-8b3b69321"
+          ],
+          "knowsAbout": [
+            "JavaScript",
+            "TypeScript",
+            "React",
+            "Node.js",
+            "Express.js",
+            "GraphQL",
+            "MongoDB",
+            "PostgreSQL",
+            "REST APIs",
+            "Discord automation"
+          ]
+        }
+      }
+    </script>
+    <!-- Restore the saved theme before styles and React to avoid a wrong-theme flash. -->
     <script>
       (function () {
         try {
@@ -30,7 +68,6 @@
         } catch (e) {}
       })();
     </script>
-
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
