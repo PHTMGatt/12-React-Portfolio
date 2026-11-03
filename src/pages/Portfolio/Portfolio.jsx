@@ -2,7 +2,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowRight, Archive, Info } from 'lucide-react';
 import ProjectCard from '../../components/ProjectCard/ProjectCard';
 import ProjectImage from '../../components/ProjectImage/ProjectImage';
-import { archivedProjects, caseStudies, categories, projects } from '../../data/projects';
+import { archivedProjects, featuredCaseStudies, categories, projects } from '../../data/projects';
 import usePageTitle from '../../hooks/usePageTitle';
 import './Portfolio.css';
 
@@ -25,17 +25,17 @@ const Portfolio = () => {
         <p className="eyebrow">Work</p>
         <h1 className="page-title">Things I’ve designed, built and shipped</h1>
         <p className="section-lede work__lede">
-          Full-stack apps, APIs, Discord automation and testing. Start with the case studies for the full story, or
-          filter the complete list below.
+          Full-stack apps, APIs, automation and systems work. Start with the featured case studies for the full story,
+          or filter the complete list below.
         </p>
       </header>
 
       <section className="container" aria-labelledby="studies-title">
         <h2 id="studies-title" className="work__subheading">
-          Case studies
+          Featured case studies
         </h2>
         <div className="study-tiles">
-          {caseStudies.map((study) => (
+          {featuredCaseStudies.map((study) => (
             <Link key={study.slug} to={`/work/${study.slug}`} className="study-tile">
               <div className="study-tile__media">
                 <ProjectImage
