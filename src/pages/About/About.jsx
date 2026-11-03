@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, Award, Bot, LayoutDashboard, Mail, Server, Users } from 'lucide-react';
 import FeaturedStudy from '../../components/FeaturedStudy/FeaturedStudy';
-import { caseStudies } from '../../data/caseStudies';
+import { featuredCaseStudies } from '../../data/caseStudies';
 import { coreStack, profile } from '../../data/profile';
 import usePageTitle from '../../hooks/usePageTitle';
 import headshot from '../../assets/photos/bryen-headshot.webp';
@@ -114,12 +114,13 @@ const About = () => {
             Projects that show how I think
           </h2>
           <p className="section-lede">
-            Three projects, three different problems: consolidating a sprawling front-end, building a full-stack app
-            with a team, and automating the busywork of running a community.
+            Three projects, three different systems problems: consolidating a sprawling front-end, building a
+            full-stack planning product with a team, and designing an AI orchestration layer that connects workers,
+            memory and verification.
           </p>
         </div>
 
-        {caseStudies.map((study, index) => (
+        {featuredCaseStudies.map((study, index) => (
           <FeaturedStudy key={study.slug} study={study} index={index} />
         ))}
 
