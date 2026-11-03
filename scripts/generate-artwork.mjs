@@ -6,7 +6,7 @@ import sharp from 'sharp';
 // Only derivatives live here. Canonical artwork is never modified.
 export async function generateArtwork(sourceDir, outputDir) {
   const names = (await fs.readdir(sourceDir)).filter(name =>
-    !name.startsWith('.') && !name.startsWith('bryen') && /\.(png|webp)$/i.test(name)
+    !name.startsWith('.') && !name.startsWith('bryen') && /\.(png|webp|svg)$/i.test(name)
   ).sort();
   await fs.mkdir(outputDir, { recursive: true });
   const manifest = {};
