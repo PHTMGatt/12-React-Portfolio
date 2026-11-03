@@ -30,6 +30,21 @@ const stories = {
     outcome:
       'A single-page app that replaces four separate planning tools, with a responsive interface that works on the phone in your golf bag.',
   },
+  mithrandir: {
+    problem:
+      'The individual tools in my development workflow worked, but I was still acting as the router between them: choosing the right repository and branch, finding project context, managing separate Claude sessions, checking usage, running verification, opening previews and writing another handoff before the next session could continue.',
+    approach: [
+      'Separated orchestration from execution. Gandalf is the front-door conversation, while isolated Claude Code workers do repository work inside the correct project context instead of sharing one giant session.',
+      'Separated current truth from deep history. Small tracked Project Brains hold Now, Next, Decisions, Rejected and Watch; MongoDB Main Memory stores larger archives, reconciled notes and historical state so chat history is no longer the database.',
+      'Made resource limits part of the scheduler. Mithrandir consumes Claude Code’s real five-hour and weekly usage readings and holds new worker turns before they are likely to run out of headroom mid-change.',
+      'Built verification into the workflow with local checks, Live Preview, click-to-fix context and CircleCI, while keeping broad credentials and automatic merges or deploys outside the default path.',
+      'Introduced a capability-manager model so services such as Main Memory and CircleCI expose a common status contract. That gives later Pi, local-PC and application integrations a reusable place to plug in instead of becoming one-off dashboard code.',
+    ],
+    outcome:
+      'Mithrandir v1 became a working local command center for project workers, memory, previews and verification. The active v2 work is turning that proof into a stronger platform with native image/file context, capability routing and tighter durable-memory boundaries.',
+    currentStatus:
+      'This is an active systems project, not a finished “AI assistant” claim. The current product works locally today; the roadmap extends it toward an always-on Raspberry Pi steward, mobile access, MCP-controlled local tools and creative workflows that could connect capture, VEGAS, scheduling, persistent memory and YouTube preparation. Those roadmap pieces are intentionally presented as future architecture until they are implemented.',
+  },
   'clash-automation': {
     problem:
       'Competitive clans were checking war progress by hand and moderating busy servers manually, and running every bot as its own hosted service duplicated infrastructure cost.',
