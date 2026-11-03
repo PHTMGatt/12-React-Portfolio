@@ -37,7 +37,7 @@ test('artwork derivatives preserve originals and aspect ratio without upscaling'
   }
 });
 
-test('SVG canonical artwork is converted to responsive WebP derivatives', async () => {
+test('SVG canonical artwork stays browser-rendered instead of being flattened by Sharp', async () => {
   const root = await fs.mkdtemp(path.join(os.tmpdir(), 'portfolio-artwork-svg-'));
   try {
     const input = path.join(root, 'source');
@@ -47,13 +47,14 @@ test('SVG canonical artwork is converted to responsive WebP derivatives', async 
     await fs.writeFile(path.join(input, 'Mithrandir.svg'), svg);
     const { generateArtwork } = await import('./generate-artwork.mjs');
     const manifest = await generateArtwork(input, output);
-    assert.ok(manifest['Mithrandir.svg'], 'SVG source should be included in the artwork manifest');
-    assert.deepEqual(manifest['Mithrandir.svg'].variants.map(v => v.width), [480, 633]);
-    for (const variant of manifest['Mithrandir.svg'].variants) {
-      const metadata = await sharp(path.join(output, variant.file)).metadata();
-      assert.equal(metadata.format, 'webp');
-      assert.equal(metadata.width, variant.width);
-    }
+    const image = manifest['Mithrandir.svg'];
+    assert.ok(image, 'SVG source should be included in the artwork manifest');
+    assert.deepEqual(image.variants.map(v => ({ file: v.file, width: v.width, height: v.height })), [
+      { file: '../Mithrandir.svg', width: 633, height: 552 },
+    ]);
+    const index = await fs.readFile(path.join(output, 'index.js'), 'utf8');
+    assert.match(index, /\.\.\/Mithrandir\.svg/);
+    assert.deepEqual((await fs.readdir(output)).sort(), ['index.js']);
   } finally {
     await fs.rm(root, { recursive: true, force: true });
   }
