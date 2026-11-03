@@ -20,7 +20,7 @@ export const categories = [
 
 // Case studies live in ./caseStudies.js (summaries) and ./caseStudyStories.js
 // (long-form text, case-study route only). Re-exported here for the Work page.
-export { caseStudies } from './caseStudies';
+export { caseStudies, featuredCaseStudies } from './caseStudies';
 
 export const projects = [
   {
@@ -42,6 +42,16 @@ export const projects = [
     image: screenshotFor('fairway-finder'),
     links: { repo: 'https://github.com/PHTMGatt/Fairway-Finder', live: 'https://fairway-finder.onrender.com' },
     caseStudy: 'fairway-finder',
+  },
+  {
+    id: 'mithrandir',
+    title: 'Mithrandir',
+    summary: 'Local AI command center for routing project workers, durable memory, verification and future Pi/MCP workflows.',
+    category: 'automation',
+    stack: ['React', 'TypeScript', 'Node.js', 'MongoDB', 'Claude Code'],
+    image: screenshotFor('mithrandir'),
+    links: { repo: 'https://github.com/PHTMGatt/Mithrandir' },
+    caseStudy: 'mithrandir',
   },
   {
     id: 'war-oracle',
