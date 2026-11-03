@@ -36,3 +36,25 @@ test('artwork derivatives preserve originals and aspect ratio without upscaling'
     await fs.rm(root, { recursive: true, force: true });
   }
 });
+
+test('SVG canonical artwork is converted to responsive WebP derivatives', async () => {
+  const root = await fs.mkdtemp(path.join(os.tmpdir(), 'portfolio-artwork-svg-'));
+  try {
+    const input = path.join(root, 'source');
+    const output = path.join(root, 'generated');
+    await fs.mkdir(input);
+    const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="633" height="552" viewBox="0 0 633 552"><rect width="633" height="552" fill="#10212b"/></svg>';
+    await fs.writeFile(path.join(input, 'Mithrandir.svg'), svg);
+    const { generateArtwork } = await import('./generate-artwork.mjs');
+    const manifest = await generateArtwork(input, output);
+    assert.ok(manifest['Mithrandir.svg'], 'SVG source should be included in the artwork manifest');
+    assert.deepEqual(manifest['Mithrandir.svg'].variants.map(v => v.width), [480, 633]);
+    for (const variant of manifest['Mithrandir.svg'].variants) {
+      const metadata = await sharp(path.join(output, variant.file)).metadata();
+      assert.equal(metadata.format, 'webp');
+      assert.equal(metadata.width, variant.width);
+    }
+  } finally {
+    await fs.rm(root, { recursive: true, force: true });
+  }
+});
