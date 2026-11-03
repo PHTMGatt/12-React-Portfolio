@@ -10,6 +10,7 @@ const artwork = (filename) => generatedArtwork[filename];
 export const screenshots = {
   'zombies-hub-2': artwork('Zombies Hub.png'),
   'fairway-finder': artwork('Fairway Finder.png'),
+  mithrandir: artwork('Mithrandir.webp'),
   'war-oracle': artwork('War Oracle.png'),
   'clash-commander': artwork('Clash Commander.webp'),
   'clash-suite': artwork('Clash Suite.webp'),
