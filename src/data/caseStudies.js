@@ -9,6 +9,7 @@ import { screenshotFor } from './screenshots';
 export const caseStudies = [
   {
     slug: 'zombies-hub-2',
+    featured: true,
     kicker: 'Front-end architecture · CI/CD',
     title: 'Zombies Hub 2.0',
     tagline: 'Seven separate guide sites rebuilt as one fast, unified React application.',
@@ -27,6 +28,7 @@ export const caseStudies = [
   },
   {
     slug: 'fairway-finder',
+    featured: true,
     kicker: 'Full-stack · MERN + GraphQL',
     title: 'Fairway Finder',
     tagline: 'A golf trip planner that puts courses, routes, weather and handicaps in one app.',
@@ -41,6 +43,24 @@ export const caseStudies = [
       { value: '3', label: 'third-party APIs behind one GraphQL back-end' },
       { value: '5', label: 'person team, as primary developer' },
       { value: 'JWT', label: 'auth with instant, reload-free UI updates' },
+    ],
+  },
+  {
+    slug: 'mithrandir',
+    featured: true,
+    kicker: 'AI orchestration · Local systems',
+    title: 'Mithrandir',
+    tagline: 'A local command center that turns one conversation into routed, memory-backed, verifiable software work.',
+    image: screenshotFor('mithrandir'),
+    role: 'Designed the product architecture, workflows and operating model; building it with Claude as an active systems project.',
+    stack: ['React', 'TypeScript', 'Node.js', 'MongoDB', 'Claude Code', 'CircleCI'],
+    links: [
+      { label: 'Source on GitHub', href: 'https://github.com/PHTMGatt/Mithrandir', primary: true },
+    ],
+    highlights: [
+      { value: '1', label: 'front door for projects, workers, memory and verification' },
+      { value: 'DB', label: 'durable memory instead of giant chat handoffs' },
+      { value: 'Pi', label: 'roadmap to an always-on local and mobile agent layer' },
     ],
   },
   {
@@ -63,3 +83,5 @@ export const caseStudies = [
     ],
   },
 ];
+
+export const featuredCaseStudies = caseStudies.filter((study) => study.featured);
