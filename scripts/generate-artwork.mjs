@@ -16,6 +16,23 @@ export async function generateArtwork(sourceDir, outputDir) {
   for (const [index, name] of names.entries()) {
     const source = path.join(sourceDir, name);
     const metadata = await sharp(source).metadata();
+
+    // Keep SVG sources browser-rendered. Sharp can read SVG dimensions, but
+    // flattening an SVG that embeds an approved screenshot can discard the
+    // nested image detail. Vite handles the canonical SVG directly instead.
+    if (/\.svg$/i.test(name)) {
+      const width = metadata.width;
+      const height = metadata.height;
+      if (!width || !height) throw new Error(`SVG artwork must declare dimensions: ${name}`);
+      const file = `../${name}`;
+      const binding = `image${index}_svg`;
+      imports.push(`import ${binding} from ${JSON.stringify(file)};`);
+      const variants = [{ file, width, height, binding }];
+      manifest[name] = { variants };
+      entries.push(`${JSON.stringify(name)}: { src: ${binding}, srcSet: ${binding} + ' ${width}w', width: ${width}, height: ${height} }`);
+      continue;
+    }
+
     const maxWidth = Math.min(metadata.width, 1920);
     const widths = [...new Set([480, 800, 1280, maxWidth].filter(width => width <= maxWidth))].sort((a, b) => a - b);
     const variants = [];
