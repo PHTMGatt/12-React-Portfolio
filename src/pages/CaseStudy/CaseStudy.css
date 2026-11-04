@@ -269,6 +269,12 @@
     border-radius: var(--radius-lg);
   }
 
+  /* A 16:9 frame shrinks a near-square detail capture to an unreadable strip
+     on phones, so let the frame follow the capture instead. */
+  .case-study__hero:has(.project-shot--detail) {
+    aspect-ratio: 8 / 7;
+  }
+
   .case-study__links .btn {
     flex: 1 1 100%;
   }
