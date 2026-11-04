@@ -46,9 +46,9 @@ export const projects = [
   {
     id: 'mithrandir',
     title: 'Mithrandir',
-    summary: 'Local AI command center for routing project workers, durable memory, verification and future Pi/MCP workflows.',
+    summary: 'Local command center where an orchestrator chat dispatches isolated Claude Code workers, one per repository.',
     category: 'automation',
-    stack: ['React', 'TypeScript', 'Node.js', 'MongoDB', 'Claude Code'],
+    stack: ['TypeScript', 'Node.js', 'MongoDB', 'Claude Code'],
     image: screenshotFor('mithrandir'),
     links: { repo: 'https://github.com/PHTMGatt/Mithrandir' },
     caseStudy: 'mithrandir',

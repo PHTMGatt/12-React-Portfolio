@@ -34,16 +34,16 @@ const stories = {
     problem:
       'The individual tools in my development workflow worked, but I was still acting as the router between them: choosing the right repository and branch, finding project context, managing separate Claude sessions, checking usage, running verification, opening previews and writing another handoff before the next session could continue.',
     approach: [
-      'Separated orchestration from execution. Gandalf is the front-door conversation, while isolated Claude Code workers do repository work inside the correct project context instead of sharing one giant session.',
-      'Separated current truth from deep history. Small tracked Project Brains hold Now, Next, Decisions, Rejected and Watch; MongoDB Main Memory stores larger archives, reconciled notes and historical state so chat history is no longer the database.',
-      'Made resource limits part of the scheduler. Mithrandir consumes Claude Code’s real five-hour and weekly usage readings and holds new worker turns before they are likely to run out of headroom mid-change.',
-      'Built verification into the workflow with local checks, Live Preview, click-to-fix context and CircleCI, while keeping broad credentials and automatic merges or deploys outside the default path.',
-      'Introduced a capability-manager model so services such as Main Memory and CircleCI expose a common status contract. That gives later Pi, local-PC and application integrations a reusable place to plug in instead of becoming one-off dashboard code.',
+      'Separated orchestration from execution. An orchestrator chat, Gandalf, dispatches work to isolated Claude Code worker sessions, one per repository, so each worker runs inside the right project instead of one long shared session. Workers can be resumed rather than restarted.',
+      'Made usage limits part of scheduling. Mithrandir reads Claude Code’s real 5-hour and 7-day usage, and its modes hold new work as either window nears its limit, so a worker is not cut off halfway through a change.',
+      'Gave each project a small, tracked “brain” for its current state and decisions, and archived longer history to a MongoDB Atlas “Main Memory”, so context carries forward without being pasted into chat. Session rollover writes a handoff, so a long thread can move to a fresh session without losing its place.',
+      'Put everything that needs attention on one screen: a Home brief summarises activity across projects, and a Needs-you list collects anything waiting on a decision.',
+      'Built verification into the loop. Live Preview runs the project with an element picker, so clicking part of the page turns into a targeted fix request, and CircleCI status is surfaced alongside the work.',
     ],
     outcome:
-      'Mithrandir v1 became a working local command center for project workers, memory, previews and verification. The active v2 work is turning that proof into a stronger platform with native image/file context, capability routing and tighter durable-memory boundaries.',
+      'Mithrandir v1 works locally today: per-repository workers with resume, usage-aware holds, project brains, the Home brief and Needs-you list, session rollover, Live Preview with click-to-fix, Main Memory and CircleCI status.',
     currentStatus:
-      'This is an active systems project, not a finished “AI assistant” claim. The current product works locally today; the roadmap extends it toward an always-on Raspberry Pi steward, mobile access, MCP-controlled local tools and creative workflows that could connect capture, VEGAS, scheduling, persistent memory and YouTube preparation. Those roadmap pieces are intentionally presented as future architecture until they are implemented.',
+      'Version 2 is in progress. A capability registry and image and file input are partly built. Anything further is still planned work, so it is not described here as a feature.',
   },
   'clash-automation': {
     problem:

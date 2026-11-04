@@ -48,19 +48,19 @@ export const caseStudies = [
   {
     slug: 'mithrandir',
     featured: true,
-    kicker: 'AI orchestration · Local systems',
+    kicker: 'AI tooling · Local orchestration',
     title: 'Mithrandir',
-    tagline: 'A local command center that turns one conversation into routed, memory-backed, verifiable software work.',
+    tagline: 'A local command center where one orchestrator chat dispatches isolated Claude Code workers, one per repository.',
     image: screenshotFor('mithrandir'),
-    role: 'Designed the product architecture, workflows and operating model; building it with Claude as an active systems project.',
-    stack: ['React', 'TypeScript', 'Node.js', 'MongoDB', 'Claude Code', 'CircleCI'],
+    role: 'Designed the architecture, workflows and interface; building it with Claude Code as an ongoing project.',
+    stack: ['React', 'TypeScript', 'Node.js', 'MongoDB Atlas', 'Claude Code', 'CircleCI'],
     links: [
       { label: 'Source on GitHub', href: 'https://github.com/PHTMGatt/Mithrandir', primary: true },
     ],
     highlights: [
-      { value: '1', label: 'front door for projects, workers, memory and verification' },
-      { value: 'DB', label: 'durable memory instead of giant chat handoffs' },
-      { value: 'Pi', label: 'roadmap to an always-on local and mobile agent layer' },
+      { value: '1', label: 'isolated Claude Code worker per repository' },
+      { value: '5h · 7d', label: 'real usage readings that hold new work near the limits' },
+      { value: 'v1', label: 'running locally today, with v2 in progress' },
     ],
   },
   {

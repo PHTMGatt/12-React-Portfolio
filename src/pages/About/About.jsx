@@ -115,8 +115,8 @@ const About = () => {
           </h2>
           <p className="section-lede">
             Three projects, three different systems problems: consolidating a sprawling front-end, building a
-            full-stack planning product with a team, and designing an AI orchestration layer that connects workers,
-            memory and verification.
+            full-stack planning product with a team, and a local command center that coordinates Claude Code workers
+            across repositories.
           </p>
         </div>
 
