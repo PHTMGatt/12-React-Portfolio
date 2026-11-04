@@ -18,6 +18,10 @@ export const pageMetadata = {
     title: 'Fairway Finder case study — Bryen Gatt',
     description: 'A golf trip planner that puts courses, routes, weather and handicaps in one app. A full-stack project case study by Bryen Gatt.',
   },
+  '/work/mithrandir': {
+    title: 'Mithrandir case study — Bryen Gatt',
+    description: 'A local command center where one orchestrator chat dispatches isolated Claude Code workers, one per repository. A systems project case study by Bryen Gatt.',
+  },
   '/work/clash-automation': {
     title: 'Clash of Clans Discord Suite case study — Bryen Gatt',
     description: 'War intelligence and server operations bots, built to run together on a single host. An automation case study by Bryen Gatt.',

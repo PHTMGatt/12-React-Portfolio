@@ -12,6 +12,7 @@ try {
     for (const [path, title] of [
       ['/work/fairway-finder', 'Fairway Finder case study'],
       ['/work/zombies-hub-2', 'Zombies Hub 2.0 case study'],
+      ['/work/mithrandir', 'Mithrandir case study'],
       ['/work/clash-automation', 'Clash of Clans Discord Suite case study'],
     ]) {
       const response = await page.goto(`${base}${path}`);

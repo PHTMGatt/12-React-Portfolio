@@ -10,6 +10,7 @@ test('built case-study entry points identify the shared project before JavaScrip
   for (const [path, title] of [
     ['work/fairway-finder', 'Fairway Finder case study'],
     ['work/zombies-hub-2', 'Zombies Hub 2.0 case study'],
+    ['work/mithrandir', 'Mithrandir case study'],
     ['work/clash-automation', 'Clash of Clans Discord Suite case study'],
     ['work', 'Work'], ['resume', 'Resume'], ['contact', 'Contact'],
   ]) {
