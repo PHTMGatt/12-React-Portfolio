@@ -106,6 +106,16 @@
   margin-left: auto;
 }
 
+.project-card__private {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 36px;
+  color: var(--text-subtle);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
 .project-card__code svg {
   font-size: 1rem;
 }

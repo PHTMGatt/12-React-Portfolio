@@ -59,6 +59,20 @@
   margin-top: 2rem;
 }
 
+.case-study__source-note {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.case-study__source-note svg {
+  flex: 0 0 auto;
+  color: var(--accent);
+}
+
 .case-study__hero {
   margin: 0;
   overflow: hidden;

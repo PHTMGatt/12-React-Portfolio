@@ -54,9 +54,9 @@ export const caseStudies = [
     image: screenshotFor('mithrandir'),
     role: 'Designed the architecture, workflows and interface; building it with Claude Code as an ongoing project.',
     stack: ['React', 'TypeScript', 'Node.js', 'MongoDB Atlas', 'Claude Code', 'CircleCI'],
-    links: [
-      { label: 'Source on GitHub', href: 'https://github.com/PHTMGatt/Mithrandir', primary: true },
-    ],
+    // The repository is private, so there is no public link to offer.
+    links: [],
+    sourceNote: 'The source code is in a private repository.',
     highlights: [
       { value: '1', label: 'isolated Claude Code worker per repository' },
       { value: '5h · 7d', label: 'real usage readings that hold new work near the limits' },
