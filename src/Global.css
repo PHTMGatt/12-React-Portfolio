@@ -416,6 +416,18 @@ button {
   object-position: top center;
 }
 
+/* A cropped capture smaller than its frame: show all of it, centred on the
+   panel, rather than cropping and enlarging it. Two classes so it outranks
+   the per-component `... img { object-fit: cover }` rules. */
+.project-shot.project-shot--detail {
+  padding: 6%;
+  object-fit: contain;
+  object-position: center;
+  background:
+    radial-gradient(ellipse at 50% 45%, var(--accent-soft), transparent 70%),
+    var(--surface-sunken);
+}
+
 .project-fallback {
   container-type: size;
   display: flex;

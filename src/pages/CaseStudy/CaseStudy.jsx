@@ -79,16 +79,19 @@ const CaseStudy = () => {
       </header>
 
       <div className="container">
-        <figure className="case-study__hero">
-          <ProjectImage
-            image={study.image}
-            alt={`Screenshot of ${study.title}`}
-            eager
-            sizes="(max-width: 1200px) calc(100vw - 2rem), 1160px"
-            title={study.title}
-            stack={study.stack}
-            summary={study.tagline}
-          />
+        <figure className="case-study__figure">
+          <div className="case-study__hero">
+            <ProjectImage
+              image={study.image}
+              alt={study.imageAlt ?? `Screenshot of ${study.title}`}
+              eager
+              sizes="(max-width: 1200px) calc(100vw - 2rem), 1160px"
+              title={study.title}
+              stack={study.stack}
+              summary={study.tagline}
+            />
+          </div>
+          {study.imageCaption && <figcaption className="case-study__caption">{study.imageCaption}</figcaption>}
         </figure>
 
         <dl className="case-study__stats">

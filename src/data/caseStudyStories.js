@@ -31,6 +31,16 @@ const stories = {
       'A single-page app that replaces four separate planning tools, with a responsive interface that works on the phone in your golf bag.',
   },
   mithrandir: {
+    imageAlt:
+      'Mithrandir usage panel. The 5-hour window is at 88% and the 7-day window at 68%, and a notice says new worker turns are waiting because Normal mode holds new work at 85%. Below are three modes: Eco, 1 worker, holds at 70%; Normal, 2 workers, holds at 85%; Full Send, 4 workers, holds at 95%.',
+    imageCaption:
+      'The usage panel. Each mode sets how many workers run and the usage level at which new work is held; here Normal is holding at 85%.',
+    // SCREENSHOT SLOT: when full-size captures arrive, add them under
+    // src/assets/photos/, map them in screenshots.js and list them here as
+    // gallery: [{ ...screenshotFor('<id>'), alt: '…' }]. CaseStudy.jsx renders
+    // the gallery below the story. Wanted, 16:9 at 1920×1080 or larger: the
+    // Home brief with the Needs-you list, a worker session, and Live Preview
+    // with the element picker active.
     problem:
       'The individual tools in my development workflow worked, but I was still acting as the router between them: choosing the right repository and branch, finding project context, managing separate Claude sessions, checking usage, running verification, opening previews and writing another handoff before the next session could continue.',
     approach: [

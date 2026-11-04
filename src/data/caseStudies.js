@@ -51,6 +51,9 @@ export const caseStudies = [
     kicker: 'AI tooling · Local orchestration',
     title: 'Mithrandir',
     tagline: 'A local command center where one orchestrator chat dispatches isolated Claude Code workers, one per repository.',
+    // SCREENSHOT SLOT: an interim 240×209 crop of the usage panel (see
+    // screenshots.js). Full-size captures replace it here and fill the gallery
+    // slot in caseStudyStories.js.
     image: screenshotFor('mithrandir'),
     role: 'Designed the architecture, workflows and interface; building it with Claude Code as an ongoing project.',
     stack: ['React', 'TypeScript', 'Node.js', 'MongoDB Atlas', 'Claude Code', 'CircleCI'],
