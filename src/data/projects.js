@@ -21,7 +21,7 @@ export const categories = [
 
 // Case studies live in ./caseStudies.js (summaries) and ./caseStudyStories.js
 // (long-form text, case-study route only). Re-exported here for the Work page.
-export { caseStudies, featuredCaseStudies } from './caseStudies';
+export { caseStudies } from './caseStudies';
 
 export const projects = [
   {
