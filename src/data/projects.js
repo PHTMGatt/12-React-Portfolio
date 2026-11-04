@@ -47,7 +47,7 @@ export const projects = [
   {
     id: 'mithrandir',
     title: 'Mithrandir',
-    summary: 'Local command center where an orchestrator chat dispatches isolated Claude Code workers, one per repository.',
+    summary: 'Local command center where one orchestrator chat runs a Claude Code worker per repository.',
     category: 'automation',
     stack: ['TypeScript', 'Node.js', 'MongoDB', 'Claude Code'],
     image: screenshotFor('mithrandir'),
