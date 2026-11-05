@@ -17,8 +17,8 @@ export const screenshots = {
   'zombies-hub-2': artwork('Zombies Hub.png'),
   'fairway-finder': artwork('Fairway Finder.png'),
   mithrandir: artwork('Mithrandir.png'),
-  // A real capture of Mithrandir's usage panel (near-square), shown whole in the case study gallery
-  'mithrandir-usage': artwork('Mithrandir.svg', { fit: 'detail' }),
+  // Mithrandir's usage panel (4:3), redrawn for clarity from a real capture; shown whole in the case-study gallery
+  'mithrandir-usage': artwork('Mithrandir Usage Panel.png', { fit: 'detail' }),
   'war-oracle': artwork('War Oracle.png'),
   'clash-commander': artwork('Clash Commander.webp'),
   'clash-suite': artwork('Clash Suite.webp'),

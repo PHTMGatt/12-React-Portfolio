@@ -35,11 +35,11 @@ const stories = {
     imageAlt:
       'Mithrandir artwork: a wizard at a desk facing a monitor showing the Mithrandir Claude Code Command Center, with the Gandalf Main Chat, a Working Now list of three repositories and a glowing crystal orb.',
     imageCaption:
-      'Mithrandir, my Claude Code command center. Artwork; real interface captures are in the gallery below.',
+      'Mithrandir, my Claude Code command center (artwork). The usage panel below is redrawn from a real capture.',
     gallery: [
       {
         ...screenshotFor('mithrandir-usage'),
-        alt: 'A real capture of the usage panel: the 5-hour window at 88% and the 7-day window at 68%, with Normal mode holding new worker turns at 85%.',
+        alt: 'The usage panel, redrawn for clarity from a real capture: no 5-hour reading since the window reset, the 7-day window at 78%, and the three modes (Eco, Normal, Full Send).',
       },
     ],
     problem:
