@@ -6,6 +6,7 @@
 // `status` is 'legacy' for finished coursework that is no longer developed,
 // 'paused' for projects on hold, and 'inactive' for projects that are retired
 // or not currently running. An optional `statusNote` says why, on the card.
+// `links.repo` is omitted for private repositories; the card says so instead.
 
 import { screenshotFor } from './screenshots';
 
@@ -42,6 +43,16 @@ export const projects = [
     image: screenshotFor('fairway-finder'),
     links: { repo: 'https://github.com/PHTMGatt/Fairway-Finder', live: 'https://fairway-finder.onrender.com' },
     caseStudy: 'fairway-finder',
+  },
+  {
+    id: 'mithrandir',
+    title: 'Mithrandir',
+    summary: 'Local command center where one orchestrator chat runs a Claude Code worker per repository.',
+    category: 'automation',
+    stack: ['TypeScript', 'Node.js', 'MongoDB', 'Claude Code'],
+    image: screenshotFor('mithrandir'),
+    links: {},
+    caseStudy: 'mithrandir',
   },
   {
     id: 'war-oracle',

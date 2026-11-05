@@ -17,6 +17,7 @@ const routes = [
   '/work?type=automation',
   '/work/zombies-hub-2',
   '/work/fairway-finder',
+  '/work/mithrandir',
   '/work/clash-automation',
   '/resume',
   '/contact',
@@ -69,8 +70,14 @@ try {
       // Work page: filter state lives in the URL and cards put GitHub first.
       await page.goto(`${base}/work?type=automation`);
       assert.equal(await page.getByRole('button', { name: /Bots & automation/ }).getAttribute('aria-pressed'), 'true');
-      const firstActions = await page.locator('.project-card__actions').first().locator('a').allTextContents();
+      // Private repositories show a label instead, so check cards that link source.
+      const firstActions = await page.locator('.project-card__actions:has(.project-card__code)').first().locator('a').allTextContents();
       assert.match(firstActions[0], /GitHub/, 'GitHub is the first card action');
+      assert.equal(
+        await page.locator('.project-card', { hasText: 'Mithrandir' }).locator('a[href*="github.com"]').count(),
+        0,
+        'private Mithrandir source is not linked'
+      );
       await page.goto(`${base}/work`);
       // allTextContents() does not wait, so wait for the lazily loaded cards first.
       await page.locator('.project-card__actions').first().waitFor();

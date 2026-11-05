@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ArrowUpRight, Lock } from 'lucide-react';
 import GithubMark from '../../components/GithubMark/GithubMark';
 import ProjectImage from '../../components/ProjectImage/ProjectImage';
 import NotFound from '../NotFound/NotFound';
@@ -48,38 +48,50 @@ const CaseStudy = () => {
           </div>
         </dl>
 
-        <div className="case-study__links">
-          {study.links.map((link) => {
-            const isRepo = link.href.includes('github.com');
-            return (
-              <a
-                key={link.href}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`btn ${link.primary ? 'btn-primary' : 'btn-secondary'}`}
-              >
-                {isRepo && <GithubMark aria-hidden="true" />}
-                {link.label}
-                {!isRepo && <ArrowUpRight size={17} aria-hidden="true" />}
-                <span className="sr-only">(opens in a new tab)</span>
-              </a>
-            );
-          })}
-        </div>
+        {study.sourceNote && (
+          <p className="case-study__source-note">
+            <Lock size={16} aria-hidden="true" />
+            {study.sourceNote}
+          </p>
+        )}
+
+        {study.links.length > 0 && (
+          <div className="case-study__links">
+            {study.links.map((link) => {
+              const isRepo = link.href.includes('github.com');
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`btn ${link.primary ? 'btn-primary' : 'btn-secondary'}`}
+                >
+                  {isRepo && <GithubMark aria-hidden="true" />}
+                  {link.label}
+                  {!isRepo && <ArrowUpRight size={17} aria-hidden="true" />}
+                  <span className="sr-only">(opens in a new tab)</span>
+                </a>
+              );
+            })}
+          </div>
+        )}
       </header>
 
       <div className="container">
-        <figure className="case-study__hero">
-          <ProjectImage
-            image={study.image}
-            alt={`Screenshot of ${study.title}`}
-            eager
-            sizes="(max-width: 1200px) calc(100vw - 2rem), 1160px"
-            title={study.title}
-            stack={study.stack}
-            summary={study.tagline}
-          />
+        <figure className="case-study__figure">
+          <div className="case-study__hero">
+            <ProjectImage
+              image={study.image}
+              alt={study.imageAlt ?? `Screenshot of ${study.title}`}
+              eager
+              sizes="(max-width: 1200px) calc(100vw - 2rem), 1160px"
+              title={study.title}
+              stack={study.stack}
+              summary={study.tagline}
+            />
+          </div>
+          {study.imageCaption && <figcaption className="case-study__caption">{study.imageCaption}</figcaption>}
         </figure>
 
         <dl className="case-study__stats">

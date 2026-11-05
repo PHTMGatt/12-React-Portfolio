@@ -36,3 +36,26 @@ test('artwork derivatives preserve originals and aspect ratio without upscaling'
     await fs.rm(root, { recursive: true, force: true });
   }
 });
+
+test('SVG canonical artwork stays browser-rendered instead of being flattened by Sharp', async () => {
+  const root = await fs.mkdtemp(path.join(os.tmpdir(), 'portfolio-artwork-svg-'));
+  try {
+    const input = path.join(root, 'source');
+    const output = path.join(root, 'generated');
+    await fs.mkdir(input);
+    const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="633" height="552" viewBox="0 0 633 552"><rect width="633" height="552" fill="#10212b"/></svg>';
+    await fs.writeFile(path.join(input, 'Mithrandir.svg'), svg);
+    const { generateArtwork } = await import('./generate-artwork.mjs');
+    const manifest = await generateArtwork(input, output);
+    const image = manifest['Mithrandir.svg'];
+    assert.ok(image, 'SVG source should be included in the artwork manifest');
+    assert.deepEqual(image.variants.map(v => ({ file: v.file, width: v.width, height: v.height })), [
+      { file: '../Mithrandir.svg', width: 633, height: 552 },
+    ]);
+    const index = await fs.readFile(path.join(output, 'index.js'), 'utf8');
+    assert.match(index, /\.\.\/Mithrandir\.svg/);
+    assert.deepEqual((await fs.readdir(output)).sort(), ['index.js']);
+  } finally {
+    await fs.rm(root, { recursive: true, force: true });
+  }
+});

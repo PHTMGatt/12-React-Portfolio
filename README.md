@@ -1,93 +1,80 @@
-# 🚀 **React Portfolio**
+# React Portfolio
 
 ![React Portfolio](src/assets/photos/Portfolio.png)
 
----
+Bryen Gatt's live portfolio for presenting real software projects, case studies, technical decisions, and current capabilities to recruiters, hiring teams, and collaborators.
 
-## 🌟 **Overview**
+**Live portfolio:** https://one2-react-portfolio.onrender.com
 
-This **React-based portfolio** showcases my web development projects and skills. It serves as a professional platform for potential employers and fellow developers to explore my creations. The portfolio is fully responsive, interactive, and deployed live on Render for easy accessibility.
+## What this repository demonstrates
 
-**🔗 [View Live Portfolio](https://one2-react-portfolio.onrender.com)**
+This is the source for the portfolio itself, not a template or a static project list. The application is built as a responsive React experience with recruiter-facing project discovery, detailed case studies, a downloadable résumé, and direct contact paths.
 
----
+Current portfolio evidence is centered on software engineering and full-stack web work. The site architecture is intended to grow as additional real work becomes ready to show, without claiming disciplines or capabilities before there is evidence behind them.
 
-## ✨ **Features**
+### Product priorities
 
-- Single-page application (**SPA**) with seamless navigation using React Router.
-- Clean, responsive, and mobile-friendly design.
-- **Portfolio section** showcasing projects with detailed previews and direct links.
-- Interactive **contact form** with form validation.
-- Dedicated **Resume section** with downloadable resume and listed proficiencies.
-- Footer with professional links (**GitHub**, **LinkedIn**, etc.).
+- Authentic project screenshots and approved artwork rather than invented mockups
+- Clear project status, source links, live demos where available, and deeper case studies for selected work
+- Responsive layouts and keyboard/accessibility behavior across the main navigation and project surfaces
+- A recruiter-friendly résumé experience with an actionable one-page PDF download
+- Performance-conscious responsive artwork delivery while preserving canonical originals
+- Share metadata and direct URLs that make the portfolio useful outside the site itself
 
----
+## Stack
 
-## 🛠️ **Built With**
-
-- React
+- React 19
 - React Router
-- CSS (custom styling for polished UI)
-- Deployed with Render
+- Vite
+- Custom CSS
+- EmailJS for the contact workflow
+- jsPDF for résumé export
+- Sharp for generated responsive artwork derivatives
+- Playwright for browser regression checks
+- ESLint and Node's built-in test runner
+- Render for production hosting
 
----
+## Project presentation
 
-## 🎯 **Highlighted Projects**
+Project entries prioritize evidence and transparency. Where applicable they include:
 
-Each project in the portfolio includes:
+- GitHub repository links for source and project history
+- Live-demo links only when a deployment exists
+- Approved canonical visuals from `src/assets/photos/`
+- Status labels for legacy, paused, or inactive work
+- Case studies that explain the problem, implementation, decisions, and outcome without inventing capabilities
 
-- **GitHub repository** link first, for the source and project history
-- **Live demo** link second, only where a deployment exists
-- The approved canonical visual from `src/assets/photos/`, shared with the matching repository README where an approved image exists
-- A status label for **Legacy**, **Paused** or **Inactive** projects
+## Local development
 
----
+```bash
+npm install
+npm run dev
+```
 
-## 📄 **Resume & Proficiencies**
+Useful validation commands:
 
-The resume section features a downloadable PDF resume and highlights key proficiencies, including:
+```bash
+npm test
+npm run lint
+npm run build
+```
 
-- HTML5 & CSS3
-- JavaScript (ES6+)
-- React & React Router
-- Responsive & Mobile-first Design
-- RESTful APIs
-- Node.js
-- Git & GitHub
+For the full browser suite, run a production preview and then:
 
----
+```bash
+npm run test:browser
+```
 
-## 🎨 **Design & UI/UX**
+## Artwork delivery
 
-The portfolio features a modern, aesthetically pleasing design with a carefully chosen color palette, smooth gradients, and clear typography to ensure readability and intuitive navigation across all devices.
+Approved originals remain in `src/assets/photos/`. `npm run dev`, `npm run start:dev`, and `npm run build` generate WebP delivery variants in the ignored `src/assets/photos/generated/` directory. Those derivatives are generated assets and should not be edited or committed.
 
----
+The generator preserves aspect ratios, never enlarges an original, and provides 480/800/1280-pixel candidates plus a larger candidate capped at 1920 pixels for case studies. Source artwork remains unchanged, including the approved Banking and Clash images. `ProjectImage` uses layout-specific `sizes` values so browsers can select an appropriate candidate for viewport size and pixel density.
 
-## 🌐 **Deployment**
+After changing canonical artwork while the dev server is already running, run `npm run artwork:generate` or restart the server.
 
-The portfolio is hosted on Render for rapid, reliable, and global access. Continuous deployment ensures the latest updates are instantly available.
+## Quality checks
 
-**🔗 [Live Application](https://one2-react-portfolio.onrender.com)**
+The repository includes unit/regression coverage for portfolio data, accessibility-sensitive external links, résumé PDF layout/link behavior, and responsive artwork delivery. Browser checks cover the main pages, artwork decoding, and mobile image selection across common viewport sizes and pixel densities.
 
----
-
-## 📂 **Repository Structure & Best Practices**
-
-The GitHub repository maintains best practices including:
-
-- Clear and consistent **file naming**.
-- Structured **component organization**.
-- Meaningful **commit messages**.
-- Thorough **documentation and comments**.
-
----
-
-🌟 **Keep Exploring! Your feedback and suggestions are warmly welcomed. Happy coding!** 🚀
-
-## Project artwork delivery
-
-Approved originals remain in `src/assets/photos/`. `npm run dev`, `npm run start:dev`, and `npm run build` generate WebP delivery variants in the ignored `src/assets/photos/generated/` directory. Do not edit or commit those derivatives. After changing artwork while the dev server is running, run `npm run artwork:generate` (or restart the server).
-
-The generator preserves aspect ratios, never enlarges an original, and provides 480/800/1280-pixel candidates plus a larger candidate capped at 1920 pixels for case studies. Source artwork remains unchanged, including the approved Banking and Clash images. `ProjectImage` uses the existing layout-specific `sizes` values to select a candidate for the viewport and pixel density.
-
-Run `npm test`, `npm run lint`, and `npm run build`. With the production preview on port 4174, `npm run test:browser` checks pages, artwork decoding, and mobile image selection at 1×/2×/3× density, including a 1 MB initial Work-image budget.
+The portfolio is intentionally maintained as a living career platform: new disciplines and project categories should be added only when there is real work, documentation, or visual evidence ready to support them.

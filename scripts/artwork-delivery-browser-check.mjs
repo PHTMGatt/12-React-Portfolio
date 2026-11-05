@@ -27,7 +27,10 @@ try {
     const images = await Promise.all(requests);
     const bytes = images.reduce((sum, image) => sum + image.bytes, 0);
     assert(bytes < 1_000_000, `initial Work image payload must stay under 1 MB; received ${bytes}`);
-    assert(images.every(image => image.url.endsWith('.webp')), 'no original PNG downloads');
+    assert(
+      images.every(image => image.url.endsWith('.webp') || /\/Mithrandir-[^/]+\.svg$/.test(image.url)),
+      'Work page should deliver responsive WebP artwork plus the approved Mithrandir SVG, never original PNGs'
+    );
     evidence.push({ deviceScaleFactor, bytes, images });
     await context.close();
   }

@@ -25,7 +25,7 @@ const Portfolio = () => {
         <p className="eyebrow">Work</p>
         <h1 className="page-title">Things I’ve designed, built and shipped</h1>
         <p className="section-lede work__lede">
-          Full-stack apps, APIs, Discord automation and testing. Start with the case studies for the full story, or
+          Full-stack apps, APIs, automation and systems work. Start with the case studies for the full story, or
           filter the complete list below.
         </p>
       </header>
@@ -41,7 +41,7 @@ const Portfolio = () => {
                 <ProjectImage
                   image={study.image}
                   alt=""
-                  sizes="(max-width: 760px) 100vw, 380px"
+                  sizes="(max-width: 640px) calc(100vw - 2rem), (max-width: 1100px) 46vw, 280px"
                   title={study.title}
                   stack={study.stack}
                   summary={study.tagline}

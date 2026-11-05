@@ -5,11 +5,20 @@
 
 import { artwork as generatedArtwork } from '../assets/photos/generated/index.js';
 
-const artwork = (filename) => generatedArtwork[filename];
+// `presentation` adds display hints. `fit: 'detail'` marks a cropped capture
+// that is smaller than the frames it appears in: it is shown whole and centred
+// instead of being cropped and enlarged to fill a 16:9 box.
+const artwork = (filename, presentation) => {
+  const image = generatedArtwork[filename];
+  return image && presentation ? { ...image, ...presentation } : image;
+};
 
 export const screenshots = {
   'zombies-hub-2': artwork('Zombies Hub.png'),
   'fairway-finder': artwork('Fairway Finder.png'),
+  // Interim: a 240×209 capture of the real usage panel. Replace with full-size
+  // screenshots (see caseStudies.js) and drop the detail fit when they arrive.
+  mithrandir: artwork('Mithrandir.svg', { fit: 'detail' }),
   'war-oracle': artwork('War Oracle.png'),
   'clash-commander': artwork('Clash Commander.webp'),
   'clash-suite': artwork('Clash Suite.webp'),

@@ -30,6 +30,31 @@ const stories = {
     outcome:
       'A single-page app that replaces four separate planning tools, with a responsive interface that works on the phone in your golf bag.',
   },
+  mithrandir: {
+    imageAlt:
+      'Mithrandir usage panel. The 5-hour window is at 88% and the 7-day window at 68%, and a notice says new worker turns are waiting because Normal mode holds new work at 85%. Below are three modes: Eco, 1 worker, holds at 70%; Normal, 2 workers, holds at 85%; Full Send, 4 workers, holds at 95%.',
+    imageCaption:
+      'The usage panel. Each mode sets how many workers run and the usage level at which new work is held; here Normal is holding at 85%.',
+    // SCREENSHOT SLOT: when full-size captures arrive, add them under
+    // src/assets/photos/, map them in screenshots.js and list them here as
+    // gallery: [{ ...screenshotFor('<id>'), alt: '…' }]. CaseStudy.jsx renders
+    // the gallery below the story. Wanted, 16:9 at 1920×1080 or larger: the
+    // Home brief with the Needs-you list, a worker session, and Live Preview
+    // with the element picker active.
+    problem:
+      'The individual tools in my development workflow worked, but I was still acting as the router between them: choosing the right repository and branch, finding project context, managing separate Claude sessions, checking usage, running verification, opening previews and writing another handoff before the next session could continue.',
+    approach: [
+      'Separated orchestration from execution. An orchestrator chat, Gandalf, dispatches work to isolated Claude Code worker sessions, one per repository, so each worker runs inside the right project instead of one long shared session. Workers can be resumed rather than restarted.',
+      'Made usage limits part of scheduling. Mithrandir reads Claude Code’s real 5-hour and 7-day usage, and its modes hold new work as either window nears its limit, so a worker is not cut off halfway through a change.',
+      'Gave each project a small, tracked “brain” for its current state and decisions, and archived longer history to a MongoDB Atlas “Main Memory”, so context carries forward without being pasted into chat. Session rollover writes a handoff, so a long thread can move to a fresh session without losing its place.',
+      'Put everything that needs attention on one screen: a Home brief summarises activity across projects, and a Needs-you list collects anything waiting on a decision.',
+      'Built verification into the loop. Live Preview runs the project with an element picker, so clicking part of the page turns into a targeted fix request, and CircleCI status is surfaced alongside the work.',
+    ],
+    outcome:
+      'Mithrandir v1 works locally today: per-repository workers with resume, usage-aware holds, project brains, the Home brief and Needs-you list, session rollover, Live Preview with click-to-fix, Main Memory and CircleCI status.',
+    currentStatus:
+      'Version 2 is in progress. A capability registry and image and file input are partly built. Anything further is still planned work, so it is not described here as a feature.',
+  },
   'clash-automation': {
     problem:
       'Competitive clans were checking war progress by hand and moderating busy servers manually, and running every bot as its own hosted service duplicated infrastructure cost.',
