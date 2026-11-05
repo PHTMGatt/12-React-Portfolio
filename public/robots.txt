@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://one2-react-portfolio.onrender.com/sitemap.xml

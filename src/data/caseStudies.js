@@ -9,6 +9,7 @@ import { screenshotFor } from './screenshots';
 export const caseStudies = [
   {
     slug: 'zombies-hub-2',
+    featured: true,
     kicker: 'Front-end architecture · CI/CD',
     title: 'Zombies Hub 2.0',
     tagline: 'Seven separate guide sites rebuilt as one fast, unified React application.',
@@ -27,6 +28,7 @@ export const caseStudies = [
   },
   {
     slug: 'fairway-finder',
+    featured: true,
     kicker: 'Full-stack · MERN + GraphQL',
     title: 'Fairway Finder',
     tagline: 'A golf trip planner that puts courses, routes, weather and handicaps in one app.',
@@ -41,6 +43,27 @@ export const caseStudies = [
       { value: '3', label: 'third-party APIs behind one GraphQL back-end' },
       { value: '5', label: 'person team, as primary developer' },
       { value: 'JWT', label: 'auth with instant, reload-free UI updates' },
+    ],
+  },
+  {
+    slug: 'mithrandir',
+    featured: true,
+    kicker: 'AI tooling · Local orchestration',
+    title: 'Mithrandir',
+    tagline: 'A local command center where one orchestrator chat dispatches isolated Claude Code workers, one per repository.',
+    // SCREENSHOT SLOT: an interim 240×209 crop of the usage panel (see
+    // screenshots.js). Full-size captures replace it here and fill the gallery
+    // slot in caseStudyStories.js.
+    image: screenshotFor('mithrandir'),
+    role: 'Designed the architecture, workflows and interface; building it with Claude Code as an ongoing project.',
+    stack: ['React', 'TypeScript', 'Node.js', 'MongoDB Atlas', 'Claude Code', 'CircleCI'],
+    // The repository is private, so there is no public link to offer.
+    links: [],
+    sourceNote: 'The source code is in a private repository.',
+    highlights: [
+      { value: '1', label: 'isolated Claude Code worker per repository' },
+      { value: '5h · 7d', label: 'real usage readings that hold new work near the limits' },
+      { value: 'v1', label: 'running locally today, with v2 in progress' },
     ],
   },
   {
@@ -63,3 +86,5 @@ export const caseStudies = [
     ],
   },
 ];
+
+export const featuredCaseStudies = caseStudies.filter((study) => study.featured);

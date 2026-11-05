@@ -20,7 +20,7 @@ const ProjectImage = ({ image, alt, sizes, eager = false, className = '', title,
 
   return (
     <img
-      className={`project-shot ${className}`.trim()}
+      className={`project-shot${image.fit === 'detail' ? ' project-shot--detail' : ''} ${className}`.trim()}
       src={image.src}
       srcSet={image.srcSet}
       sizes={image.srcSet ? sizes : undefined}

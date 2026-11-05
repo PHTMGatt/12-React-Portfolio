@@ -59,8 +59,25 @@
   margin-top: 2rem;
 }
 
-.case-study__hero {
+.case-study__source-note {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.case-study__source-note svg {
+  flex: 0 0 auto;
+  color: var(--accent);
+}
+
+.case-study__figure {
   margin: 0;
+}
+
+.case-study__hero {
   overflow: hidden;
   aspect-ratio: 16 / 9;
   border: 1px solid var(--border);
@@ -73,6 +90,14 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.case-study__caption {
+  margin-top: 0.75rem;
+  color: var(--text-subtle);
+  font-size: 0.88rem;
+  line-height: 1.5;
+  text-align: center;
 }
 
 .case-study__stats {
@@ -242,6 +267,12 @@
 
   .case-study__hero {
     border-radius: var(--radius-lg);
+  }
+
+  /* A 16:9 frame shrinks a near-square detail capture to an unreadable strip
+     on phones, so let the frame follow the capture instead. */
+  .case-study__hero:has(.project-shot--detail) {
+    aspect-ratio: 8 / 7;
   }
 
   .case-study__links .btn {

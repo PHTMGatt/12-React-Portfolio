@@ -11,10 +11,11 @@
   text-transform: uppercase;
 }
 
-/* Case-study tiles */
+/* Case-study tiles: four across on wide screens, two by two below that, so
+   the set never leaves a lone tile on its own row. */
 .study-tiles {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1.25rem;
 }
 
@@ -238,43 +239,22 @@
   margin-top: 1.25rem;
 }
 
+@media (max-width: 1100px) {
+  .study-tiles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 1024px) {
   .work-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-@media (max-width: 860px) {
+@media (max-width: 640px) {
+  .work-grid,
   .study-tiles {
     grid-template-columns: 1fr;
-  }
-
-  .study-tile {
-    flex-direction: row;
-  }
-
-  .study-tile__media {
-    flex: 0 0 38%;
-    aspect-ratio: auto;
-    border-bottom: 0;
-    border-right: 1px solid var(--border);
-  }
-}
-
-@media (max-width: 640px) {
-  .work-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .study-tile {
-    flex-direction: column;
-  }
-
-  .study-tile__media {
-    flex: none;
-    aspect-ratio: 16 / 9;
-    border-right: 0;
-    border-bottom: 1px solid var(--border);
   }
 
   .filter-group {

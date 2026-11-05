@@ -1,3 +1,21 @@
+/* Self-host the existing typefaces so rendering needs no third-party service.
+   Latin subsets cover the portfolio copy; system fonts remain the fallback. */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('./assets/fonts/inter-latin-wght-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url('./assets/fonts/cormorant-garamond-latin-500-italic.woff2') format('woff2');
+}
+
 /* =======================================
    Design tokens
    Every component reads these semantic tokens, so both themes
@@ -414,6 +432,18 @@ button {
 ========================================= */
 .project-shot {
   object-position: top center;
+}
+
+/* A cropped capture smaller than its frame: show all of it, centred on the
+   panel, rather than cropping and enlarging it. Two classes so it outranks
+   the per-component `... img { object-fit: cover }` rules. */
+.project-shot.project-shot--detail {
+  padding: 6%;
+  object-fit: contain;
+  object-position: center;
+  background:
+    radial-gradient(ellipse at 50% 45%, var(--accent-soft), transparent 70%),
+    var(--surface-sunken);
 }
 
 .project-fallback {

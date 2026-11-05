@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, PlayCircle } from 'lucide-react';
+import { ArrowUpRight, Lock, PlayCircle } from 'lucide-react';
 import GithubMark from '../GithubMark/GithubMark';
 import ProjectImage from '../ProjectImage/ProjectImage';
 import { categories } from '../../data/projects';
@@ -53,16 +53,23 @@ const ProjectCard = ({ project }) => {
       </div>
 
       <div className="project-card__actions">
-        <a
-          className="btn btn-secondary btn-sm project-card__code"
-          href={links.repo}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`${title} source code on GitHub (opens in a new tab)`}
-        >
-          <GithubMark aria-hidden="true" />
-          GitHub
-        </a>
+        {links.repo ? (
+          <a
+            className="btn btn-secondary btn-sm project-card__code"
+            href={links.repo}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${title} source code on GitHub (opens in a new tab)`}
+          >
+            <GithubMark aria-hidden="true" />
+            GitHub
+          </a>
+        ) : (
+          <span className="project-card__private">
+            <Lock size={14} aria-hidden="true" />
+            Private source
+          </span>
+        )}
         {links.live && (
           <a
             className="btn btn-secondary btn-sm"
