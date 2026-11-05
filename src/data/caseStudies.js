@@ -48,22 +48,19 @@ export const caseStudies = [
   {
     slug: 'mithrandir',
     featured: true,
-    kicker: 'AI tooling · Local orchestration',
+    kicker: 'AI orchestration · Personal command center',
     title: 'Mithrandir',
-    tagline: 'A local command center where one orchestrator chat dispatches isolated Claude Code workers, one per repository.',
-    // SCREENSHOT SLOT: an interim 240×209 crop of the usage panel (see
-    // screenshots.js). Full-size captures replace it here and fill the gallery
-    // slot in caseStudyStories.js.
+    tagline: 'My personal AI command center: one chat that runs Claude Code across every project, remembers what matters in MongoDB and works inside my usage limits.',
     image: screenshotFor('mithrandir'),
-    role: 'Designed the architecture, workflows and interface; building it with Claude Code as an ongoing project.',
-    stack: ['React', 'TypeScript', 'Node.js', 'MongoDB Atlas', 'Claude Code', 'CircleCI'],
+    role: 'Sole designer and builder: architecture, orchestration, memory model and interface, built with Claude Code as an ongoing project.',
+    stack: ['React', 'TypeScript', 'Node.js', 'Claude Code', 'MongoDB Atlas', 'CircleCI', 'MCP'],
     // The repository is private, so there is no public link to offer.
     links: [],
     sourceNote: 'The source code is in a private repository.',
     highlights: [
-      { value: '1', label: 'isolated Claude Code worker per repository' },
-      { value: '5h · 7d', label: 'real usage readings that hold new work near the limits' },
-      { value: 'v1', label: 'running locally today, with v2 in progress' },
+      { value: '1 chat', label: 'orchestrating an isolated Claude Code worker per repository' },
+      { value: '5h · 7d', label: 'real usage readings that schedule work around the limits' },
+      { value: 'α → β', label: 'session rollover: a long chat hands off to a fresh session and keeps going' },
     ],
   },
   {

@@ -16,9 +16,9 @@ const artwork = (filename, presentation) => {
 export const screenshots = {
   'zombies-hub-2': artwork('Zombies Hub.png'),
   'fairway-finder': artwork('Fairway Finder.png'),
-  // Interim: a 240×209 capture of the real usage panel. Replace with full-size
-  // screenshots (see caseStudies.js) and drop the detail fit when they arrive.
-  mithrandir: artwork('Mithrandir.svg', { fit: 'detail' }),
+  mithrandir: artwork('Mithrandir.png'),
+  // A real capture of Mithrandir's usage panel (near-square), shown whole in the case study gallery
+  'mithrandir-usage': artwork('Mithrandir.svg', { fit: 'detail' }),
   'war-oracle': artwork('War Oracle.png'),
   'clash-commander': artwork('Clash Commander.webp'),
   'clash-suite': artwork('Clash Suite.webp'),

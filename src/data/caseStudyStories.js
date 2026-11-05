@@ -2,6 +2,7 @@
 // stays out of the main bundle. Summaries live in ./caseStudies.js.
 
 import { caseStudies } from './caseStudies';
+import { screenshotFor } from './screenshots';
 
 const stories = {
   'zombies-hub-2': {
@@ -32,28 +33,65 @@ const stories = {
   },
   mithrandir: {
     imageAlt:
-      'Mithrandir usage panel. The 5-hour window is at 88% and the 7-day window at 68%, and a notice says new worker turns are waiting because Normal mode holds new work at 85%. Below are three modes: Eco, 1 worker, holds at 70%; Normal, 2 workers, holds at 85%; Full Send, 4 workers, holds at 95%.',
+      'Mithrandir artwork: a wizard at a desk facing a monitor showing the Mithrandir Claude Code Command Center, with the Gandalf Main Chat, a Working Now list of three repositories and a glowing crystal orb.',
     imageCaption:
-      'The usage panel. Each mode sets how many workers run and the usage level at which new work is held; here Normal is holding at 85%.',
-    // SCREENSHOT SLOT: when full-size captures arrive, add them under
-    // src/assets/photos/, map them in screenshots.js and list them here as
-    // gallery: [{ ...screenshotFor('<id>'), alt: '…' }]. CaseStudy.jsx renders
-    // the gallery below the story. Wanted, 16:9 at 1920×1080 or larger: the
-    // Home brief with the Needs-you list, a worker session, and Live Preview
-    // with the element picker active.
+      'Mithrandir, my Claude Code command center. Artwork; real interface captures are in the gallery below.',
+    gallery: [
+      {
+        ...screenshotFor('mithrandir-usage'),
+        alt: 'A real capture of the usage panel: the 5-hour window at 88% and the 7-day window at 68%, with Normal mode holding new worker turns at 85%.',
+      },
+    ],
     problem:
-      'The individual tools in my development workflow worked, but I was still acting as the router between them: choosing the right repository and branch, finding project context, managing separate Claude sessions, checking usage, running verification, opening previews and writing another handoff before the next session could continue.',
+      'I run several real projects at once with AI coding agents, and I had become the bottleneck between them. I picked the repository and branch, re-explained context every session, juggled separate Claude chats, watched usage limits by hand, ran checks, opened previews, and pasted huge summaries from one chat to the next whenever a conversation grew too long. The agents were fast; the workflow around them was not.',
     approach: [
-      'Separated orchestration from execution. An orchestrator chat, Gandalf, dispatches work to isolated Claude Code worker sessions, one per repository, so each worker runs inside the right project instead of one long shared session. Workers can be resumed rather than restarted.',
-      'Made usage limits part of scheduling. Mithrandir reads Claude Code’s real 5-hour and 7-day usage, and its modes hold new work as either window nears its limit, so a worker is not cut off halfway through a change.',
-      'Gave each project a small, tracked “brain” for its current state and decisions, and archived longer history to a MongoDB Atlas “Main Memory”, so context carries forward without being pasted into chat. Session rollover writes a handoff, so a long thread can move to a fresh session without losing its place.',
-      'Put everything that needs attention on one screen: a Home brief summarises activity across projects, and a Needs-you list collects anything waiting on a decision.',
-      'Built verification into the loop. Live Preview runs the project with an element picker, so clicking part of the page turns into a targeted fix request, and CircleCI status is surfaced alongside the work.',
+      'One orchestrator, many isolated workers. I talk to a single chat, Gandalf. It plans and delegates, but cannot touch code itself; each task goes to a Claude Code worker that runs inside one repository on my PC, working directly with that project’s local files, tests and git.',
+      'Guardrails that are enforced, not requested. Workers may edit, test, build, commit and push feature branches; force-pushes, pushes to main, branch deletion and destructive git commands are refused by a pre-command hook. Nothing reaches main or production without my approval.',
+      'Usage limits as a scheduling input. Every Claude Code turn reports real 5-hour and 7-day usage; Mithrandir records it, and its modes (Eco, Normal, Full Send) cap parallel workers and hold new work near the limit instead of starting something that would be cut off halfway.',
+      'Memory that outlives any chat. Each project keeps a small tracked “brain” (Now, Next, Decisions, Rejected, Watch), and long-term history lives in MongoDB Atlas, the Main Memory, with facts dated, linked to their source and marked as verified or only reported. A new assistant session, Claude or ChatGPT, can look up just what it needs instead of being handed a wall of summary.',
+      'Chats that never wear out. Mithrandir tracks how big Gandalf’s session is from real token counts. When it gets long, Gandalf writes a structured handoff and continues in a fresh session (Alpha → Bravo → Charlie), so the work carries on without re-reading a huge history on every turn.',
+      'Verification in the loop. Live Preview runs a project’s dev server behind an element picker, so clicking part of the page becomes a precise fix request to that project’s worker; CircleCI results and a Needs-you list sit on the same screen.',
     ],
     outcome:
-      'Mithrandir v1 works locally today: per-repository workers with resume, usage-aware holds, project brains, the Home brief and Needs-you list, session rollover, Live Preview with click-to-fix, Main Memory and CircleCI status.',
+      'Mithrandir v1 runs on my PC every day. I describe what I want once, and the right worker does it in the right repository, within my plan’s limits, with its results and the project’s memory waiting for the next session. It is how I build my other projects, including this portfolio.',
+    vision: {
+      intro:
+        'Mithrandir is the hub of a bigger personal system. The goal is a ChatGPT-style assistant I can use anywhere, which does the real work on my own machines and remembers everything. Each piece below is marked honestly with where it stands.',
+      items: [
+        {
+          title: 'Smart model routing',
+          status: 'In progress',
+          text: 'Gandalf picks the model each task needs (Haiku for quick mechanical jobs, Sonnet for everyday work, Opus for hard problems) and hands off long chats automatically, saving each handoff to Main Memory.',
+        },
+        {
+          title: 'Mithrandir in my pocket',
+          status: 'Planned',
+          text: 'A phone app that feels like ChatGPT but drives my own setup: start or steer work from anywhere, approve merges, and let Mithrandir create, refresh, store and clean up chats on its own.',
+        },
+        {
+          title: 'Raspberry Pi “Shire” node',
+          status: 'Planned',
+          text: 'An always-on Pi that queues work while my PC sleeps, wakes it with Wake-on-LAN, runs schedules and light coding or bot jobs overnight, and coordinates backups with its own credentials.',
+        },
+        {
+          title: 'VEGAS Pro 27 through MCP',
+          status: 'Planned',
+          text: 'Claude reaching my video editor: Mithrandir hands footage jobs to my Sony VEGAS automation project, which indexes clips, finds highlights and drives VEGAS Pro 27 through a VEGAS MCP bridge to assemble rough cuts. Source footage is never modified.',
+        },
+        {
+          title: 'Capture to YouTube',
+          status: 'Planned',
+          text: 'Gameplay captured with NVIDIA Instant Replay or OBS flows through indexing and a VEGAS rough cut to a review step, then on to YouTube, with the Pi keeping the pipeline moving.',
+        },
+        {
+          title: 'One MCP router',
+          status: 'Planned',
+          text: 'A single router between Gandalf and every tool (GitHub, Render, MongoDB, CircleCI, VEGAS, Blender, the Pi) that handles permissions, health checks, logging and usage limits in one place.',
+        },
+      ],
+    },
     currentStatus:
-      'Version 2 is in progress. A capability registry and image and file input are partly built. Anything further is still planned work, so it is not described here as a feature.',
+      'Everything in “What I built” works today. Items marked In progress are built and tested but not yet released; Planned items are designed but not built, and they are not presented here as features.',
   },
   'clash-automation': {
     problem:

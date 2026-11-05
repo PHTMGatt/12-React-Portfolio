@@ -123,6 +123,26 @@ const CaseStudy = () => {
             <p>{study.outcome}</p>
           </section>
 
+          {study.vision && (
+            <section aria-labelledby="vision-title">
+              <h2 id="vision-title">Where it’s going</h2>
+              <p>{study.vision.intro}</p>
+              <ul className="case-study__vision">
+                {study.vision.items.map((item) => (
+                  <li key={item.title}>
+                    <div className="case-study__vision-head">
+                      <h3>{item.title}</h3>
+                      <span className={`case-study__status case-study__status--${item.status.toLowerCase().replace(/\s+/g, '-')}`}>
+                        {item.status}
+                      </span>
+                    </div>
+                    <p>{item.text}</p>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
           {study.currentStatus && (
             <section aria-labelledby="status-title">
               <h2 id="status-title">Current status</h2>

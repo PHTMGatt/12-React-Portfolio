@@ -180,11 +180,84 @@
   line-height: 1.95;
 }
 
+/* "Where it's going": roadmap cards, each with an honest status badge */
+.case-study__vision {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.case-study__vision li {
+  padding: 1.1rem 1.15rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.case-study__vision-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.case-study__vision h3 {
+  margin: 0;
+  font-size: 1.02rem;
+  letter-spacing: -0.01em;
+}
+
+.case-study__body .case-study__vision p {
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.case-study__status {
+  padding: 0.15rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text-subtle);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.case-study__status--in-progress {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+@media (max-width: 760px) {
+  .case-study__vision {
+    grid-template-columns: 1fr;
+  }
+}
+
 .case-study__gallery {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.25rem;
   margin-top: clamp(3rem, 6vw, 4.5rem);
+}
+
+/* A single capture is centred instead of filling half a two-column row */
+.case-study__gallery:has(> figure:only-child) {
+  grid-template-columns: minmax(0, 560px);
+  justify-content: center;
+}
+
+/* Near-square real captures are shown whole, not cropped to 16:9 */
+.case-study__gallery img.project-shot--detail {
+  aspect-ratio: auto;
+  object-fit: contain;
+  background: var(--surface-sunken);
 }
 
 .case-study__gallery figure {
