@@ -12,9 +12,10 @@ paths = [
   '''(^|/)\.github/security/fixtures/''',
 ]
 # KNOWN, OWNER ACTION OPEN: an email-validation API key was committed in src/pages/Contact/Contact.jsx and later
-# removed (SECURITY_REPORT.md item 24, docs/SECURITY-TODO.md). These two commits are allowlisted so the nightly
+# removed (SECURITY_REPORT.md item 24, docs/SECURITY-TODO.md). These three commits are allowlisted so the nightly
 # history scan flags only NEW leaks. Rotate the key, then drop this entry.
 commits = [
   'f4999e44275d12cec5631dbf8dbe1650c1a4b3ef',
   'be4c2144441a448178ccdff91ea5e21d511fc75e',
+  'e77efddb73036f7f4fcd35d47e97977dbd7ec48b',
 ]
