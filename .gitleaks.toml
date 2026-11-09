@@ -1,13 +1,20 @@
-# gitleaks config for 12 React Portfolio: the default rules, minus the deliberately fake fixture.
-# The CI security job separately scans the fixture with the plain default rules and fails
-# unless gitleaks flags it, so this allowlist can't hide a broken scanner.
+# gitleaks config for 12 React Portfolio: the default rules, minus the paths below.
+# The security pipeline builds fake tokens at run time and requires gitleaks to flag them with the plain
+# default rules, so this allowlist can't hide a broken scanner.
 title = "12 React Portfolio gitleaks config"
 
 [extend]
 useDefault = true
 
 [allowlist]
-description = "Deliberately fake secrets in the scanner fixture"
+description = "Fake-secret fixtures and one known historical leak"
 paths = [
   '''(^|/)\.github/security/fixtures/''',
+]
+# KNOWN, OWNER ACTION OPEN: an email-validation API key was committed in src/pages/Contact/Contact.jsx and later
+# removed (SECURITY_REPORT.md item 24, docs/SECURITY-TODO.md). These two commits are allowlisted so the nightly
+# history scan flags only NEW leaks. Rotate the key, then drop this entry.
+commits = [
+  'f4999e44275d12cec5631dbf8dbe1650c1a4b3ef',
+  'be4c2144441a448178ccdff91ea5e21d511fc75e',
 ]
