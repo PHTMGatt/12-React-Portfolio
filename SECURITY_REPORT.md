@@ -51,7 +51,7 @@ No deploy step exists in CI and there is no `render.yaml`, so pushing to `claude
 | 18 | File uploads | N/A | None. |
 | 19 | Price verification | N/A | None. |
 | 20 | Debug off in production | PASS (partial) | Vite production build; no debug routes. `VITE_REVIEW_HASH_ROUTER` only switches the router type (`src/main.jsx:17`). |
-| 21 | Vulnerable dependencies | PASS (production) / open (dev) | Production audit: 0 high or critical. Dev: `sharp` high (libvips CVEs; build-time image processing of the repo's own images only). Fix is a major bump (0.34 to 0.35), so it was not applied. |
+| 21 | Vulnerable dependencies | PASS | Production audit: 0 high or critical. Dev: `sharp` high (libvips CVEs; build-time image processing of the repo's own images only). **Fixed 2026-11-10:** sharp 0.34.5 to 0.35.5 (test: `scripts/sharp-version.test.mjs`); `npm audit` is now 0 vulnerabilities in all trees. |
 | 22 | Unused packages | UNVERIFIED | Not checked. |
 | 23 | Exposed files / source maps | PASS (partial) | Public folder holds only icons, robots, sitemap and a preview image. |
 | 24 | Git history secret scan | **FAIL (known, open)** | [docs/SECURITY-TODO.md](docs/SECURITY-TODO.md): a The One API key was committed in `f4999e4` and is in history of every branch. Current files on this branch are clean (CI working-tree scan). **Owner action: revoke or rotate the key.** The nightly history scan also found a second historical key, an email-validation API key in `src/pages/Contact/Contact.jsx` (commits f4999e4, be4c214; allowlisted in `.gitleaks.toml` as known). Revoke it too. Not done by me, since rotation needs the owner. |
