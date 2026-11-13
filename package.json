@@ -11,6 +11,7 @@
     "start": "vite preview --host",
     "start:dev": "vite",
     "lint": "eslint .",
+    "check:bundle": "node scripts/bundle-budget.mjs",
     "preview": "vite preview",
     "deploy": "npm i && npm run build && npm run start:dev",
     "artwork:generate": "node scripts/generate-artwork.mjs",
@@ -20,14 +21,12 @@
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
-    "axios": "^1.8.4",
     "jspdf": "^4.2.1",
     "lucide-react": "^0.487.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
-    "react-router-dom": "^7.18.4",
-    "vite-project": "file:"
+    "react-router-dom": "^7.18.4"
   },
   "devDependencies": {
     "@eslint/js": "^9.19.0",
@@ -40,7 +39,8 @@
     "eslint-plugin-react-refresh": "^0.4.18",
     "globals": "^15.14.0",
     "playwright": "1.59.0",
-    "sharp": "0.34.5",
+    "sharp": "0.35.5",
+    "terser": "^5.51.2",
     "vite": "^6.2.1"
   }
 }

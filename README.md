@@ -1,80 +1,66 @@
-# React Portfolio
+# Bryen Gatt — Developer Portfolio
 
 ![React Portfolio](src/assets/photos/Portfolio.png)
 
-Bryen Gatt's live portfolio for presenting real software projects, case studies, technical decisions, and current capabilities to recruiters, hiring teams, and collaborators.
+The source for my live developer portfolio: real projects, in-depth case studies, a downloadable one-page résumé and a working contact form, built with React and Vite.
 
-**Live portfolio:** https://one2-react-portfolio.onrender.com
+**Live site:** https://one2-react-portfolio.onrender.com
 
-## What this repository demonstrates
+> Hosted on Render's free tier, so the first visit after a quiet spell can take up to a minute to wake up. Some linked project demos (for example the Weather App) are on the same tier and cold-start the same way.
 
-This is the source for the portfolio itself, not a template or a static project list. The application is built as a responsive React experience with recruiter-facing project discovery, detailed case studies, a downloadable résumé, and direct contact paths.
+## What it is
 
-Current portfolio evidence is centered on software engineering and full-stack web work. The site architecture is intended to grow as additional real work becomes ready to show, without claiming disciplines or capabilities before there is evidence behind them.
+This is the portfolio itself, not a template. It is built to help recruiters and hiring teams see real work quickly:
 
-### Product priorities
-
-- Authentic project screenshots and approved artwork rather than invented mockups
-- Clear project status, source links, live demos where available, and deeper case studies for selected work
-- Responsive layouts and keyboard/accessibility behavior across the main navigation and project surfaces
-- A recruiter-friendly résumé experience with an actionable one-page PDF download
-- Performance-conscious responsive artwork delivery while preserving canonical originals
-- Share metadata and direct URLs that make the portfolio useful outside the site itself
+- **Work:** every project with GitHub source first, a live demo where one exists, and an honest status label (legacy, paused, inactive)
+- **Case studies:** problem, approach, decisions and outcome for selected projects, without invented capabilities
+- **Résumé:** an on-page résumé plus a one-page PDF export with working links
+- **Contact:** a validated form that sends through EmailJS
+- **Polish:** light and dark themes, keyboard navigation with a skip link, responsive layouts from phone to desktop, and share metadata for every route
 
 ## Stack
 
-- React 19
-- React Router
-- Vite
-- Custom CSS
-- EmailJS for the contact workflow
-- jsPDF for résumé export
-- Sharp for generated responsive artwork derivatives
-- Playwright for browser regression checks
-- ESLint and Node's built-in test runner
-- Render for production hosting
+| Area | Tools |
+|---|---|
+| UI | React 19, React Router 7, custom CSS |
+| Build | Vite 6, Sharp (responsive WebP artwork) |
+| Features | EmailJS (contact), jsPDF (résumé export), lucide-react and react-icons |
+| Quality | ESLint, Node's built-in test runner, Playwright browser checks, a bundle-size budget |
+| CI/CD | GitHub Actions (validate + security pipeline), Render hosting |
 
-## Project presentation
+## Run it locally
 
-Project entries prioritize evidence and transparency. Where applicable they include:
-
-- GitHub repository links for source and project history
-- Live-demo links only when a deployment exists
-- Approved canonical visuals from `src/assets/photos/`
-- Status labels for legacy, paused, or inactive work
-- Case studies that explain the problem, implementation, decisions, and outcome without inventing capabilities
-
-## Local development
+Requires Node.js 20 or newer.
 
 ```bash
-npm install
-npm run dev
+npm ci
+npm run dev        # http://localhost:5173
 ```
 
-Useful validation commands:
+## Test and build
 
 ```bash
-npm test
-npm run lint
-npm run build
+npm run lint           # ESLint
+npm test               # unit and regression tests (data, résumé PDF, artwork, metadata)
+npm run build          # production build into dist/
+npm run check:bundle   # fails if the main bundle grows past 100 kB gzipped
 ```
 
-For the full browser suite, run a production preview and then:
+Browser checks run against a production preview:
 
 ```bash
-npm run test:browser
+npm run preview -- --host 127.0.0.1 --port 4174
+npm run test:browser   # in a second terminal
 ```
 
-## Artwork delivery
+They cover every route at desktop, tablet and mobile widths in both themes: one `h1` and `main` per page, no horizontal overflow, no console errors, skip-link focus, theme toggle, a mocked contact send (no real email), the résumé PDF download, artwork delivery and font loading.
 
-Approved originals remain in `src/assets/photos/`. `npm run dev`, `npm run start:dev`, and `npm run build` generate WebP delivery variants in the ignored `src/assets/photos/generated/` directory. Those derivatives are generated assets and should not be edited or committed.
+## Performance
 
-The generator preserves aspect ratios, never enlarges an original, and provides 480/800/1280-pixel candidates plus a larger candidate capped at 1920 pixels for case studies. Source artwork remains unchanged, including the approved Banking and Clash images. `ProjectImage` uses layout-specific `sizes` values so browsers can select an appropriate candidate for viewport size and pixel density.
+Only the home page ships in the main bundle; every other route, the footer and the 404 page load on demand. Artwork originals stay in `src/assets/photos/`, and the build generates 480/800/1280 px WebP variants (plus a larger one, capped at 1920 px, for case studies) in the git-ignored `src/assets/photos/generated/` folder. Images never upscale, and `ProjectImage` sets layout-specific `sizes` so browsers pick the right file for the screen.
 
-After changing canonical artwork while the dev server is already running, run `npm run artwork:generate` or restart the server.
+If you change artwork while the dev server is running, run `npm run artwork:generate` or restart the server.
 
-## Quality checks
+## Continuous integration
 
-The repository includes unit/regression coverage for portfolio data, accessibility-sensitive external links, résumé PDF layout/link behavior, and responsive artwork delivery. Browser checks cover the main pages, artwork decoding, and mobile image selection across common viewport sizes and pixel densities.
-
-The portfolio is intentionally maintained as a living career platform: new disciplines and project categories should be added only when there is real work, documentation, or visual evidence ready to support them.
+Every push runs `.github/workflows/validate.yml`: lint, tests, build, the bundle budget, then the full Playwright browser suite. A separate security pipeline runs dependency audits and secret scanning.
