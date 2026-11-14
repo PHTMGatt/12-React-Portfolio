@@ -45,7 +45,7 @@ Every other project is on the [Work page](https://one2-react-portfolio.onrender.
 
 ## Run it locally
 
-Requires Node.js 20 or newer.
+Requires Node.js 20.9 or newer (Sharp 0.35 needs it); Node 22 recommended.
 
 ```bash
 git clone https://github.com/PHTMGatt/12-React-Portfolio.git
