@@ -1,7 +1,8 @@
 {
-  "name": "vite-project",
+  "name": "bryen-gatt-portfolio",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "Bryen Gatt's developer portfolio: projects, case studies, résumé and contact, built with React and Vite.",
   "type": "module",
   "scripts": {
     "test": "node --test scripts/*.test.mjs",

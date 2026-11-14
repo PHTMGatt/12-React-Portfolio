@@ -5,7 +5,9 @@ import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 
 export default [
-  { ignores: ['dist', 'artifacts', 'scripts'] },
+  // .claude holds local agent worktrees (full repo copies with their own
+  // builds) and .playwright-mcp holds browser-tool output; neither is source.
+  { ignores: ['dist', 'artifacts', 'scripts', '.claude', '.playwright-mcp'] },
   {
     files: ['**/*.{js,jsx}'],
     languageOptions: {
