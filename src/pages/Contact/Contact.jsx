@@ -59,10 +59,20 @@ const readStoredNumber = (key) => {
 const Contact = () => {
   usePageTitle('Contact');
   const formRef = useRef(null);
+  const successRef = useRef(null);
   const [form, setForm] = useState(emptyForm);
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState('idle'); // idle | sending | sent | failed
+  const previousStatus = useRef(status);
   const [copied, setCopied] = useState(false);
+
+  // The form and the success message replace each other, which would drop
+  // keyboard focus to the page body. Move it to whatever is now on screen.
+  useEffect(() => {
+    if (status === 'sent') successRef.current?.focus();
+    else if (previousStatus.current === 'sent') formRef.current?.querySelector('input, textarea')?.focus();
+    previousStatus.current = status;
+  }, [status]);
 
   // Optional Middle-earth flavour for the form. Off by default so the
   // standard form stays clear; the visitor's choice is remembered.
@@ -158,14 +168,14 @@ const Contact = () => {
   return (
     <div className={`contact page-enter${easterEgg ? ' contact--mellon' : ''}`}>
       <div className="container contact__layout">
-        <aside className="contact__intro">
+        <div className="contact__intro">
           <p className="eyebrow">Contact</p>
           <h1 className="page-title">Let’s build something good</h1>
           <p className="section-lede">
             Hiring for a developer role, planning a project, or just want to talk shop? Send a message and I’ll get
             back to you.
           </p>
-        </aside>
+        </div>
 
         <aside className="contact__alt" aria-label="Other ways to reach me">
           <div className="contact__direct surface-card">
@@ -219,7 +229,9 @@ const Contact = () => {
           {status === 'sent' ? (
             <div className="contact__success" role="status">
               <CheckCircle2 size={40} aria-hidden="true" />
-              <h2 id="contact-form-title">Message sent. Thank you!</h2>
+              <h2 id="contact-form-title" ref={successRef} tabIndex={-1}>
+                Message sent. Thank you!
+              </h2>
               <p>It’s on its way to my inbox. I’ll reply to the email address you provided.</p>
               <button type="button" className="btn btn-secondary" onClick={() => setStatus('idle')}>
                 Send another message

@@ -120,6 +120,12 @@ try {
     const caseStudyResults = [];
     for (const href of caseStudyLinks) {
       await page.goto(`${base}${href}`, { waitUntil: 'networkidle' });
+      // Lazy gallery captures sit far below the fold. They must hold their
+      // height before loading, or the page jumps (and focus lands off screen).
+      const galleryHeights = await page
+        .locator('.case-study__gallery img')
+        .evaluateAll((images) => images.map((image) => image.getBoundingClientRect().height));
+      assert(galleryHeights.every((height) => height > 100), `${href} gallery images reserve their height before loading`);
       const title = (await page.locator('h1').first().textContent())?.trim() || href;
       const hero = page.locator('.case-study__hero');
       assert.equal(await hero.locator('.project-fallback').count(), 0, `${title} case-study hero must not render fallback`);

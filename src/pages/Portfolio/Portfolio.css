@@ -154,6 +154,12 @@
   background: rgba(255, 255, 255, 0.22);
 }
 
+/* White count text on the light theme's pressed chip needs a fainter bubble to
+   keep 4.5:1 contrast (0.22 measured 3.8:1; 0.12 is 4.7:1). */
+[data-theme='light'] .filter-chip[aria-pressed='true'] .filter-chip__count {
+  background: rgba(255, 255, 255, 0.12);
+}
+
 .work-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
