@@ -60,7 +60,9 @@ try {
         // No AI-generated thumbnail may be referenced anywhere.
         const sources = await page.locator('img').evaluateAll((imgs) => imgs.map((img) => img.getAttribute('src') || ''));
         assert(!sources.some((src) => src.includes('/thumbnails/')), `no AI thumbnails on ${route}`);
-        if (route === '/does-not-exist') assert.match(await page.title(), /Page not found/);
+        // The 404 title is set in an effect after the h1 renders, so wait for it
+        // instead of reading it once (a single read raced on CI).
+        if (route === '/does-not-exist') await page.waitForFunction(() => /Page not found/.test(document.title));
         await page.screenshot({
           path: `artifacts/screenshots/${viewport.name}-${theme}-${route.replace(/\W+/g, '-').replace(/^-|-$/g, '') || 'home'}.png`,
           fullPage: true,
@@ -123,7 +125,12 @@ try {
       await page.getByText('Middle-earth mode').click();
       assert.equal(await page.locator('#message').inputValue(), 'This is a local test. Do not send.');
       await page.locator('button[type="submit"]').click();
-      await page.getByRole('heading', { name: /Message sent/ }).waitFor();
+      const sent = page.getByRole('heading', { name: /Message sent/ });
+      await sent.waitFor();
+      // The form is replaced, so focus must move to the confirmation, then back to the form.
+      assert(await sent.evaluate((el) => el === document.activeElement), 'focus moves to the sent confirmation');
+      await page.getByRole('button', { name: 'Send another message' }).click();
+      await page.waitForFunction(() => document.activeElement?.id === 'name');
 
       // Footer quote rotates offline.
       const quote = page.locator('.footer-quote__text');

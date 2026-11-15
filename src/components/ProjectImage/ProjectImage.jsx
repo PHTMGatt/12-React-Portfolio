@@ -18,9 +18,16 @@ const ProjectImage = ({ image, alt, sizes, eager = false, className = '', title,
     );
   }
 
+  // A detail capture is shown at its own shape (see Global.css). Reserve that
+  // shape before the file arrives, or a lazy-loaded capture starts at zero
+  // height and pushes everything below it down when it loads.
+  const detail = image.fit === 'detail';
+  const reserveShape = detail && image.width && image.height ? { aspectRatio: `auto ${image.width} / ${image.height}` } : undefined;
+
   return (
     <img
-      className={`project-shot${image.fit === 'detail' ? ' project-shot--detail' : ''} ${className}`.trim()}
+      className={`project-shot${detail ? ' project-shot--detail' : ''} ${className}`.trim()}
+      style={reserveShape}
       src={image.src}
       srcSet={image.srcSet}
       sizes={image.srcSet ? sizes : undefined}

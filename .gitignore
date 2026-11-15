@@ -26,3 +26,8 @@ dist-ssr
 
 # Rebuilt from canonical artwork before development/build.
 src/assets/photos/generated/
+
+# Local environment files (never commit)
+.env
+.env.*
+!.env.example

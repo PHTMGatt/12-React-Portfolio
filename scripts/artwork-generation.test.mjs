@@ -19,7 +19,9 @@ test('artwork derivatives preserve originals and aspect ratio without upscaling'
     const image = manifest['Approved Art.png'];
     assert.deepEqual(image.variants.map(v => v.width), [480, 800, 1000]);
     for (const variant of image.variants) {
-      const metadata = await sharp(path.join(output, variant.file)).metadata();
+      // Read through a buffer: on Windows, libvips keeps file-backed inputs open,
+      // which makes the later stale-variant cleanup fail with EBUSY.
+      const metadata = await sharp(await fs.readFile(path.join(output, variant.file))).metadata();
       assert.equal(metadata.format, 'webp');
       assert.equal(metadata.width, variant.width);
       assert.equal(metadata.height, variant.width / 2);
@@ -31,7 +33,7 @@ test('artwork derivatives preserve originals and aspect ratio without upscaling'
     await sharp({ create: { width: 200, height: 100, channels: 3, background: '#fff' } }).png().toFile(path.join(input, 'Approved Art.png'));
     const updated = await generateArtwork(input, output);
     assert.deepEqual(updated['Approved Art.png'].variants.map(v => v.width), [200]);
-    assert.deepEqual((await fs.readdir(output)).sort(), ['Approved Art.png-200.webp', 'index.js']);
+    assert.deepEqual((await fs.readdir(output)).sort(), ['Approved Art.png-200.webp', 'Approved Art.png.js', 'index.js']);
   } finally {
     await fs.rm(root, { recursive: true, force: true });
   }
@@ -52,9 +54,11 @@ test('SVG canonical artwork stays browser-rendered instead of being flattened by
     assert.deepEqual(image.variants.map(v => ({ file: v.file, width: v.width, height: v.height })), [
       { file: '../Mithrandir.svg', width: 633, height: 552 },
     ]);
+    const module = await fs.readFile(path.join(output, 'Mithrandir.svg.js'), 'utf8');
+    assert.match(module, /from "\.\.\/Mithrandir\.svg"/);
     const index = await fs.readFile(path.join(output, 'index.js'), 'utf8');
-    assert.match(index, /\.\.\/Mithrandir\.svg/);
-    assert.deepEqual((await fs.readdir(output)).sort(), ['index.js']);
+    assert.match(index, /from "\.\/Mithrandir\.svg\.js"/);
+    assert.deepEqual((await fs.readdir(output)).sort(), ['Mithrandir.svg.js', 'index.js']);
   } finally {
     await fs.rm(root, { recursive: true, force: true });
   }

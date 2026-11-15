@@ -47,26 +47,34 @@ test('every Portfolio project card and case study is wired to artwork', async ()
     );
   }
 
+  // Case studies import canonical artwork one image at a time (generated/<file>.js)
+  // so the home page bundle stays small; each file must also be a Work-card image.
   const caseStudySlugs = collectMatches(caseStudies, /\bslug: '([^']+)'/g);
-  const caseStudyImageIds = collectMatches(caseStudies, /\bimage: screenshotFor\('([^']+)'\)/g);
+  const artImports = new Map(
+    [...caseStudies.matchAll(/^import (\w+) from '\.\.\/assets\/photos\/generated\/([^']+)\.js';$/gm)].map((m) => [m[1], m[2]])
+  );
+  const caseStudyImageBindings = collectMatches(caseStudies, /\bimage: (\w+),/g);
   assert(caseStudySlugs.length > 0, 'Portfolio should contain case studies');
-  assert.equal(caseStudyImageIds.length, caseStudySlugs.length, 'Every case study must declare visible artwork');
+  assert.equal(caseStudyImageBindings.length, caseStudySlugs.length, 'Every case study must declare visible artwork');
   assert.doesNotMatch(caseStudies, /\bimage:\s*null\b/, 'Case studies must not fall back to blank artwork panels');
 
-  for (const id of caseStudyImageIds) {
+  for (const binding of caseStudyImageBindings) {
+    const file = artImports.get(binding);
+    assert(file, `${binding} should be imported from src/assets/photos/generated/`);
     assert.match(
       screenshots,
-      new RegExp(`['\"]?${id.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}['\"]?: artwork\\(`),
-      `${id} case-study artwork should resolve in screenshots.js`
+      new RegExp(`: artwork\\('${file.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}'`),
+      `${file} case-study artwork should also be canonical Work-card artwork in screenshots.js`
     );
   }
 
   assert.match(screenshots, /'banking-system': artwork\('Banking System\.webp'\)/);
   assert.match(screenshots, /'clash-commander': artwork\('Clash Commander\.webp'\)/);
   assert.match(screenshots, /'clash-suite': artwork\('Clash Suite\.webp'\)/);
+  assert.match(caseStudies, /^import clashSuiteArt from '\.\.\/assets\/photos\/generated\/Clash Suite\.webp\.js';$/m);
   assert.match(
     caseStudies,
-    /slug: 'clash-automation'[\s\S]*image: screenshotFor\('clash-suite'\)/,
+    /slug: 'clash-automation'[\s\S]*image: clashSuiteArt,/,
     'Clash of Clans Discord Suite should use its own artwork rather than a blank or borrowed card image'
   );
 });

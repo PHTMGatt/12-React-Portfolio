@@ -1,80 +1,102 @@
-# React Portfolio
+# Bryen Gatt · Developer Portfolio
 
-![React Portfolio](src/assets/photos/Portfolio.png)
+The source for my live developer portfolio: real projects, case studies with the honest story behind each one, a one-page résumé and a working contact form. Built with React and Vite.
 
-Bryen Gatt's live portfolio for presenting real software projects, case studies, technical decisions, and current capabilities to recruiters, hiring teams, and collaborators.
+**Live site:** [one2-react-portfolio.onrender.com](https://one2-react-portfolio.onrender.com) · **Résumé:** [/resume](https://one2-react-portfolio.onrender.com/resume) · **LinkedIn:** [bryen-gatt](https://www.linkedin.com/in/bryen-gatt-8b3b69321)
 
-**Live portfolio:** https://one2-react-portfolio.onrender.com
+![The portfolio home page](src/assets/photos/Portfolio.png)
 
-## What this repository demonstrates
+> Hosted on Render's free tier, so the first visit after a quiet spell can take up to a minute to wake up. Some linked project demos run on the same tier and cold-start the same way.
 
-This is the source for the portfolio itself, not a template or a static project list. The application is built as a responsive React experience with recruiter-facing project discovery, detailed case studies, a downloadable résumé, and direct contact paths.
+## About me
 
-Current portfolio evidence is centered on software engineering and full-stack web work. The site architecture is intended to grow as additional real work becomes ready to show, without claiming disciplines or capabilities before there is evidence behind them.
+I spent more than a decade running kitchen lines as a lead and team supervisor: hard deadlines, training new people, and owning the result when service gets busy. I build software with the same habits. I plan the work, communicate early and finish what I start. This site is where that work lives.
 
-### Product priorities
+## Start here
 
-- Authentic project screenshots and approved artwork rather than invented mockups
-- Clear project status, source links, live demos where available, and deeper case studies for selected work
-- Responsive layouts and keyboard/accessibility behavior across the main navigation and project surfaces
-- A recruiter-friendly résumé experience with an actionable one-page PDF download
-- Performance-conscious responsive artwork delivery while preserving canonical originals
-- Share metadata and direct URLs that make the portfolio useful outside the site itself
+Short on time? Read one case study. Each covers the problem, what I built, the decisions and the outcome.
+
+| Project | What it shows | Links |
+|---|---|---|
+| **Zombies Hub 2.0** | Seven separate guide sites rebuilt as one React app with CI-gated deploys. Solo build. | [Case study](https://one2-react-portfolio.onrender.com/work/zombies-hub-2) · [Live](https://zombies-hub-2-0.onrender.com/) · [Source](https://github.com/PHTMGatt/Zombies-Hub-2.0) |
+| **Fairway Finder** | MERN + GraphQL golf trip planner. Primary developer on a five-person team. | [Case study](https://one2-react-portfolio.onrender.com/work/fairway-finder) · [Live](https://fairway-finder.onrender.com) · [Source](https://github.com/PHTMGatt/Fairway-Finder) |
+| **Mithrandir** | A personal command center that coordinates Claude Code workers across repositories, with MongoDB memory. | [Case study](https://one2-react-portfolio.onrender.com/work/mithrandir) (private source) |
+| **Clash of Clans Discord Suite** | Two Discord bots and the Node runtime that hosts them on one machine. | [Case study](https://one2-react-portfolio.onrender.com/work/clash-automation) · [Source](https://github.com/PHTMGatt/War-Oracle-Bot) |
+
+Every other project is on the [Work page](https://one2-react-portfolio.onrender.com/work), with its source first, a live demo where one exists, and an honest status label (legacy, paused, inactive).
+
+## What's in the site
+
+- **Work:** every project, filterable by type, plus an archive of retired apps
+- **Case studies:** problem, approach, outcome and current status, without invented capabilities
+- **Résumé:** an on-page résumé and a one-page PDF export with working links
+- **Contact:** a validated form that sends through EmailJS, with an optional Middle-earth mode
+- **Details:** light and dark themes, a skip link and full keyboard support, reduced-motion support, responsive layouts from phone to desktop, and share metadata for every route
 
 ## Stack
 
-- React 19
-- React Router
-- Vite
-- Custom CSS
-- EmailJS for the contact workflow
-- jsPDF for résumé export
-- Sharp for generated responsive artwork derivatives
-- Playwright for browser regression checks
-- ESLint and Node's built-in test runner
-- Render for production hosting
+| Area | Tools |
+|---|---|
+| UI | React 19, React Router 7, hand-written CSS (no UI framework) |
+| Build | Vite 6, Sharp for responsive WebP artwork, Terser |
+| Features | EmailJS (contact), jsPDF (résumé export), lucide-react and react-icons |
+| Quality | ESLint, Node's built-in test runner, Playwright browser checks, a bundle-size budget |
+| CI/CD | GitHub Actions (validate and security pipelines), Render hosting |
 
-## Project presentation
+## Run it locally
 
-Project entries prioritize evidence and transparency. Where applicable they include:
-
-- GitHub repository links for source and project history
-- Live-demo links only when a deployment exists
-- Approved canonical visuals from `src/assets/photos/`
-- Status labels for legacy, paused, or inactive work
-- Case studies that explain the problem, implementation, decisions, and outcome without inventing capabilities
-
-## Local development
+Requires Node.js 20.9 or newer (Sharp 0.35 needs it); Node 22 recommended.
 
 ```bash
-npm install
-npm run dev
+git clone https://github.com/PHTMGatt/12-React-Portfolio.git
+cd 12-React-Portfolio
+npm ci
+npm run dev        # http://localhost:5173
 ```
 
-Useful validation commands:
+`npm run dev` generates the responsive artwork first, so the first start takes a few extra seconds. If you change an image while the server is running, run `npm run artwork:generate` or restart it.
+
+No environment variables are needed. The contact form sends through the EmailJS service configured in `src/utils/Email.js`.
+
+## Test and build
 
 ```bash
-npm test
-npm run lint
-npm run build
+npm run lint           # ESLint
+npm test               # unit and regression tests: data, résumé PDF, artwork, route metadata
+npm run build          # production build into dist/
+npm run check:bundle   # fails if the main bundle grows past 100 kB gzipped
 ```
 
-For the full browser suite, run a production preview and then:
+Browser checks run against a production build, in two terminals. They use Playwright's Chromium, or fall back to an installed Google Chrome:
 
 ```bash
-npm run test:browser
+npx playwright install chromium                    # first time only, if Chrome isn't installed
+npm run preview -- --host 127.0.0.1 --port 4174    # terminal 1, after npm run build
+npm run test:browser                               # terminal 2
 ```
 
-## Artwork delivery
+They cover every route at desktop, tablet and mobile widths in both themes: one `h1` and one `main` per page, no horizontal overflow, no console errors, skip-link focus, the theme toggle, a mocked contact send (no real email goes out), the résumé PDF download, artwork delivery and font loading.
 
-Approved originals remain in `src/assets/photos/`. `npm run dev`, `npm run start:dev`, and `npm run build` generate WebP delivery variants in the ignored `src/assets/photos/generated/` directory. Those derivatives are generated assets and should not be edited or committed.
+## How it's built
 
-The generator preserves aspect ratios, never enlarges an original, and provides 480/800/1280-pixel candidates plus a larger candidate capped at 1920 pixels for case studies. Source artwork remains unchanged, including the approved Banking and Clash images. `ProjectImage` uses layout-specific `sizes` values so browsers can select an appropriate candidate for viewport size and pixel density.
+```
+src/
+  pages/        one folder per route: About (home), Portfolio (work), CaseStudy, Resume, Contact, NotFound
+  components/   Nav, Footer, ProjectCard, FeaturedStudy, ProjectImage
+  data/         projects, case studies, profile and page metadata, kept out of the components
+  assets/       self-hosted fonts, and photos (the single artwork library)
+scripts/        artwork generation, route metadata, tests and browser checks
+```
 
-After changing canonical artwork while the dev server is already running, run `npm run artwork:generate` or restart the server.
+- **Fast first load.** Only the home page ships in the main bundle (about 98 kB gzipped, mostly React and the router). Every other route, the footer and the 404 page load on demand, and the PDF library loads only when you click Download.
+- **Right-sized images.** Originals stay in `src/assets/photos/`. The build writes 480, 800 and 1280 px WebP versions (up to 1920 px for case studies) into the git-ignored `src/assets/photos/generated/` folder, never upscales, and each image declares `sizes` for its layout.
+- **Shareable routes.** Every route gets its own title, description and canonical link at build time, so shared links preview correctly before any JavaScript runs.
+- **Self-hosted fonts.** Typography loads from the site itself, with no third-party font service.
 
-## Quality checks
+## Continuous integration
 
-The repository includes unit/regression coverage for portfolio data, accessibility-sensitive external links, résumé PDF layout/link behavior, and responsive artwork delivery. Browser checks cover the main pages, artwork decoding, and mobile image selection across common viewport sizes and pixel densities.
+Every push runs `.github/workflows/validate.yml`: lint, tests, build, the bundle budget, then the full Playwright browser suite. A separate security pipeline runs dependency audits and secret scanning.
 
-The portfolio is intentionally maintained as a living career platform: new disciplines and project categories should be added only when there is real work, documentation, or visual evidence ready to support them.
+## Contact
+
+The quickest way to reach me is the [contact form](https://one2-react-portfolio.onrender.com/contact) or [PHTMGatt@gmail.com](mailto:PHTMGatt@gmail.com).
