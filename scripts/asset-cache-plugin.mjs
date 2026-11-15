@@ -17,7 +17,18 @@ export default function assetCachePlugin() {
     configurePreviewServer(server) {
       const assets = path.resolve(server.config.root, server.config.build.outDir, 'assets');
       server.middlewares.use((request, response, next) => {
-        const pathname = decodeURIComponent((request.url || '').split('?')[0]);
+        // A malformed escape (e.g. /%E0%A4%A) makes Vite's own HTML fallback
+        // throw, which answers 500 with a stack trace naming server paths.
+        // Refuse it here with a plain 400 instead.
+        let pathname;
+        try {
+          pathname = decodeURIComponent((request.url || '').split('?')[0]);
+        } catch {
+          response.statusCode = 400;
+          response.setHeader('Content-Type', 'text/plain; charset=utf-8');
+          response.end('Bad Request');
+          return;
+        }
         // Only real files: a missing asset falls through to the app shell,
         // which must never be cached under a fingerprinted name.
         if (pathname.startsWith('/assets/') && !pathname.includes('..')) {
