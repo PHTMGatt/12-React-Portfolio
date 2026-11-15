@@ -1,10 +1,11 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import routeMetadataPlugin from './scripts/route-metadata-plugin.mjs'
+import assetCachePlugin from './scripts/asset-cache-plugin.mjs'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), routeMetadataPlugin()],
+  plugins: [react(), routeMetadataPlugin(), assetCachePlugin()],
   build: {
     // Terser packs the entry chunk ~3 kB gz tighter than esbuild, which keeps
     // it under the 100 kB gz budget (npm run check:bundle). Output is identical

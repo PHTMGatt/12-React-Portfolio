@@ -39,6 +39,31 @@ test('artwork derivatives preserve originals and aspect ratio without upscaling'
   }
 });
 
+test('the hero portrait gets smaller derivatives while the approved file stays the largest, untouched', async () => {
+  const root = await fs.mkdtemp(path.join(os.tmpdir(), 'portfolio-portrait-'));
+  try {
+    const output = path.join(root, 'generated');
+    const source = path.join(root, 'bryen-headshot.webp');
+    const original = await sharp({ create: { width: 640, height: 800, channels: 3, background: '#7a5a48' } }).webp().toBuffer();
+    await fs.writeFile(source, original);
+    const { generatePortrait } = await import('./generate-artwork.mjs');
+    const variants = await generatePortrait(source, output);
+    assert.deepEqual(variants.map(v => v.width), [240, 360, 480, 640]);
+    for (const variant of variants.slice(0, -1)) {
+      const metadata = await sharp(await fs.readFile(path.join(output, variant.file))).metadata();
+      assert.equal(metadata.format, 'webp');
+      assert.equal(metadata.width, variant.width);
+      assert.equal(metadata.height, variant.width * 1.25, 'derivatives keep the 4:5 portrait shape');
+    }
+    assert.equal(variants.at(-1).file, '../bryen-headshot.webp', 'the largest candidate is the approved file itself');
+    assert.deepEqual(await fs.readFile(source), original);
+    const module = await fs.readFile(path.join(output, 'bryen-headshot.webp.js'), 'utf8');
+    assert.match(module, /src: full, srcSet: w240 \+ ' 240w' \+ ', ' \+ w360 \+ ' 360w' \+ ', ' \+ w480 \+ ' 480w' \+ ', ' \+ full \+ ' 640w', width: 640, height: 800/);
+  } finally {
+    await fs.rm(root, { recursive: true, force: true });
+  }
+});
+
 test('SVG canonical artwork stays browser-rendered instead of being flattened by Sharp', async () => {
   const root = await fs.mkdtemp(path.join(os.tmpdir(), 'portfolio-artwork-svg-'));
   try {

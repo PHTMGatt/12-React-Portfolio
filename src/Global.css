@@ -194,6 +194,12 @@ button {
   border-radius: 4px;
 }
 
+/* main takes focus on route change (tabindex=-1) so screen readers start at
+   the new page; it is not a control, so it gets no ring. */
+main:focus-visible {
+  outline: none;
+}
+
 ::selection {
   background: var(--accent);
   color: var(--accent-contrast);

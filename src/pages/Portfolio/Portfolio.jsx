@@ -2,6 +2,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowRight, Archive, Info } from 'lucide-react';
 import ProjectCard from '../../components/ProjectCard/ProjectCard';
 import ProjectImage from '../../components/ProjectImage/ProjectImage';
+import { studyTileSizes } from '../../data/imageSizes';
 import { archivedProjects, caseStudies, categories, projects } from '../../data/projects';
 import usePageTitle from '../../hooks/usePageTitle';
 import './Portfolio.css';
@@ -35,13 +36,16 @@ const Portfolio = () => {
           Case studies
         </h2>
         <div className="study-tiles">
-          {caseStudies.map((study) => (
+          {caseStudies.map((study, index) => (
             <Link key={study.slug} to={`/work/${study.slug}`} className="study-tile">
               <div className="study-tile__media">
+                {/* The first tile is the largest thing on screen when the page
+                    opens, so it loads straight away instead of lazily. */}
                 <ProjectImage
                   image={study.image}
                   alt=""
-                  sizes="(max-width: 640px) calc(100vw - 2rem), (max-width: 1100px) 46vw, 280px"
+                  eager={index === 0}
+                  sizes={studyTileSizes}
                   title={study.title}
                   stack={study.stack}
                   summary={study.tagline}

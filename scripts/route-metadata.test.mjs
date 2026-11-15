@@ -2,7 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import sharp from 'sharp';
-import { readFile } from 'node:fs/promises';
+import { access, readdir, readFile } from 'node:fs/promises';
+import { immutableAssets } from './asset-cache-plugin.mjs';
 
 test('built case-study entry points identify the shared project before JavaScript runs', async () => {
   execFileSync(process.execPath, ['scripts/generate-artwork.mjs'], { stdio: 'pipe' });
@@ -30,4 +31,55 @@ test('built case-study entry points identify the shared project before JavaScrip
   assert.equal(image.format, 'jpeg');
   assert.equal(image.width, 1200);
   assert.equal(image.height, 630);
+});
+
+// Runs after the build above (node:test runs a file's tests in order).
+test('built entry points start their own page, font and opening image downloads early', async () => {
+  const out = 'artifacts/metadata-test';
+  const built = async (url) => access(`${out}${decodeURI(url)}`).then(() => true, () => false);
+  const hrefs = (html, pattern) => [...html.matchAll(pattern)].map((match) => match[1]);
+
+  for (const [file, pageChunk, opening] of [
+    ['index.html', null, /bryen-headshot/],
+    ['work.html', 'Portfolio', /Zombies%20Hub\.png/],
+    ['work/zombies-hub-2.html', 'CaseStudy', /Zombies%20Hub\.png/],
+    ['work/fairway-finder.html', 'CaseStudy', /Fairway%20Finder\.png/],
+    ['work/mithrandir.html', 'CaseStudy', /Mithrandir\.png/],
+    ['work/clash-automation.html', 'CaseStudy', /Clash%20Suite\.webp/],
+    ['resume.html', 'Resume', null],
+    ['contact.html', 'Contact', null],
+  ]) {
+    const html = await readFile(`${out}/${file}`, 'utf8');
+
+    const fonts = hrefs(html, /<link rel="preload" href="([^"]+)" as="font" type="font\/woff2" crossorigin/g);
+    assert.equal(fonts.length, 1, `${file} preloads the one font every page uses`);
+    assert.match(fonts[0], /^\/assets\/inter-latin-wght-normal-[\w-]+\.woff2$/);
+
+    const scripts = hrefs(html, /<link rel="modulepreload" crossorigin href="([^"]+)">/g);
+    const styles = hrefs(html, /<link rel="stylesheet" crossorigin href="([^"]+)">/g);
+    if (pageChunk) {
+      assert.ok(scripts.some((href) => href.startsWith(`/assets/${pageChunk}-`)), `${file} preloads its ${pageChunk} page chunk`);
+      assert.ok(styles.some((href) => href.startsWith(`/assets/${pageChunk}-`)), `${file} links its ${pageChunk} page styles`);
+    } else {
+      assert.deepEqual(scripts.filter((href) => /\/(Portfolio|CaseStudy|Resume|Contact)-/.test(href)), [], `${file} preloads no other page`);
+    }
+    assert.equal(new Set(scripts).size, scripts.length, `${file} preloads each script once`);
+
+    const images = [...html.matchAll(/<link rel="preload" as="image" href="([^"]+)" imagesrcset="([^"]+)" imagesizes="([^"]+)">/g)];
+    assert.equal(images.length, opening ? 1 : 0, `${file} preloads ${opening ? 'its opening image' : 'no image'}`);
+    const candidates = images.flatMap(([, href, srcset]) => [href, ...srcset.split(', ').map((candidate) => candidate.replace(/ \d+w$/, ''))]);
+    if (opening) {
+      assert.match(images[0][1], opening);
+      assert.ok(candidates.length > 2, `${file} offers responsive candidates for its opening image`);
+    }
+
+    for (const url of [...fonts, ...scripts, ...styles, ...candidates]) assert.ok(await built(url), `${file} points at a built file: ${url}`);
+  }
+
+  const headers = await readFile(`${out}/_headers`, 'utf8');
+  assert.match(headers, /^\/assets\/\*\r?\n {2}Cache-Control: public, max-age=31536000, immutable$/m, 'Netlify caches fingerprinted assets for a year');
+  assert.ok(headers.includes(immutableAssets), 'Netlify and the Render preview server send the same asset cache rule');
+  for (const file of await readdir(`${out}/assets`)) {
+    assert.match(file, /-[\w-]{8}\.\w+$/, `${file} must be fingerprinted to be cached as immutable`);
+  }
 });
