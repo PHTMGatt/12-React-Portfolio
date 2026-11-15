@@ -5,6 +5,7 @@ import ProjectImage from '../../components/ProjectImage/ProjectImage';
 import NotFound from '../NotFound/NotFound';
 import { caseStudies } from '../../data/caseStudies';
 import { getCaseStudy } from '../../data/caseStudyStories';
+import { caseStudyHeroSizes } from '../../data/imageSizes';
 import usePageTitle from '../../hooks/usePageTitle';
 import './CaseStudy.css';
 
@@ -85,7 +86,7 @@ const CaseStudy = () => {
               image={study.image}
               alt={study.imageAlt ?? `Screenshot of ${study.title}`}
               eager
-              sizes="(max-width: 1200px) calc(100vw - 2rem), 1160px"
+              sizes={caseStudyHeroSizes}
               title={study.title}
               stack={study.stack}
               summary={study.tagline}

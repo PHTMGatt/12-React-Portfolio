@@ -105,8 +105,41 @@ try {
       const box = await skip.boundingBox();
       assert(box && box.y >= 0 && box.width > 0, 'focused skip link is visible');
 
-      // Contact is reachable at every width (inside the menu on small screens).
+      // Keyboard: the home link is named by its visible text, at every width.
+      const brandName = await page.locator('.site-nav__brand').evaluate((el) => el.getAttribute('aria-label') ?? el.innerText.replace(/\s+/g, ' ').trim());
+      assert.match(brandName, /^BG Bryen Gatt.*home$/, 'home link keeps its visible text in its name');
+
+      // Keyboard: an in-app navigation moves focus to the new page instead of
+      // leaving it on a link that no longer exists.
+      await page.getByRole('link', { name: 'View my work' }).focus();
+      await page.keyboard.press('Enter');
+      await page.waitForURL('**/work');
+      await page.waitForFunction(() => document.activeElement?.id === 'main');
+      await page.locator('h1').first().waitFor();
+      await page.keyboard.press('Tab');
+      assert(await page.evaluate(() => Boolean(document.activeElement?.closest('main'))), 'the next Tab continues inside the new page');
+
+      // Keyboard: opening the small-screen menu moves focus into it, and
+      // tabbing on past the header closes it again.
       const menuToggle = page.locator('.site-nav__toggle');
+      if (await menuToggle.isVisible()) {
+        await menuToggle.focus();
+        await page.keyboard.press('Enter');
+        await page.waitForFunction(() => Boolean(document.activeElement?.closest('#site-menu')));
+        assert.equal(await page.evaluate(() => document.activeElement.textContent.trim()), 'About', 'focus starts on the first menu link');
+        // Work, Resume, theme, Contact, menu toggle, then out into the page.
+        for (let step = 0; step < 6; step++) await page.keyboard.press('Tab');
+        await page.waitForFunction(() => document.querySelector('.site-nav__toggle').getAttribute('aria-expanded') === 'false');
+        assert(await page.evaluate(() => Boolean(document.activeElement?.closest('main'))), 'focus carries on into the page once the menu closes');
+        await menuToggle.focus();
+        await page.keyboard.press('Enter');
+        await page.waitForFunction(() => Boolean(document.activeElement?.closest('#site-menu')));
+        await page.keyboard.press('Escape');
+        await page.waitForFunction(() => document.activeElement?.classList.contains('site-nav__toggle'));
+        assert.equal(await menuToggle.getAttribute('aria-expanded'), 'false', 'Escape closes the menu and returns focus to its button');
+      }
+
+      // Contact is reachable at every width (inside the menu on small screens).
       if (await menuToggle.isVisible()) await menuToggle.click();
       // Scope to the header: the footer also has a "Contact" link (strict mode would reject two matches).
       await page.locator('.site-nav').getByRole('link', { name: 'Contact', exact: true }).click();

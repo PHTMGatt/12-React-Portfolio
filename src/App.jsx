@@ -1,5 +1,5 @@
-import { Suspense, lazy, useEffect, useState } from 'react';
-import { Outlet, ScrollRestoration } from 'react-router-dom';
+import { Suspense, lazy, useEffect, useRef, useState } from 'react';
+import { Outlet, ScrollRestoration, useLocation } from 'react-router-dom';
 import Nav from './components/Nav/Nav';
 import { readPreference, writePreference } from './utils/storage';
 
@@ -21,13 +21,26 @@ function App({ error = false }) {
 
   const toggleTheme = () => setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
 
+  // An in-app navigation swaps the page without a document load, so keyboard
+  // focus would stay on a link that may no longer exist and screen readers
+  // would not be told anything changed. Move focus to the new page's content,
+  // as a full page load would. The first render is a real page load: skip it.
+  const { pathname } = useLocation();
+  const mainRef = useRef(null);
+  const lastPath = useRef(pathname);
+  useEffect(() => {
+    if (lastPath.current === pathname) return;
+    lastPath.current = pathname;
+    mainRef.current?.focus({ preventScroll: true });
+  }, [pathname]);
+
   return (
     <>
       <a className="skip-link" href="#main">
         Skip to content
       </a>
       <Nav theme={theme} toggleTheme={toggleTheme} />
-      <main id="main" className="app-content" tabIndex={-1}>
+      <main id="main" ref={mainRef} className="app-content" tabIndex={-1}>
         <Suspense fallback={<div className="route-loading" aria-busy="true" />}>
           {error ? <NotFound /> : <Outlet />}
         </Suspense>

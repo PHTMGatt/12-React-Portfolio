@@ -2,9 +2,10 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Award, Bot, LayoutDashboard, Mail, Server, Users } from 'lucide-react';
 import FeaturedStudy from '../../components/FeaturedStudy/FeaturedStudy';
 import { featuredCaseStudies } from '../../data/caseStudies';
+import { portraitSizes } from '../../data/imageSizes';
 import { coreStack, profile } from '../../data/profile';
 import usePageTitle from '../../hooks/usePageTitle';
-import headshot from '../../assets/photos/bryen-headshot.webp';
+import headshot from '../../assets/photos/generated/bryen-headshot.webp.js';
 import './About.css';
 
 const capabilities = [
@@ -88,7 +89,17 @@ const About = () => {
         </div>
 
         <div className="hero__portrait">
-          <img src={headshot} width="640" height="800" alt="Portrait of Bryen Gatt" fetchPriority="high" />
+          {/* Shown 96px wide on phones and 340px on desktop; the sizes below let
+              each screen fetch the smallest file that still looks sharp. */}
+          <img
+            src={headshot.src}
+            srcSet={headshot.srcSet}
+            sizes={portraitSizes}
+            width={headshot.width}
+            height={headshot.height}
+            alt="Portrait of Bryen Gatt"
+            fetchPriority="high"
+          />
         </div>
       </section>
 

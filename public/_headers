@@ -1,0 +1,11 @@
+# Netlify response headers (https://docs.netlify.com/routing/headers/).
+#
+# Every file under /assets/ carries a fingerprint of its contents in its name,
+# so its URL never changes: browsers may keep it for a year without asking
+# again. The HTML that points at those files keeps Netlify's default
+# (always revalidate), so a new deploy shows up on the next visit.
+#
+# Render serves the same rule from scripts/asset-cache-plugin.mjs. Keep the
+# two in step.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
