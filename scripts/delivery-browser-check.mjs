@@ -1,3 +1,4 @@
+import { assertPortfolioTarget } from './target-check.mjs';
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 
@@ -5,6 +6,7 @@ import assert from 'node:assert/strict';
 // point declares are the files the page really uses, opening images are not
 // lazy, fingerprinted assets are cached long-term and HTML is not.
 const base = process.env.SMOKE_BASE_URL || 'http://127.0.0.1:4174';
+await assertPortfolioTarget(base);
 const browser = await chromium.launch({ headless: true }).catch(() => chromium.launch({ headless: true, channel: 'chrome' }));
 
 // The image each route opens with, and whether it must load eagerly.
