@@ -94,7 +94,7 @@ export const projects = [
     category: 'automation',
     stack: ['Node.js', 'Webhooks', 'GitHub', 'Discord'],
     image: screenshotFor('captain-hook'),
-    links: { repo: 'https://github.com/PHTMGatt/Discord-WebHook-Bot' },
+    links: { repo: 'https://github.com/PHTMGatt/Discord-Legacy-Bot' },
   },
   {
     id: 'mern-book-search',
@@ -116,6 +116,15 @@ export const projects = [
     stack: ['React', 'Vite'],
     image: screenshotFor('daily-bytes'),
     links: { repo: 'https://github.com/PHTMGatt/The-Daily-Bytes', live: 'https://the-daily-bytes-o4jo.onrender.com' },
+  },
+  {
+    id: 'pc-build-tracker',
+    title: 'PC Build Tracker',
+    summary: 'Quantity-aware planner for a custom PC build: wanted vs. owned parts, remaining spend and shared state in MongoDB, with an admin-only edit mode.',
+    category: 'full-stack',
+    stack: ['React', 'Node.js', 'Express', 'MongoDB'],
+    image: screenshotFor('pc-build-tracker'),
+    links: { live: 'https://pc-build-tracker.onrender.com' },
   },
   {
     id: 'kanban-board',
@@ -146,7 +155,6 @@ export const projects = [
     stack: ['Node.js', 'Express', 'OpenWeather API'],
     image: screenshotFor('weather-app'),
     links: { repo: 'https://github.com/PHTMGatt/09-Weather-App', live: 'https://zero9-servers-and-apis.onrender.com' },
-    status: 'legacy',
   },
   {
     id: 'social-network-api',
@@ -157,6 +165,18 @@ export const projects = [
     image: screenshotFor('social-network-api'),
     links: { repo: 'https://github.com/PHTMGatt/17-Social-Network-API' },
     status: 'legacy',
+  },
+  {
+    id: 'ci-cd-quiz',
+    title: 'CI/CD Tech Quiz',
+    summary: 'MERN tech quiz used to practise a real delivery pipeline: Cypress tests on every pull request, and a merge to main deploys to Render.',
+    category: 'testing',
+    stack: ['React', 'TypeScript', 'Node.js', 'GitHub Actions'],
+    image: screenshotFor('ci-cd-quiz'),
+    links: {
+      repo: 'https://github.com/PHTMGatt/20-CI-CD-GitHub-Actions',
+      live: 'https://two0-ci-cd-github-actions-zubp.onrender.com',
+    },
   },
   {
     id: 'tech-quiz-tests',
