@@ -75,14 +75,14 @@ export const caseStudies = [
     tagline: 'War intelligence and server operations bots, built to run together on a single host.',
     image: clashSuiteArt,
     role: 'Designed and built all three projects: two bots and the runtime that hosts them.',
-    stack: ['Node.js', 'discord.js', 'Clash of Clans API', 'Render', 'Raspberry Pi'],
+    stack: ['Node.js', 'discord.js', 'Clash of Clans API', 'systemd', 'Raspberry Pi'],
     links: [
       { label: 'War Oracle on GitHub', href: 'https://github.com/PHTMGatt/War-Oracle-Bot', primary: true },
-      { label: 'Clash Commander on GitHub', href: 'https://github.com/PHTMGatt/Clash-Commander-Bot' },
+      { label: 'Legacy Bot on GitHub', href: 'https://github.com/PHTMGatt/Discord-Legacy-Bot' },
       { label: 'raspbi-pilot on GitHub', href: 'https://github.com/PHTMGatt/raspbi-pilot' },
     ],
     highlights: [
-      { value: '2', label: 'independent bots, one Node runtime' },
+      { value: '2', label: 'independent Discord bots, each with its own systemd service' },
       { value: '1×', label: 'each alert fires once per condition, per war' },
       { value: '0', label: 'destructive permissions requested' },
     ],
