@@ -1,8 +1,10 @@
+import { assertPortfolioTarget } from './target-check.mjs';
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 
 const base = process.argv[2] || process.env.SMOKE_BASE_URL || 'http://127.0.0.1:4174';
+await assertPortfolioTarget(base);
 const viewports = [
   { name: 'desktop', width: 1440, height: 900 },
   { name: 'mobile', width: 390, height: 844 },
