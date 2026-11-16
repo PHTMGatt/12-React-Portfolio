@@ -31,6 +31,9 @@ export const screenshots = {
   'weather-app': artwork('Weather App.png'),
   'social-network-api': artwork('Social Network API.png'),
   'tech-quiz-tests': artwork('Tech Quiz.png'),
+  // Same quiz app as 19, so the CI/CD card shares its capture.
+  'ci-cd-quiz': artwork('Tech Quiz.png'),
+  'pc-build-tracker': artwork('PC Build Tracker.png'),
   'banking-system': artwork('Banking System.webp'),
   'zombies-hub-1': artwork('Zombies Hub.png'),
   origins: artwork('Origins.png'),
