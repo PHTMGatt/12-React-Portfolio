@@ -25,7 +25,7 @@ const stories = {
       'Built secure sign-up and login with JSON Web Tokens, using React Context so the interface updates the moment auth state changes, with no page reloads.',
       'Integrated the Golf Course API for course search with tee-box ratings and slopes, saved straight to a trip itinerary.',
       'Added route planning with the Google Maps API, including amenities such as courses, fuel and rest areas along the way.',
-      'Pulled 7-day OpenWeather forecasts with a Fahrenheit and Celsius toggle, and calculated a USGA handicap index from live slope and rating data.',
+      'Integrated Open-Meteo forecasts for the saved trip date with a Fahrenheit and Celsius toggle, and calculated a USGA handicap index from live slope and rating data.',
       'Served everything through an Apollo GraphQL API on Express and MongoDB Atlas, deployed to Render with GitHub Actions CI and scoped CSS to prevent style conflicts.',
     ],
     outcome:
@@ -99,13 +99,13 @@ const stories = {
     approach: [
       'War Oracle polls the Clash of Clans API on a fixed interval, stores war snapshots over time and posts live status: score, stars, destruction and remaining attacks.',
       'Threshold-based alerts are fully deduplicated, so each condition fires once per war: no repeat pings, no channel spam.',
-      'Clash Commander adds slash-command operations for leadership: permission and bot-safety audits, member snapshots and notes, inactivity reports and controlled moderator pings.',
-      'raspbi-pilot is a lightweight supervisor that boots each bot’s start() in one Node process, so both run under a single Render worker or one Raspberry Pi with no code changes.',
+      'War Oracle handles war alerts and basic permission-gated Discord channel lockdown, unlock, own-message cleanup and /whoami commands.',
+      'raspbi-pilot installs separate hardened systemd units for Legacy Bot and War Oracle on a Raspberry Pi; no confirmed Pi live runtime yet.',
     ],
     outcome:
-      'Automated, low-noise war oversight and server operations for clan leadership, designed so two independently maintained bots could share one host instead of paying for two.',
+      'Automated, low-noise war oversight and server operations for clan leadership, designed so two independently maintained bots can run as separate services instead of each needing its own paid host.',
     currentStatus:
-      'Clash Commander is currently paused, and raspbi-pilot is inactive: it needs repair or retirement, so the shared-host setup described above is not running at the moment. The source for all three projects remains on GitHub.',
+      'Clash Commander and Captain Hook have been superseded by War Oracle and Legacy Bot. The two-service Raspberry Pi installation is documented, but production Pi operation is not yet verified.',
   },
 };
 
