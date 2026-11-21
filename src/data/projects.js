@@ -73,7 +73,8 @@ export const projects = [
     image: screenshotFor('clash-commander'),
     // The Clash-Commander-Bot repository no longer exists on GitHub (404), so there is no link.
     links: {},
-    caseStudy: 'clash-automation',
+    // Archived concept: the suite's case study covers War Oracle, so no case-study badge here.
+    sourceRemoved: true,
     status: 'inactive',
   },
   {

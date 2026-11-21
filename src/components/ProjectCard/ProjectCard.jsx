@@ -10,11 +10,11 @@ const categoryLabel = (id) => categories.find((c) => c.id === id)?.label ?? id;
 const statusLabels = {
   legacy: { text: 'Legacy', title: 'Finished coursework project; no longer actively developed' },
   paused: { text: 'Paused', title: 'Development is on hold; source remains on GitHub' },
-  inactive: { text: 'Inactive', title: 'Not currently running; source remains on GitHub' },
+  inactive: { text: 'Inactive', title: 'Not currently running' },
 };
 
 const ProjectCard = ({ project }) => {
-  const { title, summary, category, stack, image, links, caseStudy, status, statusNote } = project;
+  const { title, summary, category, stack, image, links, caseStudy, status, statusNote, sourceRemoved } = project;
   const statusLabel = statusLabels[status];
 
   return (
@@ -64,6 +64,8 @@ const ProjectCard = ({ project }) => {
             <GithubMark aria-hidden="true" />
             GitHub
           </a>
+        ) : sourceRemoved ? (
+          <span className="project-card__private">Repository removed</span>
         ) : (
           <span className="project-card__private">
             <Lock size={14} aria-hidden="true" />

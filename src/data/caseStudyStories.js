@@ -103,7 +103,7 @@ const stories = {
       'raspbi-pilot installs separate hardened systemd units for Legacy Bot and War Oracle on a Raspberry Pi; no confirmed Pi live runtime yet.',
     ],
     outcome:
-      'Automated, low-noise war oversight and server operations for clan leadership, designed so two independently maintained bots could share one host instead of paying for two.',
+      'Automated, low-noise war oversight and server operations for clan leadership, designed so two independently maintained bots can run as separate services instead of each needing its own paid host.',
     currentStatus:
       'Clash Commander and Captain Hook have been superseded by War Oracle and Legacy Bot. The two-service Raspberry Pi installation is documented, but production Pi operation is not yet verified.',
   },

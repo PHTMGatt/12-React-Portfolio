@@ -24,7 +24,7 @@ export const pageMetadata = {
   },
   '/work/clash-automation': {
     title: 'Clash of Clans Discord Suite case study — Bryen Gatt',
-    description: 'War intelligence and server operations bots, built to run together on a single host. An automation case study by Bryen Gatt.',
+    description: 'War intelligence and server operations bots, each designed to run as its own service. An automation case study by Bryen Gatt.',
   },
   '/resume': {
     title: 'Resume — Bryen Gatt',

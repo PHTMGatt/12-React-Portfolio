@@ -72,9 +72,9 @@ export const caseStudies = [
     slug: 'clash-automation',
     kicker: 'Automation · Discord bots',
     title: 'Clash of Clans Discord Suite',
-    tagline: 'War intelligence and server operations bots, built to run together on a single host.',
+    tagline: 'War intelligence and server operations bots, each designed to run as its own service.',
     image: clashSuiteArt,
-    role: 'Designed and built all three projects: two bots and the runtime that hosts them.',
+    role: 'Designed and built all three projects: two bots and the installer that sets them up as services.',
     stack: ['Node.js', 'discord.js', 'Clash of Clans API', 'systemd', 'Raspberry Pi'],
     links: [
       { label: 'War Oracle on GitHub', href: 'https://github.com/PHTMGatt/War-Oracle-Bot', primary: true },
