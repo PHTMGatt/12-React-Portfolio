@@ -1,3 +1,4 @@
+import { assertPortfolioTarget } from './target-check.mjs';
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
@@ -6,6 +7,7 @@ import fs from 'node:fs/promises';
 // Base URL: first CLI argument, then SMOKE_BASE_URL, then the CI default.
 // Email delivery is intercepted, so no real message is ever sent.
 const base = process.argv[2] || process.env.SMOKE_BASE_URL || 'http://127.0.0.1:4174';
+await assertPortfolioTarget(base);
 const viewports = [
   { name: 'desktop', width: 1440, height: 900 },
   { name: 'tablet', width: 768, height: 1024 },

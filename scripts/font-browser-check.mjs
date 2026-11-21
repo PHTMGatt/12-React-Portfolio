@@ -1,7 +1,9 @@
+import { assertPortfolioTarget } from './target-check.mjs';
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 
 const base = process.env.SMOKE_BASE_URL || 'http://127.0.0.1:4174';
+await assertPortfolioTarget(base);
 const browser = await chromium.launch({ headless: true }).catch(() => chromium.launch({ headless: true, channel: 'chrome' }));
 try {
   for (const width of [1440, 390]) {
