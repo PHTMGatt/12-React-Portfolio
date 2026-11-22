@@ -1,0 +1,273 @@
+# CircleCI red-ops pipeline for the Portfolio. Mirrors .github/workflows/security-pipeline.yml
+# (security-low / security-med / security-high), which stays the source of truth.
+#
+#   low  : secrets scan (working tree), gitleaks self-test, npm audit, config check.
+#   med  : low + full-history secret scan + dependency review.
+#   high : med + ZAP baseline against a LOCAL build started inside the job + GO / NO-GO verdict.
+#
+# When it runs:
+#   low        : a pull request that carries the label "run-ci", or a manual run.
+#   med / high : manual runs only, by setting the "level" parameter.
+#   live probe : off. Only a manual run with run_live_probe=true AND a live_probe_url sends anything
+#                to a deployed site, and then only a few read-only header requests.
+#
+# No secrets, no contexts, no deploys. Network targets are 127.0.0.1, the package registries,
+# the GitHub API (public, unauthenticated, to read PR labels) and the pinned tool downloads.
+version: 2.1
+
+parameters:
+  level:
+    description: Which level to run. med and high only take effect on manual runs.
+    type: enum
+    enum: [low, med, high]
+    default: low
+  run_live_probe:
+    description: Send read-only header requests to live_probe_url. Manual runs only. Off by default.
+    type: boolean
+    default: false
+  live_probe_url:
+    description: https URL of the deployed site to probe. Empty means no probe, whatever run_live_probe says.
+    type: string
+    default: ""
+
+executors:
+  node:
+    docker:
+      - image: cimg/node:20.19
+    resource_class: small
+    environment:
+      GITLEAKS_VERSION: 8.21.2
+  vm:
+    machine:
+      image: ubuntu-2404:current
+    resource_class: medium
+
+commands:
+  gate:
+    description: >
+      Stop the job early unless this pipeline was started by hand, or it belongs to an open
+      pull request labelled run-ci. Fails closed: if the label cannot be read, nothing runs.
+    steps:
+      - run:
+          name: Gate (manual run, or PR labelled run-ci)
+          environment:
+            TRIGGER_SOURCE: << pipeline.trigger_source >>
+            LEVEL: << pipeline.parameters.level >>
+          command: |
+            if [ "$TRIGGER_SOURCE" = "api" ]; then
+              echo "manual run at level $LEVEL: allowed"
+              exit 0
+            fi
+            if [ "$LEVEL" != "low" ]; then
+              echo "level $LEVEL is manual-only; this run was started by $TRIGGER_SOURCE. Stopping."
+              circleci-agent step halt
+              exit 0
+            fi
+            repo="${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}"
+            api="https://api.github.com/repos/${repo}/commits/${CIRCLE_SHA1}/pulls"
+            labels=$(curl -fsS -H 'Accept: application/vnd.github+json' "$api" \
+              | jq -r '.[] | select(.state == "open") | .labels[].name' || true)
+            if printf '%s\n' "$labels" | grep -qx 'run-ci'; then
+              echo "open pull request carries the run-ci label: allowed"
+            else
+              echo "no open pull request with the run-ci label for this commit. Stopping (nothing was scanned)."
+              circleci-agent step halt
+            fi
+  install-gitleaks:
+    steps:
+      - run:
+          name: Install gitleaks (pinned, checksum-verified)
+          command: |
+            base="https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}"
+            tarball="gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+            mkdir -p "$HOME/bin" /tmp/gitleaks
+            cd /tmp/gitleaks
+            curl -fsSLO "$base/$tarball"
+            curl -fsSLO "$base/gitleaks_${GITLEAKS_VERSION}_checksums.txt"
+            grep " ${tarball}\$" "gitleaks_${GITLEAKS_VERSION}_checksums.txt" | sha256sum -c -
+            tar -xzf "$tarball" gitleaks
+            mv gitleaks "$HOME/bin/gitleaks"
+            echo 'export PATH="$HOME/bin:$PATH"' >> "$BASH_ENV"
+
+jobs:
+  low:
+    executor: node
+    steps:
+      - gate
+      - checkout
+      - install-gitleaks
+      - run:
+          name: Secret scan (working tree)
+          command: gitleaks dir . --config .gitleaks.toml --redact --no-banner --verbose
+      - run:
+          name: Secret scan catches the fixture
+          command: |
+            # Fake tokens are assembled from halves so no token-shaped text is committed.
+            # They are never valid.
+            mkdir -p /tmp/fixture
+            a1="ghp_R7mQ2xLk9VtB4nWp"; a2="8sZc3HdJ6fYg1uEa0oKi"
+            b1="AKIAQ4ZJ7RW2"; b2="XK5M3TNB"
+            c1="xoxb-482915736201-"; c2="930174628354-Lq8vNz2RkT5wYb7HmXc4PdJs"
+            printf 'github_token = %s%s\naws_access_key_id = %s%s\nslack_bot_token = %s%s\n' "$a1" "$a2" "$b1" "$b2" "$c1" "$c2" > /tmp/fixture/fake-credentials.txt
+            printf '[extend]\nuseDefault = true\n' > /tmp/defaults.toml
+            gitleaks dir /tmp/fixture --config /tmp/defaults.toml --redact --no-banner \
+              --exit-code 0 --report-format json --report-path /tmp/fixture.json
+            count=$(jq length /tmp/fixture.json)
+            jq -r '.[] | "flagged: \(.RuleID) in \(.File):\(.StartLine)"' /tmp/fixture.json
+            if [ "$count" -lt 3 ]; then echo "ERROR: gitleaks flagged $count of 3 fake secrets in the fixture"; exit 1; fi
+            echo "gitleaks flagged all $count fake secrets in the fixture"
+      - run:
+          name: Dependency audit (high and critical)
+          environment:
+            LEVEL: << pipeline.parameters.level >>
+          command: |
+            # Same rule as security-low: production advisories fail at every level;
+            # dev-only advisories warn at low and med and fail at high.
+            if [ "$LEVEL" = "high" ]; then
+              npm audit --audit-level=high
+            else
+              npm audit --audit-level=high --omit=dev
+              npm audit --audit-level=high || echo "WARNING: dev-dependency advisories (documented in SECURITY_REPORT.md); strict at level high"
+            fi
+      - run:
+          name: Config validation
+          command: node .github/scripts/check-config.mjs .
+
+  med:
+    executor: node
+    steps:
+      - gate
+      - checkout
+      - run:
+          name: Fetch full history
+          command: git fetch --unshallow origin || git fetch origin
+      - install-gitleaks
+      - run:
+          name: Secret scan (all commits, redacted)
+          command: gitleaks git . --config .gitleaks.toml --redact --no-banner --verbose
+      - run:
+          name: Dependency review (full audit report and lockfile sources)
+          command: |
+            npm audit || true
+            bad=$(grep -E '"resolved": "' package-lock.json | grep -v 'https://registry.npmjs.org/' | grep -vE '"resolved": "(file:.*)?"' || true)
+            if [ -n "$bad" ]; then echo "ERROR: dependencies resolved outside the npm registry"; echo "$bad"; exit 1; fi
+            echo "all lockfile entries resolve from the npm registry"
+
+  high:
+    executor: vm
+    environment:
+      TARGET_URL: http://127.0.0.1:4174
+    steps:
+      - gate
+      - checkout
+      - run:
+          name: Start target (local build only, no real data)
+          command: |
+            case "$TARGET_URL" in
+              http://127.0.0.1:*|http://localhost:*) ;;
+              *) echo "ERROR: refusing non-local target $TARGET_URL"; exit 1 ;;
+            esac
+            docker run -d --name target --network host -v "$PWD:/app" -w /app node:20-bookworm \
+              sh -c "npm ci --no-fund && npm run build && npx vite preview --host 127.0.0.1 --port 4174"
+            code=000
+            for i in $(seq 1 150); do
+              code=$(curl -s -o /dev/null -w '%{http_code}' "$TARGET_URL" || true)
+              [ "$code" != "000" ] && [ -n "$code" ] && break
+              sleep 2
+            done
+            echo "target answered HTTP $code"
+            if [ "$code" = "000" ] || [ -z "$code" ]; then docker logs --tail 40 target; exit 1; fi
+      - run:
+          name: ZAP baseline (passive scan of the local target)
+          command: |
+            mkdir -p zap && chmod 777 zap
+            docker run --rm --network host -u root -v "$PWD/zap:/zap/wrk:rw" ghcr.io/zaproxy/zaproxy:2.16.1 \
+              zap-baseline.py -t "$TARGET_URL" -J zap.json -r zap.html -I -m 3
+            highs=$(jq '[.site[].alerts[] | select((.riskcode|tonumber) >= 3)] | length' zap/zap.json)
+            jq -r '.site[].alerts[] | "ZAP risk \(.riskcode) \(.name) (\(.instances|length) instance(s))"' zap/zap.json | sort -u
+            if [ "$highs" != "0" ]; then echo "ERROR: ZAP found $highs high-risk alert(s)"; exit 1; fi
+      - store_artifacts:
+          path: zap
+          destination: zap-report
+      - run:
+          name: Target log (last lines)
+          when: always
+          command: docker logs --tail 30 target 2>/dev/null || true
+
+  verdict:
+    executor: node
+    steps:
+      - gate
+      - checkout
+      - run:
+          name: GO / NO-GO
+          command: |
+            # This job only starts when low, med and high all passed; a failure in any of them
+            # leaves the workflow red, which is the NO-GO. Here: the 27-point report check.
+            report=SECURITY_REPORT.md
+            if [ ! -f "$report" ]; then echo "NO-GO: $report (27-point report) is missing"; exit 1; fi
+            fails=$(grep -nE '^\|[^|]*\|[^|]*\|[[:space:]]*\**FAIL' "$report" || true)
+            unver=$(grep -cE '^\|[^|]*\|[^|]*\|[[:space:]]*\**UNVERIFIED' "$report" || true)
+            echo "27-point report: $unver UNVERIFIED item(s) (not blocking, listed for the owner)"
+            if [ -n "$fails" ]; then echo "NO-GO: report has unresolved FAIL items"; echo "$fails"; exit 1; fi
+            echo "GO"
+
+  live-probe:
+    executor: node
+    steps:
+      - gate
+      - run:
+          name: Read-only header probe of the deployed site
+          environment:
+            PROBE_URL: << pipeline.parameters.live_probe_url >>
+          command: |
+            # Five plain GET requests, two seconds apart. No payloads, no crawling, no logins.
+            case "$PROBE_URL" in
+              https://*) ;;
+              *) echo "ERROR: live_probe_url must be an https URL"; exit 1 ;;
+            esac
+            base="${PROBE_URL%/}"
+            for p in / /work /resume /contact /robots.txt; do
+              echo "== GET $base$p"
+              curl -sS -o /dev/null -D - --max-time 15 "$base$p" \
+                | grep -iE '^(HTTP/|content-security-policy|strict-transport-security|x-content-type-options|x-frame-options|referrer-policy|permissions-policy|cache-control):' || true
+              sleep 2
+            done
+
+workflows:
+  security-low:
+    when:
+      equal: [low, << pipeline.parameters.level >>]
+    jobs:
+      - low
+
+  security-med:
+    when:
+      and:
+        - equal: [api, << pipeline.trigger_source >>]
+        - equal: [med, << pipeline.parameters.level >>]
+    jobs:
+      - low
+      - med
+
+  security-high:
+    when:
+      and:
+        - equal: [api, << pipeline.trigger_source >>]
+        - equal: [high, << pipeline.parameters.level >>]
+    jobs:
+      - low
+      - med
+      - high
+      - verdict:
+          requires: [low, med, high]
+
+  live-probe:
+    when:
+      and:
+        - equal: [api, << pipeline.trigger_source >>]
+        - << pipeline.parameters.run_live_probe >>
+        - not:
+            equal: ["", << pipeline.parameters.live_probe_url >>]
+    jobs:
+      - live-probe
