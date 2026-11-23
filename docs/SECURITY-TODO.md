@@ -27,16 +27,24 @@
 
 `git branch -a --contains f4999e4` lists **every** branch, local and remote, so the key is in the history of all of them.
 
-## Current code no longer uses it (on `claude/portfolio-polish`)
+## Update 2026-11-22: live quotes are back, with a new key (owner decision)
 
-- [x] `HobbitQuoteGenerator.jsx` uses a built-in list of quotes. No `fetch`, no API URL and no key.
-- [x] A repo-wide search (excluding `node_modules` and `dist`) for the key value, `the-one-api` and API-key, token, secret and private-key patterns finds nothing. The only `Bearer` matches are prose ("Bearer of …") in `src/pages/Contact/elvenScriptures.jsx`.
-- [x] `npm run build` output contains no reference to the API.
+The owner wants real quotes from The One API in the footer again. `HobbitQuoteGenerator.jsx` now asks `https://the-one-api.dev/v2/quote` for a random quote when **`VITE_ONE_API_KEY`** is set at build time (Render environment variable). With no key, or on any failure, it shows the built-in quotes, so the footer never breaks.
+
+- **No key is committed.** The value lives only in Render's environment (and an untracked local `.env` for development; `.env` files are git-ignored). The variable is documented in the README.
+- **Public by nature.** A `VITE_` value is inlined into the JavaScript bundle, so anyone can read it from the live site. Use a free, read-only key from a fresh signup, never the old exposed one, and rotate it if it is abused.
+- **CSP:** `connect-src` allows `https://the-one-api.dev` (see `scripts/security-headers.mjs`; a test checks it).
+- The old key below must still be revoked (checklist item 1); the new key does not replace that.
+
+## Old key: the code at the time of the original report
+
+- [x] The first fix replaced the API call with a built-in list of quotes. That was superseded by the update above, which uses a new key from the environment instead.
+- [x] A repo-wide search (excluding `node_modules` and `dist`) for the old key value and API-key, token, secret and private-key patterns finds nothing; the only API reference is the keyless URL. The only `Bearer` matches are prose ("Bearer of …") in `src/pages/Contact/elvenScriptures.jsx` and the header name in `src/utils/oneApiQuote.js`.
 
 ## Owner checklist
 
 1. [ ] **Revoke or rotate the key at The One API.** Sign in at https://the-one-api.dev/ and open the account page that shows your access key. Generate a new key, or delete or disable the old one. If the site offers no way to regenerate, contact its maintainer and ask for the old key to be invalidated.
-2. [ ] **Don't put the new key in the frontend.** The site no longer needs one. If live quotes return later, call the API from a server or serverless function, with the key stored as an environment variable.
+2. [ ] **Use a new, free read-only key** (set as `VITE_ONE_API_KEY` in Render, never in git). It will be visible in the bundle, so treat it as public and rotate it if abused. For a truly private key you would need a server-side proxy instead.
 3. [ ] **Stop shipping the old key.** Redeploy production from a branch where the key is removed (for example after `claude/portfolio-polish` is merged to `main`). Until then the live bundle still contains it, which matters only if it hasn't been revoked.
 4. [ ] **Check for misuse,** if The One API offers usage or rate-limit information for your account.
 5. [ ] **Decide about history (optional, not done).** Once the key is revoked, the copies in history are harmless. If you still want them gone:

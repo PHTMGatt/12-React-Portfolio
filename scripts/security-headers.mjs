@@ -23,8 +23,8 @@ export const contentSecurityPolicy = [
   "style-src 'self'",
   "img-src 'self' data: blob:",
   "font-src 'self'",
-  // The contact form posts through EmailJS.
-  "connect-src 'self' https://api.emailjs.com",
+  // The contact form posts through EmailJS; the footer asks The One API for a quote.
+  "connect-src 'self' https://api.emailjs.com https://the-one-api.dev",
   "frame-ancestors 'none'",
   "base-uri 'self'",
   "form-action 'self'",

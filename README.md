@@ -60,7 +60,9 @@ npm run dev        # http://localhost:5173
 
 `npm run dev` generates the responsive artwork first, so the first start takes a few extra seconds. If you change an image while the server is running, run `npm run artwork:generate` or restart it.
 
-No environment variables are needed. The contact form sends through the EmailJS service configured in `src/utils/Email.js`.
+No environment variables are required. The contact form sends through the EmailJS service configured in `src/utils/Email.js`.
+
+**Optional: live footer quotes.** The footer's "Another quote" button asks [The One API](https://the-one-api.dev) for a random quote when `VITE_ONE_API_KEY` is set at build time (on Render: an environment variable; locally: an untracked `.env` file containing `VITE_ONE_API_KEY=your-key`). With no key, or if the request fails for any reason, it shows built-in quotes, so the footer always works. The value is inlined into the public bundle by nature, so use a free read-only key and rotate it if it is abused. Never commit a key. See [docs/SECURITY-TODO.md](docs/SECURITY-TODO.md).
 
 ## Test and build
 
