@@ -4,9 +4,14 @@ The source for my live developer portfolio: real projects, case studies with the
 
 **Live site:** [one2-react-portfolio.onrender.com](https://one2-react-portfolio.onrender.com) · **Résumé:** [/resume](https://one2-react-portfolio.onrender.com/resume) · **LinkedIn:** [bryen-gatt](https://www.linkedin.com/in/bryen-gatt-8b3b69321)
 
-![The portfolio home page](src/assets/photos/Portfolio.png)
+<p>
+  <img src="docs/screenshots/home-desktop.jpg" alt="Portfolio home page at 1440 px wide, dark theme" width="720">
+  <img src="docs/screenshots/home-mobile.jpg" alt="Portfolio home page at 390 px wide, dark theme" width="170">
+</p>
 
-> Hosted on Render's free tier, so the first visit after a quiet spell can take up to a minute to wake up. Some linked project demos run on the same tier and cold-start the same way.
+More screenshots: [Work page](docs/screenshots/work-desktop.jpg) · [Case study](docs/screenshots/case-study-desktop.jpg). All four were captured from the live site.
+
+> The canonical site runs on Render's free tier, so the first visit after a quiet spell can take up to a minute to wake up. Some linked project demos run on the same tier and cold-start the same way. A Netlify mirror (`bryensreactportfolio.netlify.app`) serves the same build.
 
 ## About me
 
@@ -21,7 +26,7 @@ Short on time? Read one case study. Each covers the problem, what I built, the d
 | **Zombies Hub 2.0** | Seven separate guide sites rebuilt as one React app with CI-gated deploys. Solo build. | [Case study](https://one2-react-portfolio.onrender.com/work/zombies-hub-2) · [Live](https://zombies-hub-2-0.onrender.com/) · [Source](https://github.com/PHTMGatt/Zombies-Hub-2.0) |
 | **Fairway Finder** | MERN + GraphQL golf trip planner. Primary developer on a five-person team. | [Case study](https://one2-react-portfolio.onrender.com/work/fairway-finder) · [Live](https://fairway-finder.onrender.com) · [Source](https://github.com/PHTMGatt/Fairway-Finder) |
 | **Mithrandir** | A personal command center that coordinates Claude Code workers across repositories, with MongoDB memory. | [Case study](https://one2-react-portfolio.onrender.com/work/mithrandir) (private source) |
-| **Clash of Clans Discord Suite** | Two Discord bots and the Node runtime that hosts them on one machine. | [Case study](https://one2-react-portfolio.onrender.com/work/clash-automation) · [Source](https://github.com/PHTMGatt/War-Oracle-Bot) |
+| **Clash of Clans Discord Suite** | Two Discord bots (War Oracle and Legacy Bot) and a Raspberry Pi installer that sets each up as its own systemd service. Physical Pi deployment is not yet verified. | [Case study](https://one2-react-portfolio.onrender.com/work/clash-automation) · [Source](https://github.com/PHTMGatt/War-Oracle-Bot) |
 
 Every other project is on the [Work page](https://one2-react-portfolio.onrender.com/work), with its source first, a live demo where one exists, and an honest status label (legacy, paused, inactive).
 
@@ -31,7 +36,7 @@ Every other project is on the [Work page](https://one2-react-portfolio.onrender.
 - **Case studies:** problem, approach, outcome and current status, without invented capabilities
 - **Résumé:** an on-page résumé and a one-page PDF export with working links
 - **Contact:** a validated form that sends through EmailJS, with an optional Middle-earth mode
-- **Details:** light and dark themes, a skip link and full keyboard support, reduced-motion support, responsive layouts from phone to desktop, and share metadata for every route
+- **Details:** light and dark themes, a skip link and full keyboard support, reduced-motion support, responsive layouts from phone to desktop, share metadata for every route, and a strict Content-Security-Policy with the usual security headers on both hosts
 
 ## Stack
 
@@ -41,7 +46,7 @@ Every other project is on the [Work page](https://one2-react-portfolio.onrender.
 | Build | Vite 6, Sharp for responsive WebP artwork, Terser |
 | Features | EmailJS (contact), jsPDF (résumé export), lucide-react and react-icons |
 | Quality | ESLint, Node's built-in test runner, Playwright browser checks, a bundle-size budget |
-| CI/CD | GitHub Actions (validate and security pipelines), Render hosting |
+| CI/CD | GitHub Actions (validate and security pipelines), Render hosting with a Netlify mirror and deploy previews |
 
 ## Run it locally
 
