@@ -11,7 +11,7 @@ test('built case-study entry points identify the shared project before JavaScrip
   for (const [path, title] of [
     ['work/fairway-finder', 'Fairway Finder case study'],
     ['work/zombies-hub-2', 'Zombies Hub 2.0 case study'],
-    ['work/mithrandir', 'Mithrandir case study'],
+    ['work/daily-bytes', 'The Daily Bytes case study'],
     ['work/clash-automation', 'Clash of Clans Discord Suite case study'],
     ['work', 'Work'], ['resume', 'Resume'], ['contact', 'Contact'],
   ]) {
@@ -44,7 +44,7 @@ test('built entry points start their own page, font and opening image downloads 
     ['work.html', 'Portfolio', /Zombies%20Hub\.png/],
     ['work/zombies-hub-2.html', 'CaseStudy', /Zombies%20Hub\.png/],
     ['work/fairway-finder.html', 'CaseStudy', /Fairway%20Finder\.png/],
-    ['work/mithrandir.html', 'CaseStudy', /Mithrandir\.png/],
+    ['work/daily-bytes.html', 'CaseStudy', /Daily(%20| )Bytes\.png/],
     ['work/clash-automation.html', 'CaseStudy', /Clash%20Suite\.webp/],
     ['resume.html', 'Resume', null],
     ['contact.html', 'Contact', null],

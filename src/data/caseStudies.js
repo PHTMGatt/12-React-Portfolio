@@ -8,7 +8,7 @@
 // carries only these four, not the whole Work library (see screenshots.js).
 import zombiesHubArt from '../assets/photos/generated/Zombies Hub.png.js';
 import fairwayFinderArt from '../assets/photos/generated/Fairway Finder.png.js';
-import mithrandirArt from '../assets/photos/generated/Mithrandir.png.js';
+import dailyBytesArt from '../assets/photos/generated/Daily Bytes.png.js';
 import clashSuiteArt from '../assets/photos/generated/Clash Suite.webp.js';
 
 export const caseStudies = [
@@ -51,21 +51,22 @@ export const caseStudies = [
     ],
   },
   {
-    slug: 'mithrandir',
+    slug: 'daily-bytes',
     featured: true,
-    kicker: 'AI orchestration · Personal command center',
-    title: 'Mithrandir',
-    tagline: 'My personal AI command center: one chat that runs Claude Code across every project, remembers what matters in MongoDB and works inside my usage limits.',
-    image: mithrandirArt,
-    role: 'Sole designer and builder: architecture, orchestration, memory model and interface, built with Claude Code as an ongoing project.',
-    stack: ['React', 'TypeScript', 'Node.js', 'Claude Code', 'MongoDB Atlas', 'CircleCI', 'MCP'],
-    // The repository is private, so there is no public link to offer.
-    links: [],
-    sourceNote: 'The source code is in a private repository.',
+    kicker: 'Full-stack · React + Express',
+    title: 'The Daily Bytes',
+    tagline: 'A gaming and tech news dashboard with a server-side news proxy, MongoDB reader accounts and a one-click demo.',
+    image: dailyBytesArt,
+    role: 'Maintainer of this fork of n6dd’s The-Daily-Bytes, which keeps the original author’s commits in its history.',
+    stack: ['React', 'TypeScript', 'Vite', 'Express', 'MongoDB Atlas', 'Mediastack', 'Render'],
+    links: [
+      { label: 'Source on GitHub', href: 'https://github.com/PHTMGatt/The-Daily-Bytes', primary: true },
+      { label: 'Live site', href: 'https://the-daily-bytes-o4jo.onrender.com' },
+    ],
     highlights: [
-      { value: '1 chat', label: 'orchestrating an isolated Claude Code worker per repository' },
-      { value: '5h · 7d', label: 'real usage readings that schedule work around the limits' },
-      { value: 'α → β', label: 'session rollover: a long chat hands off to a fresh session and keeps going' },
+      { value: '15 min', label: 'bounded news cache, with a stale-cache fallback' },
+      { value: 'RSS', label: 'free feed fallback when the news API is rate limited or empty' },
+      { value: '0', label: 'provider keys in the browser: every call goes through the server' },
     ],
   },
   {

@@ -19,7 +19,7 @@ const routes = [
   '/work?type=automation',
   '/work/zombies-hub-2',
   '/work/fairway-finder',
-  '/work/mithrandir',
+  '/work/daily-bytes',
   '/work/clash-automation',
   '/resume',
   '/contact',

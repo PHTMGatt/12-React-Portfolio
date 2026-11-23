@@ -52,7 +52,6 @@ export const projects = [
     stack: ['TypeScript', 'Node.js', 'MongoDB', 'Claude Code'],
     image: screenshotFor('mithrandir'),
     links: {},
-    caseStudy: 'mithrandir',
   },
   {
     id: 'war-oracle',
@@ -118,6 +117,7 @@ export const projects = [
     stack: ['React', 'Vite', 'Express', 'MongoDB'],
     image: screenshotFor('daily-bytes'),
     links: { repo: 'https://github.com/PHTMGatt/The-Daily-Bytes', live: 'https://the-daily-bytes-o4jo.onrender.com' },
+    caseStudy: 'daily-bytes',
   },
   {
     id: 'pc-build-tracker',
