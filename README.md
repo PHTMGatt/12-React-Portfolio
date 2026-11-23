@@ -11,8 +11,7 @@ The source for my live developer portfolio: real projects, case studies with the
 
 More screenshots: [Work page](docs/screenshots/work-desktop.jpg) · [Case study](docs/screenshots/case-study-desktop.jpg). All four were captured from the live site.
 
-> The canonical site runs on Render's free tier, so the first visit after a quiet spell can take up to a minute to wake up. Some linked project demos run on the same tier and cold-start the same way. A Netlify mirror (`bryensreactportfolio.netlify.app`) serves the same build.
-
+> The canonical site runs on Render's free tier, so the first visit after a quiet spell can take up to a minute to wake up. Some linked project demos run on the same tier and cold-start the same way.
 ## About me
 
 I spent more than a decade running kitchen lines as a lead and team supervisor: hard deadlines, training new people, and owning the result when service gets busy. I build software with the same habits. I plan the work, communicate early and finish what I start. This site is where that work lives.
@@ -46,7 +45,7 @@ Every other project is on the [Work page](https://one2-react-portfolio.onrender.
 | Build | Vite 6, Sharp for responsive WebP artwork, Terser |
 | Features | EmailJS (contact), jsPDF (résumé export), lucide-react and react-icons |
 | Quality | ESLint, Node's built-in test runner, Playwright browser checks, a bundle-size budget |
-| CI/CD | GitHub Actions (validate and security pipelines), Render hosting with a Netlify mirror and deploy previews |
+| CI/CD | GitHub Actions (validate and security pipelines), Render hosting |
 
 ## Run it locally
 

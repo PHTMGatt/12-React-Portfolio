@@ -76,9 +76,7 @@ test('built entry points start their own page, font and opening image downloads 
     for (const url of [...fonts, ...scripts, ...styles, ...candidates]) assert.ok(await built(url), `${file} points at a built file: ${url}`);
   }
 
-  const headers = await readFile(`${out}/_headers`, 'utf8');
-  assert.match(headers, /^\/assets\/\*\r?\n {2}Cache-Control: public, max-age=31536000, immutable$/m, 'Netlify caches fingerprinted assets for a year');
-  assert.ok(headers.includes(immutableAssets), 'Netlify and the Render preview server send the same asset cache rule');
+  assert.equal(immutableAssets, 'public, max-age=31536000, immutable', 'the Render preview server caches fingerprinted assets for a year');
   for (const file of await readdir(`${out}/assets`)) {
     assert.match(file, /-[\w-]{8}\.\w+$/, `${file} must be fingerprinted to be cached as immutable`);
   }

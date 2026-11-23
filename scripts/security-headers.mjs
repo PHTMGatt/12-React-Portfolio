@@ -2,15 +2,13 @@ import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
-// Security headers for every response, on both hosts. Render serves them from
-// scripts/asset-cache-plugin.mjs (the `vite preview` production server);
-// Netlify reads the same lines from public/_headers. A test keeps the two in
-// step, so change them here and copy the printed lines into public/_headers.
+// Security headers for every response. Render is the only host and serves them
+// from scripts/asset-cache-plugin.mjs (the `vite preview` production server).
 //
 // The only inline script is the theme restore in index.html's <head>. It has
-// to run before styles load, so it stays inline and is allowed by its hash.
-// Editing that script changes the hash: run `node --test scripts/` and update
-// public/_headers from the failure message.
+// to run before styles load, so it stays inline and is allowed by its hash,
+// which is computed here from index.html, so editing that script needs no
+// manual hash update.
 const indexHtml = readFileSync(fileURLToPath(new URL('../index.html', import.meta.url)), 'utf8');
 
 export function inlineScriptHashes(html = indexHtml) {
@@ -41,7 +39,7 @@ export const securityHeaders = {
   'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), payment=(), usb=()',
 };
 
-// Render sits behind Cloudflare with HTTPS only; Netlify already adds HSTS itself.
+// Render sits behind Cloudflare with HTTPS only.
 export const renderOnlyHeaders = {
   'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
 };

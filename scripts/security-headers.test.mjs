@@ -4,14 +4,6 @@ import { readFile } from 'node:fs/promises';
 import assetCachePlugin from './asset-cache-plugin.mjs';
 import { securityHeaders, renderOnlyHeaders, inlineScriptHashes } from './security-headers.mjs';
 
-test('Netlify _headers sends the same security headers to every path', async () => {
-  const file = (await readFile('public/_headers', 'utf8')).replace(/\r\n/g, '\n');
-  const block = file.split(/^\/\*\s*$/m)[1]?.split(/^\S/m)[0] ?? '';
-  for (const [name, value] of Object.entries(securityHeaders)) {
-    assert.ok(block.includes(`  ${name}: ${value}\n`), `public/_headers /* is missing or stale:\n  ${name}: ${value}`);
-  }
-});
-
 test('CSP allows exactly the inline scripts in index.html, by hash', async () => {
   const html = await readFile('index.html', 'utf8');
   assert.ok(!html.includes('\r'), 'index.html must be LF (see .gitattributes) or the CSP hash differs from production');
