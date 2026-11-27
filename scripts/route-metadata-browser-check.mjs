@@ -16,11 +16,12 @@ try {
       ['/work/zombies-hub-2', 'Zombies Hub 2.0 case study'],
       ['/work/daily-bytes', 'The Daily Bytes case study'],
       ['/work/clash-automation', 'Clash of Clans Discord Suite case study'],
-      ['/work/3d-modding-showcase', 'Forge &amp; Mod: 3D Modding Showcase case study'],
+      ['/work/3d-modding-showcase', 'Forge & Mod: 3D Modding Showcase case study'],
     ]) {
       const response = await page.goto(`${base}${path}`);
       const raw = await response.text();
-      assert.ok(raw.includes(`<title>${title} — Bryen Gatt</title>`), 'crawler receives project title without JS');
+      // Raw HTML escapes '&'; document.title does not.
+      assert.ok(raw.includes(`<title>${title.replaceAll('&', '&amp;')} — Bryen Gatt</title>`), 'crawler receives project title without JS');
       await page.locator('h1').waitFor();
       await page.waitForFunction((url) => document.querySelector('link[rel="canonical"]').href === url, `${origin}${path}`);
       assert.equal(await page.title(), `${title} — Bryen Gatt`);
