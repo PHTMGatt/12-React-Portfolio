@@ -59,6 +59,21 @@ const stories = {
     currentStatus:
       'Clash Commander and Captain Hook have been superseded by War Oracle and Legacy Bot. The two-service Raspberry Pi installation is documented, but production Pi operation is not yet verified.',
   },
+  '3d-modding-showcase': {
+    problem:
+      'My game mods and 3D models lived as Blender files, screenshots and zip archives. None of that shows the work: a recruiter cannot spin a model, see what a commissioned designer changed, or read what a mod actually edits.',
+    approach: [
+      'A React and Vite gallery with filters by game, project, kind and rights. Each entry opens an interactive model-viewer stage with lighting rigs, exposure control, hotspots that explain parts of the model, and a layout that works on desktop, phone and phone landscape.',
+      'Purpose-built panels: a base-versus-final comparison for a Witcher-themed RAM module I designed and a CadCrowd designer finished, an XML diff of a Witcher 3 REDkit mod that turns a stock armour set into a Middle-earth god kit, and a perk machine that plays its jingle when clicked.',
+      'A Meshy AI remaster of my Dragon & Ivory set, shown next to the originals with a v1 / v2 toggle. Every asset carries a rights label (own work, commissioned, AI-generated or third-party), and private reference models never ship in the production build.',
+      'A headless Blender pipeline, driven by Node, imports a source model, bakes ambient occlusion, runs an optional per-asset paint pass that picks parts from the geometry and recolours them, then decimates and exports Draco and WebP until the file fits its size budget.',
+      'Card thumbnails are rendered from the shipped models in headless Chrome, so the gallery always shows the current version of each asset.',
+    ],
+    outcome:
+      'One page that shows modding, 3D asset work and front-end engineering together, with every model small enough to load on a phone and honest credit for anything I did not make alone.',
+    currentStatus:
+      'In private development. The repository is private and there is no public deployment yet; this page will link to a live demo once it is hosted.',
+  },
 };
 
 // Full case study: the summary merged with its story, or undefined if unknown.

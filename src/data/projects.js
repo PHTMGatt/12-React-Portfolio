@@ -21,7 +21,7 @@ export const categories = [
 
 // Case studies live in ./caseStudies.js (summaries) and ./caseStudyStories.js
 // (long-form text, case-study route only). Re-exported here for the Work page.
-export { caseStudies } from './caseStudies';
+export { caseStudies, listedCaseStudies } from './caseStudies';
 
 export const projects = [
   {
@@ -63,7 +63,8 @@ export const projects = [
     image: screenshotFor('3d-modding-showcase'),
     // Private repository: no repo or live link yet.
     links: {},
-    statusNote: 'Private repo, coming soon.',
+    caseStudy: '3d-modding-showcase',
+    statusNote: 'Private repo; live demo coming soon.',
   },
   {
     id: 'mithrandir',

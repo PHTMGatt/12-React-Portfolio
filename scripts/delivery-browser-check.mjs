@@ -17,6 +17,7 @@ const routes = [
   ['/work/fairway-finder', '.case-study__hero .project-shot'],
   ['/work/daily-bytes', '.case-study__hero .project-shot'],
   ['/work/clash-automation', '.case-study__hero .project-shot'],
+  ['/work/3d-modding-showcase', '.case-study__hero .project-shot'],
   ['/resume', null],
   ['/contact', null],
 ];

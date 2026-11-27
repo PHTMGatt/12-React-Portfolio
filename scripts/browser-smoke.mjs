@@ -21,6 +21,7 @@ const routes = [
   '/work/fairway-finder',
   '/work/daily-bytes',
   '/work/clash-automation',
+  '/work/3d-modding-showcase',
   '/resume',
   '/contact',
   '/does-not-exist',

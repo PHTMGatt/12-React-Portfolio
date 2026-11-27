@@ -13,6 +13,7 @@ test('built case-study entry points identify the shared project before JavaScrip
     ['work/zombies-hub-2', 'Zombies Hub 2.0 case study'],
     ['work/daily-bytes', 'The Daily Bytes case study'],
     ['work/clash-automation', 'Clash of Clans Discord Suite case study'],
+    ['work/3d-modding-showcase', 'Forge &amp; Mod: 3D Modding Showcase case study'],
     ['work', 'Work'], ['resume', 'Resume'], ['contact', 'Contact'],
   ]) {
     const html = await readFile(`artifacts/metadata-test/${path}.html`, 'utf8').catch(() => '');
@@ -46,6 +47,7 @@ test('built entry points start their own page, font and opening image downloads 
     ['work/fairway-finder.html', 'CaseStudy', /Fairway%20Finder\.png/],
     ['work/daily-bytes.html', 'CaseStudy', /Daily(%20| )Bytes\.png/],
     ['work/clash-automation.html', 'CaseStudy', /Clash%20Suite\.webp/],
+    ['work/3d-modding-showcase.html', 'CaseStudy', /3D(%20| )Modding(%20| )Showcase\.webp/],
     ['resume.html', 'Resume', null],
     ['contact.html', 'Contact', null],
   ]) {

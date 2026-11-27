@@ -26,6 +26,10 @@ export const pageMetadata = {
     title: 'Clash of Clans Discord Suite case study — Bryen Gatt',
     description: 'War intelligence and server operations bots, each designed to run as its own service. An automation case study by Bryen Gatt.',
   },
+  '/work/3d-modding-showcase': {
+    title: 'Forge & Mod: 3D Modding Showcase case study — Bryen Gatt',
+    description: 'A gallery for game mods and 3D assets with an interactive model viewer and a headless Blender pipeline. A front-end project case study by Bryen Gatt.',
+  },
   '/resume': {
     title: 'Resume — Bryen Gatt',
     description: 'Bryen Gatt’s developer résumé: technical skills, selected projects, work experience, and a downloadable PDF with contact links.',

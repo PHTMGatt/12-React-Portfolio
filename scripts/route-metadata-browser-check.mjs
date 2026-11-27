@@ -16,6 +16,7 @@ try {
       ['/work/zombies-hub-2', 'Zombies Hub 2.0 case study'],
       ['/work/daily-bytes', 'The Daily Bytes case study'],
       ['/work/clash-automation', 'Clash of Clans Discord Suite case study'],
+      ['/work/3d-modding-showcase', 'Forge &amp; Mod: 3D Modding Showcase case study'],
     ]) {
       const response = await page.goto(`${base}${path}`);
       const raw = await response.text();
