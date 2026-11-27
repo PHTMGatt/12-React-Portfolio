@@ -55,6 +55,17 @@ export const projects = [
     caseStudy: 'daily-bytes',
   },
   {
+    id: '3d-modding-showcase',
+    title: 'Forge & Mod: 3D Modding Showcase',
+    summary: 'Game modding and 3D creation gallery with an interactive model viewer, hotspots, lighting controls and REDkit mod diffs.',
+    category: 'frontend',
+    stack: ['React', 'Vite', 'model-viewer', 'Blender'],
+    image: screenshotFor('3d-modding-showcase'),
+    // Private repository: no repo or live link yet.
+    links: {},
+    statusNote: 'Private repo, coming soon.',
+  },
+  {
     id: 'mithrandir',
     title: 'Mithrandir',
     summary: 'Local command center where one orchestrator chat runs a Claude Code worker per repository.',

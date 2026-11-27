@@ -26,6 +26,7 @@ export const screenshots = {
   'captain-hook': artwork('Captain Hook.png'),
   'mern-book-search': artwork('Mern Book.png'),
   'daily-bytes': artwork('Daily Bytes.png'),
+  '3d-modding-showcase': artwork('3D Modding Showcase.webp'),
   'kanban-board': artwork('Kanban.png'),
   'candidate-search': artwork('Candidate Search.png'),
   'weather-app': artwork('Weather App.png'),
