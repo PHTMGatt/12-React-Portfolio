@@ -91,8 +91,8 @@ try {
         assert.equal(await page.locator(`a[href*="${host}.onrender.com"]`).count(), 0, `no link to retired ${host}`);
       }
       assert.equal(await page.locator('.status-tag', { hasText: 'Legacy' }).count(), 3, 'three legacy coursework labels');
-      assert.equal(await page.locator('.status-tag', { hasText: 'Paused' }).count(), 1, 'raspbi-pilot is paused (installer ready, Pi deployment not verified)');
-      // raspbi-pilot (paused) and Clash Commander (inactive) are in the main grid; the seven legacy guides sit in the collapsed archive.
+      assert.equal(await page.locator('.status-tag', { hasText: 'Paused' }).count(), 2, 'Mithrandir (parked) and raspbi-pilot (Pi deployment not verified) are paused');
+      // Mithrandir and raspbi-pilot (paused) and Clash Commander (inactive) are in the main grid; the seven legacy guides sit in the collapsed archive.
       assert.equal(await page.locator('.work-grid:not(.archive__grid) .status-tag', { hasText: 'Inactive' }).count(), 1, 'Clash Commander is inactive (superseded by War Oracle)');
 
       // Keyboard: the first Tab lands on a visible skip link.
