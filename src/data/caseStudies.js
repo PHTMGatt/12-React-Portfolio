@@ -95,6 +95,7 @@ export const caseStudies = [
     title: 'Forge & Mod: 3D Modding Showcase',
     tagline: 'A gallery for game mods and 3D assets, with an interactive model viewer, before-and-after comparisons and a headless Blender pipeline behind it.',
     image: moddingShowcaseArt,
+    imageAlt: 'The showcase viewer open on the Ivory Dragon Mask v2 remaster, with light rigs and asset details',
     role: 'Solo project: the 3D assets and mods, the viewer, and the Blender export pipeline. One model was finished by a commissioned designer; each asset is labelled with who made it.',
     stack: ['React', 'Vite', 'model-viewer', 'Blender (Python)', 'Node.js', 'Vitest'],
     // Private repository and no public deployment yet: no links. Kept out of the
@@ -102,8 +103,8 @@ export const caseStudies = [
     links: [],
     unlisted: true,
     highlights: [
-      { value: '5', label: 'AI-assisted remasters with a v1 / v2 toggle' },
-      { value: '≤ 8 MB', label: 'per model: Draco geometry and WebP textures' },
+      { value: '5', label: 'AI-generated remasters with a v1 / v2 toggle' },
+      { value: '3.3 MB', label: 'largest remaster: Draco geometry, WebP textures' },
       { value: '4', label: 'rights labels, so every asset says who made it' },
     ],
   },
