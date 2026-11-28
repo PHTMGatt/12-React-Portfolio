@@ -4,10 +4,14 @@ The source for my live developer portfolio: real projects, case studies with the
 
 **Live site:** [one2-react-portfolio.onrender.com](https://one2-react-portfolio.onrender.com) · **Résumé:** [/resume](https://one2-react-portfolio.onrender.com/resume) · **LinkedIn:** [bryen-gatt](https://www.linkedin.com/in/bryen-gatt-8b3b69321)
 
-![The portfolio home page](src/assets/photos/Portfolio.png)
+<p>
+  <img src="docs/screenshots/home-desktop.jpg" alt="Portfolio home page at 1440 px wide, dark theme" width="720">
+  <img src="docs/screenshots/home-mobile.jpg" alt="Portfolio home page at 390 px wide, dark theme" width="170">
+</p>
 
-> Hosted on Render's free tier, so the first visit after a quiet spell can take up to a minute to wake up. Some linked project demos run on the same tier and cold-start the same way.
+More screenshots: [Work page](docs/screenshots/work-desktop.jpg) · [Case study](docs/screenshots/case-study-desktop.jpg). All four were captured from the live site.
 
+> The canonical site runs on Render's free tier, so the first visit after a quiet spell can take up to a minute to wake up. Some linked project demos run on the same tier and cold-start the same way.
 ## About me
 
 I spent more than a decade running kitchen lines as a lead and team supervisor: hard deadlines, training new people, and owning the result when service gets busy. I build software with the same habits. I plan the work, communicate early and finish what I start. This site is where that work lives.
@@ -20,8 +24,8 @@ Short on time? Read one case study. Each covers the problem, what I built, the d
 |---|---|---|
 | **Zombies Hub 2.0** | Seven separate guide sites rebuilt as one React app with CI-gated deploys. Solo build. | [Case study](https://one2-react-portfolio.onrender.com/work/zombies-hub-2) · [Live](https://zombies-hub-2-0.onrender.com/) · [Source](https://github.com/PHTMGatt/Zombies-Hub-2.0) |
 | **Fairway Finder** | MERN + GraphQL golf trip planner. Primary developer on a five-person team. | [Case study](https://one2-react-portfolio.onrender.com/work/fairway-finder) · [Live](https://fairway-finder.onrender.com) · [Source](https://github.com/PHTMGatt/Fairway-Finder) |
-| **Mithrandir** | A personal command center that coordinates Claude Code workers across repositories, with MongoDB memory. | [Case study](https://one2-react-portfolio.onrender.com/work/mithrandir) (private source) |
-| **Clash of Clans Discord Suite** | Two Discord bots and the Node runtime that hosts them on one machine. | [Case study](https://one2-react-portfolio.onrender.com/work/clash-automation) · [Source](https://github.com/PHTMGatt/War-Oracle-Bot) |
+| **The Daily Bytes** | Gaming and tech news dashboard: a server-side news proxy with RSS fallback, MongoDB reader accounts and a one-click demo. A fork of n6dd's project; I maintain it. | [Case study](https://one2-react-portfolio.onrender.com/work/daily-bytes) · [Live](https://the-daily-bytes-o4jo.onrender.com) · [Source](https://github.com/PHTMGatt/The-Daily-Bytes) |
+| **Clash of Clans Discord Suite** | Two Discord bots (War Oracle and Legacy Bot) and a Raspberry Pi installer that sets each up as its own systemd service. Physical Pi deployment is not yet verified. | [Case study](https://one2-react-portfolio.onrender.com/work/clash-automation) · [Source](https://github.com/PHTMGatt/War-Oracle-Bot) |
 
 Every other project is on the [Work page](https://one2-react-portfolio.onrender.com/work), with its source first, a live demo where one exists, and an honest status label (legacy, paused, inactive).
 
@@ -31,7 +35,7 @@ Every other project is on the [Work page](https://one2-react-portfolio.onrender.
 - **Case studies:** problem, approach, outcome and current status, without invented capabilities
 - **Résumé:** an on-page résumé and a one-page PDF export with working links
 - **Contact:** a validated form that sends through EmailJS, with an optional Middle-earth mode
-- **Details:** light and dark themes, a skip link and full keyboard support, reduced-motion support, responsive layouts from phone to desktop, and share metadata for every route
+- **Details:** light and dark themes, a skip link and full keyboard support, reduced-motion support, responsive layouts from phone to desktop, share metadata for every route, and a strict Content-Security-Policy with the usual security headers on both hosts
 
 ## Stack
 
@@ -39,7 +43,7 @@ Every other project is on the [Work page](https://one2-react-portfolio.onrender.
 |---|---|
 | UI | React 19, React Router 7, hand-written CSS (no UI framework) |
 | Build | Vite 6, Sharp for responsive WebP artwork, Terser |
-| Features | EmailJS (contact), jsPDF (résumé export), lucide-react and react-icons |
+| Features | EmailJS (contact), jsPDF (résumé export), react-icons, and a local copy of the Lucide icons the site uses |
 | Quality | ESLint, Node's built-in test runner, Playwright browser checks, a bundle-size budget |
 | CI/CD | GitHub Actions (validate and security pipelines), Render hosting |
 
@@ -56,7 +60,9 @@ npm run dev        # http://localhost:5173
 
 `npm run dev` generates the responsive artwork first, so the first start takes a few extra seconds. If you change an image while the server is running, run `npm run artwork:generate` or restart it.
 
-No environment variables are needed. The contact form sends through the EmailJS service configured in `src/utils/Email.js`.
+No environment variables are required. The contact form sends through the EmailJS service configured in `src/utils/Email.js`.
+
+**Optional: live footer quotes.** The footer's "Another quote" button asks [The One API](https://the-one-api.dev) for a random quote when `VITE_ONE_API_KEY` is set at build time (on Render: an environment variable; locally: an untracked `.env` file containing `VITE_ONE_API_KEY=your-key`). With no key, or if the request fails for any reason, it shows built-in quotes, so the footer always works. The value is inlined into the public bundle by nature, so use a free read-only key and rotate it if it is abused. Never commit a key. See [docs/SECURITY-TODO.md](docs/SECURITY-TODO.md).
 
 ## Test and build
 
@@ -88,7 +94,7 @@ src/
 scripts/        artwork generation, route metadata, tests and browser checks
 ```
 
-- **Fast first load.** Only the home page ships in the main bundle (about 98 kB gzipped, mostly React and the router). Every other route, the footer and the 404 page load on demand, and the PDF library loads only when you click Download.
+- **Fast first load.** Only the home page ships in the main bundle (about 82 kB gzipped, mostly React; routing is declarative, so the data router stays out). Every other route, the footer and the 404 page load on demand, and the PDF library loads only when you click Download.
 - **Right-sized images.** Originals stay in `src/assets/photos/`. The build writes 480, 800 and 1280 px WebP versions (up to 1920 px for case studies) into the git-ignored `src/assets/photos/generated/` folder, never upscales, and each image declares `sizes` for its layout.
 - **Shareable routes.** Every route gets its own title, description and canonical link at build time, so shared links preview correctly before any JavaScript runs.
 - **Self-hosted fonts.** Typography loads from the site itself, with no third-party font service.

@@ -14,12 +14,14 @@ try {
     for (const [path, title] of [
       ['/work/fairway-finder', 'Fairway Finder case study'],
       ['/work/zombies-hub-2', 'Zombies Hub 2.0 case study'],
-      ['/work/mithrandir', 'Mithrandir case study'],
+      ['/work/daily-bytes', 'The Daily Bytes case study'],
       ['/work/clash-automation', 'Clash of Clans Discord Suite case study'],
+      ['/work/3d-modding-showcase', 'Forge & Mod: 3D Modding Showcase case study'],
     ]) {
       const response = await page.goto(`${base}${path}`);
       const raw = await response.text();
-      assert.ok(raw.includes(`<title>${title} — Bryen Gatt</title>`), 'crawler receives project title without JS');
+      // Raw HTML escapes '&'; document.title does not.
+      assert.ok(raw.includes(`<title>${title.replaceAll('&', '&amp;')} — Bryen Gatt</title>`), 'crawler receives project title without JS');
       await page.locator('h1').waitFor();
       await page.waitForFunction((url) => document.querySelector('link[rel="canonical"]').href === url, `${origin}${path}`);
       assert.equal(await page.title(), `${title} — Bryen Gatt`);
@@ -32,6 +34,18 @@ try {
       await page.goBack();
       await page.waitForFunction((expected) => document.title === expected, `${title} — Bryen Gatt`);
     }
+    // New pages open at the top; Back returns to the spot on the lazy work page.
+    await page.goto(`${base}/work`);
+    await page.locator('h1').waitFor();
+    await page.evaluate(() => window.scrollTo(0, 1200));
+    await page.waitForFunction(() => Math.abs(window.scrollY - 1200) < 2);
+    await page.waitForTimeout(100);
+    // A DOM click: Playwright's own click would scroll the link into view first.
+    await page.evaluate(() => document.querySelector('a[href="/work/fairway-finder"]').click());
+    await page.waitForFunction(() => document.title.startsWith('Fairway Finder'));
+    assert.equal(await page.evaluate(() => window.scrollY), 0, 'a new page starts at the top');
+    await page.goBack();
+    await page.waitForFunction(() => Math.abs(window.scrollY - 1200) < 2, null, { timeout: 3000 });
     await page.goto(`${base}/work?type=automation`);
     await page.waitForFunction(() => document.title === 'Work — Bryen Gatt');
     assert.equal(await page.locator('link[rel="canonical"]').getAttribute('href'), `${origin}/work`);

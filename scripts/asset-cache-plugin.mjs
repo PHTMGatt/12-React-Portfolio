@@ -8,8 +8,7 @@ import { securityHeaders, renderOnlyHeaders } from './security-headers.mjs';
 // uncached, so a new deploy is picked up on the next visit.
 //
 // `vite preview` is the production server on Render, and by default it marks
-// everything `no-cache`. This sets the long-lived header there. Netlify reads
-// the same rule from public/_headers; keep the two in step. Every response
+// everything `no-cache`. This sets the long-lived header there. Every response
 // also gets the security headers from scripts/security-headers.mjs.
 export const immutableAssets = 'public, max-age=31536000, immutable';
 

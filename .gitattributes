@@ -1,4 +1,4 @@
-# The CSP in public/_headers and scripts/security-headers.mjs allows the inline
+# The CSP in scripts/security-headers.mjs allows the inline
 # theme script in index.html by its sha256 hash. A CRLF checkout changes those
 # bytes and the hash, so keep index.html as LF everywhere.
 index.html text eol=lf

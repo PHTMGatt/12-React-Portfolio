@@ -15,8 +15,9 @@ const routes = [
   ['/work', '.study-tile .project-shot'],
   ['/work/zombies-hub-2', '.case-study__hero .project-shot'],
   ['/work/fairway-finder', '.case-study__hero .project-shot'],
-  ['/work/mithrandir', '.case-study__hero .project-shot'],
+  ['/work/daily-bytes', '.case-study__hero .project-shot'],
   ['/work/clash-automation', '.case-study__hero .project-shot'],
+  ['/work/3d-modding-showcase', '.case-study__hero .project-shot'],
   ['/resume', null],
   ['/contact', null],
 ];

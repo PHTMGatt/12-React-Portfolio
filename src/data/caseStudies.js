@@ -8,8 +8,9 @@
 // carries only these four, not the whole Work library (see screenshots.js).
 import zombiesHubArt from '../assets/photos/generated/Zombies Hub.png.js';
 import fairwayFinderArt from '../assets/photos/generated/Fairway Finder.png.js';
-import mithrandirArt from '../assets/photos/generated/Mithrandir.png.js';
+import dailyBytesArt from '../assets/photos/generated/Daily Bytes.png.js';
 import clashSuiteArt from '../assets/photos/generated/Clash Suite.webp.js';
+import moddingShowcaseArt from '../assets/photos/generated/3D Modding Showcase.webp.js';
 
 export const caseStudies = [
   {
@@ -51,21 +52,22 @@ export const caseStudies = [
     ],
   },
   {
-    slug: 'mithrandir',
+    slug: 'daily-bytes',
     featured: true,
-    kicker: 'AI orchestration · Personal command center',
-    title: 'Mithrandir',
-    tagline: 'My personal AI command center: one chat that runs Claude Code across every project, remembers what matters in MongoDB and works inside my usage limits.',
-    image: mithrandirArt,
-    role: 'Sole designer and builder: architecture, orchestration, memory model and interface, built with Claude Code as an ongoing project.',
-    stack: ['React', 'TypeScript', 'Node.js', 'Claude Code', 'MongoDB Atlas', 'CircleCI', 'MCP'],
-    // The repository is private, so there is no public link to offer.
-    links: [],
-    sourceNote: 'The source code is in a private repository.',
+    kicker: 'Full-stack · React + Express',
+    title: 'The Daily Bytes',
+    tagline: 'A gaming and tech news dashboard with a server-side news proxy, MongoDB reader accounts and a one-click demo.',
+    image: dailyBytesArt,
+    role: 'Maintainer of this fork of n6dd’s The-Daily-Bytes, which keeps the original author’s commits in its history.',
+    stack: ['React', 'TypeScript', 'Vite', 'Express', 'MongoDB Atlas', 'Mediastack', 'Render'],
+    links: [
+      { label: 'Source on GitHub', href: 'https://github.com/PHTMGatt/The-Daily-Bytes', primary: true },
+      { label: 'Live site', href: 'https://the-daily-bytes-o4jo.onrender.com' },
+    ],
     highlights: [
-      { value: '1 chat', label: 'orchestrating an isolated Claude Code worker per repository' },
-      { value: '5h · 7d', label: 'real usage readings that schedule work around the limits' },
-      { value: 'α → β', label: 'session rollover: a long chat hands off to a fresh session and keeps going' },
+      { value: '15 min', label: 'bounded news cache, with a stale-cache fallback' },
+      { value: 'RSS', label: 'free feed fallback when the news API is rate limited or empty' },
+      { value: '0', label: 'provider keys in the browser: every call goes through the server' },
     ],
   },
   {
@@ -87,6 +89,27 @@ export const caseStudies = [
       { value: '0', label: 'destructive permissions requested' },
     ],
   },
+  {
+    slug: '3d-modding-showcase',
+    kicker: 'Front-end · 3D on the web',
+    title: 'Forge & Mod: 3D Modding Showcase',
+    tagline: 'A gallery for game mods and 3D assets, with an interactive model viewer, before-and-after comparisons and a headless Blender pipeline behind it.',
+    image: moddingShowcaseArt,
+    heroFocus: '15% 50%', // phones: crop to the model and the v1 / v2 toggle
+    imageAlt: 'The showcase viewer open on the Ivory Dragon Mask v2 remaster, with light rigs and asset details',
+    role: 'Solo project: the 3D assets and mods, the viewer, and the Blender export pipeline. One model was finished by a commissioned designer; each asset is labelled with who made it.',
+    stack: ['React', 'Vite', 'model-viewer', 'Blender (Python)', 'Node.js', 'Vitest'],
+    // Private repository and no public deployment yet: no links. Kept out of the
+    // Work page's case-study strip until it has a live demo; its Work card links here.
+    links: [],
+    unlisted: true,
+    highlights: [
+      { value: '5', label: 'AI-generated remasters with a v1 / v2 toggle' },
+      { value: '3.3 MB', label: 'largest remaster: Draco geometry, WebP textures' },
+      { value: '4', label: 'rights labels, so every asset says who made it' },
+    ],
+  },
 ];
 
 export const featuredCaseStudies = caseStudies.filter((study) => study.featured);
+export const listedCaseStudies = caseStudies.filter((study) => !study.unlisted);

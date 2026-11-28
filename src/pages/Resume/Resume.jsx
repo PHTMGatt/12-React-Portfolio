@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Download, ExternalLink, Loader2, Mail } from 'lucide-react';
+import { Download, ExternalLink, Loader2, Mail } from '../../components/Icon/icons';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { profile } from '../../data/profile';
 import usePageTitle from '../../hooks/usePageTitle';

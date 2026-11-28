@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, ArrowUpRight } from 'lucide-react';
+import { ArrowRight, ArrowUpRight } from '../Icon/icons';
 import GithubMark from '../GithubMark/GithubMark';
 import ProjectImage from '../ProjectImage/ProjectImage';
 import './FeaturedStudy.css';

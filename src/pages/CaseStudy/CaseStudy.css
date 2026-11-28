@@ -348,7 +348,26 @@
     aspect-ratio: 8 / 7;
   }
 
+  /* A wide UI capture shrinks its text to nothing on a phone: crop to the part
+     the study names as its focus (heroFocus) at a squarer frame instead. */
+  .case-study__hero--focus {
+    aspect-ratio: 1 / 1;
+  }
+
+  .case-study__hero--focus img {
+    object-position: var(--hero-focus, 50% 50%);
+  }
+
   .case-study__links .btn {
     flex: 1 1 100%;
+  }
+}
+
+/* Phone landscape: a full-width 16:9 hero is taller than the screen, so size it
+   by the height left under the sticky header and centre it. */
+@media (orientation: landscape) and (max-height: 500px) {
+  .case-study__hero {
+    width: min(100%, calc((100dvh - 6rem) * 16 / 9));
+    margin-inline: auto;
   }
 }

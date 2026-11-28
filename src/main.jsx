@@ -1,6 +1,6 @@
 import { StrictMode, lazy } from 'react';
 import { createRoot } from 'react-dom/client';
-import { createBrowserRouter, createHashRouter, RouterProvider } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Route, Routes } from 'react-router-dom';
 import './Global.css';
 import App from './App.jsx';
 import About from './pages/About/About';
@@ -14,26 +14,23 @@ const Contact = lazy(() => import('./pages/Contact/Contact'));
 
 // Subfolder-hosted review previews only: build with VITE_REVIEW_HASH_ROUTER=true
 // and --base=./. Production keeps clean history-based URLs.
-const createRouter = import.meta.env.VITE_REVIEW_HASH_ROUTER === 'true' ? createHashRouter : createBrowserRouter;
-
-const router = createRouter([
-  {
-    path: '/',
-    element: <App />,
-    errorElement: <App error />,
-    children: [
-      { index: true, element: <About /> },
-      { path: 'resume', element: <Resume /> },
-      { path: 'work', element: <Portfolio /> },
-      { path: 'work/:slug', element: <CaseStudy /> },
-      { path: 'contact', element: <Contact /> },
-      { path: '*', element: <NotFound /> },
-    ],
-  },
-]);
+// Declarative routing: the site loads no route data, so it skips the data
+// router and its ~17 kB gz of loader/action machinery.
+const Router = import.meta.env.VITE_REVIEW_HASH_ROUTER === 'true' ? HashRouter : BrowserRouter;
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <Router>
+      <Routes>
+        <Route path="/" element={<App />}>
+          <Route index element={<About />} />
+          <Route path="resume" element={<Resume />} />
+          <Route path="work" element={<Portfolio />} />
+          <Route path="work/:slug" element={<CaseStudy />} />
+          <Route path="contact" element={<Contact />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Routes>
+    </Router>
   </StrictMode>
 );

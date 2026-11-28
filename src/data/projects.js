@@ -21,7 +21,7 @@ export const categories = [
 
 // Case studies live in ./caseStudies.js (summaries) and ./caseStudyStories.js
 // (long-form text, case-study route only). Re-exported here for the Work page.
-export { caseStudies } from './caseStudies';
+export { caseStudies, listedCaseStudies } from './caseStudies';
 
 export const projects = [
   {
@@ -45,6 +45,28 @@ export const projects = [
     caseStudy: 'fairway-finder',
   },
   {
+    id: 'daily-bytes',
+    title: 'The Daily Bytes',
+    summary: 'Gaming and tech news dashboard with a server-side news proxy, MongoDB reader accounts and saved articles.',
+    category: 'full-stack',
+    stack: ['React', 'Vite', 'Express', 'MongoDB'],
+    image: screenshotFor('daily-bytes'),
+    links: { repo: 'https://github.com/PHTMGatt/The-Daily-Bytes', live: 'https://the-daily-bytes-o4jo.onrender.com' },
+    caseStudy: 'daily-bytes',
+  },
+  {
+    id: '3d-modding-showcase',
+    title: 'Forge & Mod: 3D Modding Showcase',
+    summary: 'Game modding and 3D creation gallery with an interactive model viewer, hotspots, lighting controls and REDkit mod diffs.',
+    category: 'frontend',
+    stack: ['React', 'Vite', 'model-viewer', 'Blender'],
+    image: screenshotFor('3d-modding-showcase'),
+    // Private repository: no repo or live link yet.
+    links: {},
+    caseStudy: '3d-modding-showcase',
+    statusNote: 'Private repo; live demo coming soon.',
+  },
+  {
     id: 'mithrandir',
     title: 'Mithrandir',
     summary: 'Local command center where one orchestrator chat runs a Claude Code worker per repository.',
@@ -52,7 +74,8 @@ export const projects = [
     stack: ['TypeScript', 'Node.js', 'MongoDB', 'Claude Code'],
     image: screenshotFor('mithrandir'),
     links: {},
-    caseStudy: 'mithrandir',
+    status: 'paused',
+    statusNote: 'Parked: its workflow now runs directly in Claude Code.',
   },
   {
     id: 'war-oracle',
@@ -109,15 +132,6 @@ export const projects = [
       repo: 'https://github.com/PHTMGatt/18-MERN-Book-Search-Engine',
       live: 'https://one8-mern-book-search-engine.onrender.com',
     },
-  },
-  {
-    id: 'daily-bytes',
-    title: 'The Daily Bytes',
-    summary: 'Gaming and tech news dashboard with a server-side news proxy, MongoDB reader accounts and saved articles.',
-    category: 'full-stack',
-    stack: ['React', 'Vite', 'Express', 'MongoDB'],
-    image: screenshotFor('daily-bytes'),
-    links: { repo: 'https://github.com/PHTMGatt/The-Daily-Bytes', live: 'https://the-daily-bytes-o4jo.onrender.com' },
   },
   {
     id: 'pc-build-tracker',

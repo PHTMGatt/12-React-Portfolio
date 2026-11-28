@@ -11,8 +11,9 @@ test('built case-study entry points identify the shared project before JavaScrip
   for (const [path, title] of [
     ['work/fairway-finder', 'Fairway Finder case study'],
     ['work/zombies-hub-2', 'Zombies Hub 2.0 case study'],
-    ['work/mithrandir', 'Mithrandir case study'],
+    ['work/daily-bytes', 'The Daily Bytes case study'],
     ['work/clash-automation', 'Clash of Clans Discord Suite case study'],
+    ['work/3d-modding-showcase', 'Forge &amp; Mod: 3D Modding Showcase case study'],
     ['work', 'Work'], ['resume', 'Resume'], ['contact', 'Contact'],
   ]) {
     const html = await readFile(`artifacts/metadata-test/${path}.html`, 'utf8').catch(() => '');
@@ -44,8 +45,9 @@ test('built entry points start their own page, font and opening image downloads 
     ['work.html', 'Portfolio', /Zombies%20Hub\.png/],
     ['work/zombies-hub-2.html', 'CaseStudy', /Zombies%20Hub\.png/],
     ['work/fairway-finder.html', 'CaseStudy', /Fairway%20Finder\.png/],
-    ['work/mithrandir.html', 'CaseStudy', /Mithrandir\.png/],
+    ['work/daily-bytes.html', 'CaseStudy', /Daily(%20| )Bytes\.png/],
     ['work/clash-automation.html', 'CaseStudy', /Clash%20Suite\.webp/],
+    ['work/3d-modding-showcase.html', 'CaseStudy', /3D(%20| )Modding(%20| )Showcase\.webp/],
     ['resume.html', 'Resume', null],
     ['contact.html', 'Contact', null],
   ]) {
@@ -76,9 +78,7 @@ test('built entry points start their own page, font and opening image downloads 
     for (const url of [...fonts, ...scripts, ...styles, ...candidates]) assert.ok(await built(url), `${file} points at a built file: ${url}`);
   }
 
-  const headers = await readFile(`${out}/_headers`, 'utf8');
-  assert.match(headers, /^\/assets\/\*\r?\n {2}Cache-Control: public, max-age=31536000, immutable$/m, 'Netlify caches fingerprinted assets for a year');
-  assert.ok(headers.includes(immutableAssets), 'Netlify and the Render preview server send the same asset cache rule');
+  assert.equal(immutableAssets, 'public, max-age=31536000, immutable', 'the Render preview server caches fingerprinted assets for a year');
   for (const file of await readdir(`${out}/assets`)) {
     assert.match(file, /-[\w-]{8}\.\w+$/, `${file} must be fingerprinted to be cached as immutable`);
   }
