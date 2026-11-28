@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Award, Bot, LayoutDashboard, Mail, Server, Users } from 'lucide-react';
+import { ArrowRight, Award, Bot, LayoutDashboard, Mail, Server, Users } from '../../components/Icon/icons';
 import FeaturedStudy from '../../components/FeaturedStudy/FeaturedStudy';
 import { featuredCaseStudies } from '../../data/caseStudies';
 import { portraitSizes } from '../../data/imageSizes';

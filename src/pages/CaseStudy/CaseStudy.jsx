@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, ArrowUpRight, Lock } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ArrowUpRight, Lock } from '../../components/Icon/icons';
 import GithubMark from '../../components/GithubMark/GithubMark';
 import ProjectImage from '../../components/ProjectImage/ProjectImage';
 import NotFound from '../NotFound/NotFound';
@@ -81,7 +81,10 @@ const CaseStudy = () => {
 
       <div className="container">
         <figure className="case-study__figure">
-          <div className="case-study__hero">
+          <div
+            className={`case-study__hero${study.heroFocus ? ' case-study__hero--focus' : ''}`}
+            style={study.heroFocus ? { '--hero-focus': study.heroFocus } : undefined}
+          >
             <ProjectImage
               image={study.image}
               alt={study.imageAlt ?? `Screenshot of ${study.title}`}

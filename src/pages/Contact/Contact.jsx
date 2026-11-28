@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Check, CheckCircle2, Copy, Loader2, Mail, Send, Sparkles } from 'lucide-react';
+import { Check, CheckCircle2, Copy, Loader2, Mail, Send, Sparkles } from '../../components/Icon/icons';
 import { FaGithub, FaLinkedin, FaDiscord } from 'react-icons/fa';
 import { IoHome } from 'react-icons/io5';
 import {

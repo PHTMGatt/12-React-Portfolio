@@ -43,7 +43,7 @@ Every other project is on the [Work page](https://one2-react-portfolio.onrender.
 |---|---|
 | UI | React 19, React Router 7, hand-written CSS (no UI framework) |
 | Build | Vite 6, Sharp for responsive WebP artwork, Terser |
-| Features | EmailJS (contact), jsPDF (résumé export), lucide-react and react-icons |
+| Features | EmailJS (contact), jsPDF (résumé export), react-icons, and a local copy of the Lucide icons the site uses |
 | Quality | ESLint, Node's built-in test runner, Playwright browser checks, a bundle-size budget |
 | CI/CD | GitHub Actions (validate and security pipelines), Render hosting |
 
@@ -94,7 +94,7 @@ src/
 scripts/        artwork generation, route metadata, tests and browser checks
 ```
 
-- **Fast first load.** Only the home page ships in the main bundle (about 98 kB gzipped, mostly React and the router). Every other route, the footer and the 404 page load on demand, and the PDF library loads only when you click Download.
+- **Fast first load.** Only the home page ships in the main bundle (about 82 kB gzipped, mostly React; routing is declarative, so the data router stays out). Every other route, the footer and the 404 page load on demand, and the PDF library loads only when you click Download.
 - **Right-sized images.** Originals stay in `src/assets/photos/`. The build writes 480, 800 and 1280 px WebP versions (up to 1920 px for case studies) into the git-ignored `src/assets/photos/generated/` folder, never upscales, and each image declares `sizes` for its layout.
 - **Shareable routes.** Every route gets its own title, description and canonical link at build time, so shared links preview correctly before any JavaScript runs.
 - **Self-hosted fonts.** Typography loads from the site itself, with no third-party font service.

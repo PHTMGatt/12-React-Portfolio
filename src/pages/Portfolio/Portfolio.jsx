@@ -1,5 +1,5 @@
 import { Link, useSearchParams } from 'react-router-dom';
-import { ArrowRight, Archive, Info } from 'lucide-react';
+import { ArrowRight, Archive, Info } from '../../components/Icon/icons';
 import ProjectCard from '../../components/ProjectCard/ProjectCard';
 import ProjectImage from '../../components/ProjectImage/ProjectImage';
 import { studyTileSizes } from '../../data/imageSizes';

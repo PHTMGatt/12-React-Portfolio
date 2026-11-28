@@ -1,6 +1,6 @@
 import usePageTitle from '../../hooks/usePageTitle';
 import { Link } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft } from '../../components/Icon/icons';
 
 const NotFound = () => {
   usePageTitle('Page not found');

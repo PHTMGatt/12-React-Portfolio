@@ -34,6 +34,18 @@ try {
       await page.goBack();
       await page.waitForFunction((expected) => document.title === expected, `${title} — Bryen Gatt`);
     }
+    // New pages open at the top; Back returns to the spot on the lazy work page.
+    await page.goto(`${base}/work`);
+    await page.locator('h1').waitFor();
+    await page.evaluate(() => window.scrollTo(0, 1200));
+    await page.waitForFunction(() => Math.abs(window.scrollY - 1200) < 2);
+    await page.waitForTimeout(100);
+    // A DOM click: Playwright's own click would scroll the link into view first.
+    await page.evaluate(() => document.querySelector('a[href="/work/fairway-finder"]').click());
+    await page.waitForFunction(() => document.title.startsWith('Fairway Finder'));
+    assert.equal(await page.evaluate(() => window.scrollY), 0, 'a new page starts at the top');
+    await page.goBack();
+    await page.waitForFunction(() => Math.abs(window.scrollY - 1200) < 2, null, { timeout: 3000 });
     await page.goto(`${base}/work?type=automation`);
     await page.waitForFunction(() => document.title === 'Work — Bryen Gatt');
     assert.equal(await page.locator('link[rel="canonical"]').getAttribute('href'), `${origin}/work`);

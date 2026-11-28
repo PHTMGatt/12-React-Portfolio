@@ -1,6 +1,7 @@
-import { Suspense, lazy, useEffect, useRef, useState } from 'react';
-import { Outlet, ScrollRestoration, useLocation } from 'react-router-dom';
+import { Component, Suspense, lazy, useEffect, useRef, useState } from 'react';
+import { Outlet, useLocation } from 'react-router-dom';
 import Nav from './components/Nav/Nav';
+import useScrollRestoration from './hooks/useScrollRestoration';
 import { readPreference, writePreference } from './utils/storage';
 
 // The footer is below the fold on every page, and the 404 page is rarely
@@ -8,16 +9,32 @@ import { readPreference, writePreference } from './utils/storage';
 const Footer = lazy(() => import('./components/Footer/Footer'));
 const NotFound = lazy(() => import('./pages/NotFound/NotFound'));
 
+// A page that throws while rendering shows the not-found page inside the site
+// shell instead of a blank screen. Keyed by path, so navigating away resets it.
+class PageBoundary extends Component {
+  state = { failed: false };
+
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+
+  render() {
+    return this.state.failed ? <NotFound /> : this.props.children;
+  }
+}
+
 // Storage can be unavailable (private mode); readPreference falls back to the default.
 const readTheme = () => (readPreference('theme') === 'light' ? 'light' : 'dark');
 
-function App({ error = false }) {
+function App() {
   const [theme, setTheme] = useState(readTheme);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
     writePreference('theme', theme);
   }, [theme]);
+
+  useScrollRestoration();
 
   const toggleTheme = () => setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
 
@@ -42,13 +59,14 @@ function App({ error = false }) {
       <Nav theme={theme} toggleTheme={toggleTheme} />
       <main id="main" ref={mainRef} className="app-content" tabIndex={-1}>
         <Suspense fallback={<div className="route-loading" aria-busy="true" />}>
-          {error ? <NotFound /> : <Outlet />}
+          <PageBoundary key={pathname}>
+            <Outlet />
+          </PageBoundary>
         </Suspense>
       </main>
       <Suspense fallback={null}>
         <Footer />
       </Suspense>
-      <ScrollRestoration />
     </>
   );
 }

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Dices } from 'lucide-react';
+import { Dices } from '../Icon/icons';
 import { fetchOneApiQuote } from '../../utils/oneApiQuote';
 import './QuoteAnimations.css';
 

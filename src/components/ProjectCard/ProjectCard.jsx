@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, Lock, PlayCircle } from 'lucide-react';
+import { ArrowUpRight, Lock, PlayCircle } from '../Icon/icons';
 import GithubMark from '../GithubMark/GithubMark';
 import ProjectImage from '../ProjectImage/ProjectImage';
 import { categories } from '../../data/projects';
